@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Alert from "./Alert";
 
 function Register() {
@@ -57,6 +57,7 @@ function Register() {
         />
         <button>Register</button>
       </form>
+      <p className="">Already have an Account<Link to='/register'>Login</Link></p>
     </div>
   );
 }
