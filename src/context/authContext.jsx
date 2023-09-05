@@ -43,9 +43,11 @@ export function AuthProvider({ children }) {
     return signInWithPopup(auth, googleProvider);
   };
 
-  const resetPassword = (email) => {
-    sendPasswordResetEmail(auth, email);
-  };
+  const resetPassword = async (email) => {
+  
+      await sendPasswordResetEmail(auth, email);
+      // Si la función se ejecuta correctamente, puedes realizar acciones adicionales aquí.
+  }
 
   useEffect(() => {
     //con esto tambien veo ese objeto con la info
