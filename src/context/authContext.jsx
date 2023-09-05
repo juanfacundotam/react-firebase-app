@@ -6,7 +6,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -44,8 +44,8 @@ export function AuthProvider({ children }) {
   };
 
   const resetPassword = (email) => {
-    sendPasswordResetEmail(auth, email)
-  }
+    sendPasswordResetEmail(auth, email);
+  };
 
   useEffect(() => {
     //con esto tambien veo ese objeto con la info
@@ -58,7 +58,15 @@ export function AuthProvider({ children }) {
 
   return (
     <authContext.Provider
-      value={{ signup, login, user, logout, loading, loginWithGoogle, resetPassword }}
+      value={{
+        signup,
+        login,
+        user,
+        logout,
+        loading,
+        loginWithGoogle,
+        resetPassword,
+      }}
     >
       {children}
     </authContext.Provider>
