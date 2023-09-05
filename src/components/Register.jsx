@@ -57,7 +57,7 @@ function Register() {
         />
         <button>Register</button>
       </form>
-      <p className="">Already have an Account<Link to='/register'>Login</Link></p>
+      <p className="">Already have an Account<Link to='/login'>Login</Link></p>
     </div>
   );
 }
