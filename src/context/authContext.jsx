@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import {createUserWithEmailAndPassword} from "firebase/auth"
+import { createContext, useContext, useEffect, useState } from "react";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup} from "firebase/auth"
 import { auth } from "../firebase";
 
 export const authContext = createContext();
@@ -11,11 +11,38 @@ return context
 }
 
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
   // const user = {
   //   login: true,
   // };
+  console.log(user)
 
   const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password)
+  // const login = (email, password) => {
+  //   //podemos guardar la respuesta que es un objeto con info
+  //   const userCredencial = signInWithEmailAndPassword(auth, email, password)
+  //   console.log(userCredencial)
+  // }
+  const login = (email, password) => signInWithEmailAndPassword(auth, email, password)
+  
+  const logout = () => signOut(auth)
 
-  return <authContext.Provider value={{ signup }}>{children}</authContext.Provider>;
+  const loginWithGoogle = () => {
+     const googleProvider = new GoogleAuthProvider()
+return signInWithPopup(auth, googleProvider)
+  }
+
+  useEffect(()=> {
+    //con esto tambien veo ese objeto con la info
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser)
+      setLoading(false)
+      return () => unsubscribe()
+    })
+  },[])
+
+
+
+  return <authContext.Provider value={{ signup, login, user, logout, loading, loginWithGoogle }}>{children}</authContext.Provider>;
 }
