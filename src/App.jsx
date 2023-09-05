@@ -9,7 +9,7 @@ import Recover from "./components/Recover";
 
 function App() {
   return (
-    <div className=" h-screen">
+    <div className=" h-screen bg-[#1C1E1F] text-white">
       <AuthProvider>
         <Routes>
           <Route
