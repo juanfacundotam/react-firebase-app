@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Recover from "./components/Recover";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/recover" element={<Recover />} />
         </Routes>
       </AuthProvider>
     </div>
