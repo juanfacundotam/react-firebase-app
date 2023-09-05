@@ -534,6 +534,33 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .h-screen {
   height: 100vh;
+}
+
+.align-baseline {
+  vertical-align: baseline;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.hover\:text-blue-800:hover {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
