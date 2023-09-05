@@ -16,16 +16,20 @@ function Register() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("")
     try {
       await signup(user.email, user.password);
       navigate("/");
     } catch (error) {
       console.log(error.code)
       if(error.code === "auth/internal-error") {
-        setError("Correo invalida")
+        setError("Cuenta de correo invalida")
       }
       if(error.code === "auth/weak-password") {
         setError("Contraseña: Más de 6 caracteres")
+      }
+      if(error.code === "auth/email-already-in-use") {
+        setError("Ya existe una cuenta con ese email")
       }
     }
   };
@@ -33,7 +37,7 @@ function Register() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {error && <p>{error}</p>}
+      {error && <Alert message={error}/>}
         <label htmlFor="email">Email</label>
         <input
           type="email"
