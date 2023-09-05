@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Alert from "./Alert";
 
 function Login() {
@@ -73,7 +73,7 @@ function Login() {
         />
         <button>Login</button>
       </form>
-
+      <p className="">Don´t have an Account<Link to='/register'>Singup</Link></p>
       <button onClick={handleGoogleSignin}>Login with Google</button>
     </div>
   );
