@@ -18,13 +18,13 @@ export default function Recover() {
     if (!user.email) return setError("Ingrese su email");
     try {
         await resetPassword(user.email)
-        setError("Hemos enviado un enlace para restablecer tu contraseña")
+        // setError("Hemos enviado un enlace para restablecer tu contraseña")
     } catch (error) {
-        setError(error.menssage)
+        setError(error)
     }
-    setError("")
-    console.log("reset");
-  };
+    
+};
+console.log(error)
   return (
     <div>
       {error && <Alert message={error} />}
