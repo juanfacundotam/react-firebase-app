@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 function Register() {
   const [user, setUser] = useState({
