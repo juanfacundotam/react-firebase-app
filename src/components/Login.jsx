@@ -45,16 +45,16 @@ function Login() {
   const handleGoogleSignin = async () => {
     try {
       await loginWithGoogle();
-      navigate("/")
+      navigate("/");
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {error && <Alert message={error}/>}
+        {error && <Alert message={error} />}
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -71,9 +71,17 @@ function Login() {
           placeholder="password"
           onChange={handleChange}
         />
-        <button>Login</button>
+        <div>
+          <button>Login</button>
+          <Link
+            to='/recover'
+            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+          >Forgot Password?</Link>
+        </div>
       </form>
-      <p className="">Don´t have an Account<Link to='/register'>Singup</Link></p>
+      <p className="">
+        Don´t have an Account<Link to="/register">Singup</Link>
+      </p>
       <button onClick={handleGoogleSignin}>Login with Google</button>
     </div>
   );
