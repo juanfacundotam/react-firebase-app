@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
-export default function Alert({message}) {
+export default function Alert({ message }) {
+  const [showAlert, setShowAlert] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
-    <div className="absolute rounded-md border-2 border-[#4242428f] p-2 -top-20 text-red-500"><span>{message}</span></div>
-  )
+    <>
+      {showAlert && (
+        <div className="absolute rounded-md text-xs p-2 -top-7 text-red-500">
+          <span>{message}</span>
+        </div>
+      )}
+    </>
+  );
 }
