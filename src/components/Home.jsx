@@ -21,9 +21,9 @@ function Home() {
 console.log(user.photoURL)
 console.log(user)
   return (
-    <div className="flex flex-col justify-center items-center relative">
+    <div className="flex flex-col justify-center items-center h-fit relative">
       <Logo />
-      <div className="absolute right-2 top-7 md:top-7 md:right-7">
+      <div className="absolute right-2 top-7 md:top-7 md:right-7 ">
         <button
           onClick={handleLogout}
           className="relative  border border-gray-600 rounded px-2 pb-1 overflow-hidden group bg-transparent  hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-400 text-white hover:ring-2 transition-all ease-out duration-300"
