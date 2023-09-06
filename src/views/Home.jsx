@@ -1,12 +1,33 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import CardEmployees from "../components/CardEmployees";
+import AddTask from "../components/Tareas/AddTask";
+import ListTask from "../components/Tareas/ListTask";
+
+
 
 function Home() {
-  const { user, logout, loading } = useAuth();
+  const [tareas, setTareas] = useState([]);
+  const { user, logout, loading, searchOrCreateDocument} = useAuth();
   const navigate = useNavigate();
+
+  const arrayTasks = [
+    {id: 1, description: "Foto Pedro", url: "https://picsum.photos/420"},
+    {id: 2, description: "Foto Juan", url: "https://picsum.photos/420"},
+    {id: 3, description: "Foto Tomas", url: "https://picsum.photos/420"}, 
+  ]
+
+useEffect(()=>{
+  getTareas()
+},[])
+
+async function getTareas(){
+  const tasksSearched = await searchOrCreateDocument(user.email)
+  setTareas(tasksSearched)
+}
+
 
   const handleLogout = async () => {
     try {
@@ -17,9 +38,11 @@ function Home() {
     // navigate("/login");  Ya no haria falta esto porque lo hace el componente ProtectedRoute
   };
 
+
+
+
   if (loading) return <h1>Loading</h1>;
-console.log(user.photoURL)
-console.log(user)
+
   return (
     <div className="flex flex-col justify-center items-center h-fit relative">
       <Logo />
@@ -37,6 +60,10 @@ console.log(user)
         <h1>Wellcome {user.displayName || user.email}</h1> */}
         <CardEmployees image={user.photoURL} name={user.displayName || user.email} rol="FullStack Developer"/>
       </>
+
+      <div className="border-b-2 w-96"></div>
+        <AddTask/>
+        <ListTask tareas={tareas}/>
     </div>
   );
 }
