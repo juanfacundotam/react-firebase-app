@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Alert from "./Alert";
+import logo from "../assets/TAMCO.webp";
+import Logo from "./Logo";
 
 function Login() {
   const [user, setUser] = useState({
@@ -20,8 +22,8 @@ function Login() {
     e.preventDefault();
     setError("");
 
-    if(!user.email){
-      setError("Ingrese una cuenta de email")
+    if (!user.email) {
+      setError("Ingrese una cuenta de email");
       return;
     }
     try {
@@ -30,19 +32,27 @@ function Login() {
     } catch (error) {
       console.log(error.code);
       if (error.code === "auth/invalid-email") {
-        setError("Cuenta de correo invalida");
-      }
-      if (error.code === "auth/wrong-password") {
-        setError("Password incorrecto");
-      }
-      if (error.code === "auth/weak-password") {
-        setError("Contraseña: Más de 6 caracteres");
-      }
-      if (error.code === "auth/user-not-found") {
-        setError("Cuenta de correo inexistente");
-      }
-      if (error.code === "auth/too-many-requests") {
-        setError("Has superado la cantidad de intentos");
+        setError("Cuenta de correo inválida");
+      } else if (error.code === "auth/wrong-password") {
+        setError("Contraseña incorrecta");
+      } else if (error.code === "auth/weak-password") {
+        setError("Contraseña débil: Debe tener al menos 6 caracteres");
+      } else if (error.code === "auth/user-not-found") {
+        setError("Usuario no encontrado. Verifica tus credenciales");
+      } else if (error.code === "auth/too-many-requests") {
+        setError(
+          "Has superado el número máximo de intentos. Intenta más tarde"
+        );
+      } else if (error.code === "auth/network-request-failed") {
+        setError("Error de red. Verifica tu conexión a Internet");
+      } else if (error.code === "auth/user-disabled") {
+        setError("Tu cuenta ha sido deshabilitada. Contacta al soporte");
+      } else if (error.code === "auth/missing-password") {
+        setError("Ingrese su contraseña");
+      } else {
+        setError(
+          "Se ha producido un error inesperado. Por favor, inténtalo de nuevo más tarde"
+        );
       }
     }
   };
@@ -58,15 +68,16 @@ function Login() {
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
-      <div className="w-[300px] md:max-w-[300px]  flex flex-col justify-center items-center gap-5 p-2 shadow-sm bg-[#1F2937] rounded-md relative">
-        {/* <div className="absolute rounded-r-md border-2 border-[#424242] p-4 -top-10 text-red-500"> */}
+      <Logo />
+      <div className="w-[300px] md:max-w-[300px]  flex flex-col justify-center items-center gap-5 p-5 shadow-sm bg-[#1F2937] rounded-md relative">
         {error && <Alert message={error} />}
-        {/* </div> */}
+
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center  w-[250px] items-center gap-5"
+          className="flex flex-col justify-center  w-[250px] items-center gap-3"
         >
           <div className="flex flex-col justify-start items-start w-[250px]">
+          <h1 className="w-full text-center mb-5">Ingresa tu cuenta</h1>
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -99,7 +110,9 @@ function Login() {
             />
           </div>
           <div className="flex justify-between items-center mt-3 w-full">
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
+            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              Login
+            </button>
             <Link
               to="/recover"
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
@@ -109,11 +122,11 @@ function Login() {
           </div>
         </form>
         <div className="flex justify-between items-center w-full p-2">
-        <p className="">
-          Don´t have an Account
-        </p>
+          <p className="">Don´t have an Account</p>
 
-        <Link to="/register"  className="text-[#45baf0] hover:text-[#3d7792]">Signup</Link>
+          <Link to="/register" className="text-[#45baf0] hover:text-[#3d7792]">
+            Signup
+          </Link>
         </div>
         <button
           onClick={handleGoogleSignin}
