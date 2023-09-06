@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { auth, firestore } from "../firebase";
 //Estas funciones podriamos usarlas en cualquier componente sin el authContext
 import {
   createUserWithEmailAndPassword,
@@ -10,6 +10,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
+import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
 
 export const authContext = createContext();
 
@@ -21,11 +22,17 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [tareas, setTareas] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const arrayTasks = [
+    { id: 1, description: "Foto Pedro", url: "https://picsum.photos/420" },
+    { id: 2, description: "Foto Juan", url: "https://picsum.photos/420" },
+    { id: 3, description: "Foto Tomas", url: "https://picsum.photos/420" },
+  ];
   // const user = {
   //   login: true,
   // };
-  console.log(user);
 
   const signup = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
@@ -45,10 +52,30 @@ export function AuthProvider({ children }) {
   };
 
   const resetPassword = async (email) => {
-  
-      await sendPasswordResetEmail(auth, email);
-      // Si la función se ejecuta correctamente, puedes realizar acciones adicionales aquí.
-  }
+    await sendPasswordResetEmail(auth, email);
+    // Si la función se ejecuta correctamente, puedes realizar acciones adicionales aquí.
+  };
+
+  const searchOrCreateDocument = async (idDocumento) => {
+    //crear referencia al documento
+    const docRef = doc(firestore, `usuarios/${idDocumento}`);
+    //buscar documento
+    const consulta = await getDoc(docRef);
+    // revisar si existe
+    if (consulta.exists()) {
+      // si, existe
+      console.log("Entro en existe consulta")
+      const infoDoc = consulta.data();
+      return infoDoc.tareas;
+    } else {
+      console.log("Entro en NO existe consulta")
+      // no, no existe
+      await setDoc(docRef, { tareas: [...arrayTasks] });
+      const consulta = await getDoc(docRef);
+      const infoDoc = consulta.data();
+      return infoDoc.tareas;
+    }
+  };
 
   useEffect(() => {
     //con esto tambien veo ese objeto con la info. onAuthStateChanged detecta el cambio de sesion. si se logeo o cerro
@@ -69,6 +96,7 @@ export function AuthProvider({ children }) {
         loading,
         loginWithGoogle,
         resetPassword,
+        searchOrCreateDocument,
       }}
     >
       {children}
