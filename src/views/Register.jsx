@@ -45,7 +45,6 @@ function Register() {
           onSubmit={handleSubmit}
           className="flex flex-col justify-center  w-[250px] items-center gap-3"
         >
-          {error && <Alert message={error} />}
           <h1 className="w-full text-center mb-5">Registra tu cuenta</h1>
           <div className="flex flex-col justify-start items-start w-[250px]">
             <label
