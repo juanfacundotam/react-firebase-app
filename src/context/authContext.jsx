@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../firebase";
+//Estas funciones podriamos usarlas en cualquier componente sin el authContext
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,7 +10,6 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth } from "../firebase";
 
 export const authContext = createContext();
 
@@ -50,7 +51,7 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    //con esto tambien veo ese objeto con la info
+    //con esto tambien veo ese objeto con la info. onAuthStateChanged detecta el cambio de sesion. si se logeo o cerro
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
