@@ -803,6 +803,10 @@ video {
   width: 5rem;
 }
 
+.w-80 {
+  width: 20rem;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -1489,6 +1493,10 @@ video {
 
   .md\:mt-6 {
     margin-top: 1.5rem;
+  }
+
+  .md\:w-full {
+    width: 100%;
   }
 
   .md\:max-w-\[300px\] {
