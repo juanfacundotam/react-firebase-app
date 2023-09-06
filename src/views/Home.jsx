@@ -1,8 +1,8 @@
 import React from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import Logo from "./Logo";
-import CardEmployees from "./CardEmployees";
+import Logo from "../components/Logo";
+import CardEmployees from "../components/CardEmployees";
 
 function Home() {
   const { user, logout, loading } = useAuth();
