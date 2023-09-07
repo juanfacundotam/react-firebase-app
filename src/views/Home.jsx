@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
@@ -6,28 +6,19 @@ import CardEmployees from "../components/CardEmployees";
 import AddTask from "../components/Tareas/AddTask";
 import ListTask from "../components/Tareas/ListTask";
 
-
-
 function Home() {
   const [tareas, setTareas] = useState([]);
-  const { user, logout, loading, searchOrCreateDocument} = useAuth();
+  const { user, logout, loading, searchOrCreateDocument } = useAuth();
   const navigate = useNavigate();
 
-  const arrayTasks = [
-    {id: 1, description: "Foto Pedro", url: "https://picsum.photos/420"},
-    {id: 2, description: "Foto Juan", url: "https://picsum.photos/420"},
-    {id: 3, description: "Foto Tomas", url: "https://picsum.photos/420"}, 
-  ]
+  useEffect(() => {
+    getTareas();
+  }, []);
 
-useEffect(()=>{
-  getTareas()
-},[])
-
-async function getTareas(){
-  const tasksSearched = await searchOrCreateDocument(user.email)
-  setTareas(tasksSearched)
-}
-
+  async function getTareas() {
+    const tasksSearched = await searchOrCreateDocument(user.email);
+    setTareas(tasksSearched);
+  }
 
   const handleLogout = async () => {
     try {
@@ -37,9 +28,6 @@ async function getTareas(){
     }
     // navigate("/login");  Ya no haria falta esto porque lo hace el componente ProtectedRoute
   };
-
-
-
 
   if (loading) return <h1>Loading</h1>;
 
@@ -58,16 +46,18 @@ async function getTareas(){
       <>
         {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" />
         <h1>Wellcome {user.displayName || user.email}</h1> */}
-        <CardEmployees image={user.photoURL} name={user.displayName || user.email} rol="FullStack Developer"/>
+        <CardEmployees
+          image={user.photoURL}
+          name={user.displayName || user.email}
+          rol="FullStack Developer"
+        />
       </>
 
-      <div className="border-b-2 w-96"></div>
-        <AddTask/>
-        <ListTask tareas={tareas}/>
+      {/* <div className="border-b-2 w-96"></div> */}
+      <AddTask />
+      <ListTask tareas={tareas} setTareas={setTareas}/>
     </div>
   );
 }
 
 export default Home;
-
-
