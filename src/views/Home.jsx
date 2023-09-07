@@ -54,7 +54,7 @@ function Home() {
       </>
 
       {/* <div className="border-b-2 w-96"></div> */}
-      <AddTask />
+      <AddTask tareas={tareas} setTareas={setTareas}/>
       <ListTask tareas={tareas} setTareas={setTareas}/>
     </div>
   );
