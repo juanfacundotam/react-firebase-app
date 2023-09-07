@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth, firestore } from "../firebase";
+import { auth, firestore, storage } from "../firebase";
 //Estas funciones podriamos usarlas en cualquier componente sin el authContext
 import {
   createUserWithEmailAndPassword,
@@ -10,7 +10,8 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { getFirestore, getDoc, doc, setDoc, updateDoc} from "firebase/firestore";
+import {getDoc, doc, setDoc, updateDoc} from "firebase/firestore";
+import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 export const authContext = createContext();
 
@@ -121,6 +122,28 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const addTask = async (updatedTasks) => {
+    try{
+      const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      await updateDoc(userDocRef, {tareas: [...updatedTasks]})
+      return updatedTasks
+    }
+    catch (error) {
+      console.error("Error al agregar la tarea:", error);
+      // Manejar el error aquí
+    }
+  }
+
+  const addFile = async (archive) => {
+console.log(archive)
+const archivoRef = ref(storage, `documentos/${archive.name}`)
+await uploadBytes(archivoRef, archive)
+
+
+ const urlDownload = await getDownloadURL(archivoRef)
+ return urlDownload
+  }
+
 
 
   useEffect(() => {
@@ -144,6 +167,8 @@ export function AuthProvider({ children }) {
         resetPassword,
         searchOrCreateDocument,
         deleteTask,
+        addTask,
+        addFile,
       }}
     >
       {children}
