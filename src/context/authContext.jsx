@@ -10,7 +10,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
+import { getFirestore, getDoc, doc, setDoc, updateDoc} from "firebase/firestore";
 
 export const authContext = createContext();
 
@@ -77,6 +77,52 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const deleteTask = async (updatedTasks) => {
+    console.log(updatedTasks)
+    try{
+      const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      await updateDoc(userDocRef, {tareas: [...updatedTasks]})
+      return updatedTasks
+    }
+    catch (error) {
+      console.error("Error al eliminar la tarea:", error);
+      // Manejar el error aquí
+    }
+//podria ser asi
+    // try {
+    //   // Obtén una referencia al documento del usuario actual
+    //   const userDocRef = doc(firestore, `usuarios/${user.email}`);
+
+    //   // Obtiene el documento del usuario
+    //   const userDocAccess = await getDoc(userDocRef);
+
+    //   // Verifica si el documento existe
+    //   if (userDocAccess.exists()) {
+    //     // Obtiene las tareas actuales del usuario
+    //     const userTasks = userDocAccess.data().tareas;
+    //     console.log(userTasks)
+
+    //     // Filtra las tareas para eliminar la que coincida con el ID proporcionado
+    //     const updatedTasks = userTasks.filter((tarea) => tarea.id !== taskId);
+    //     console.log(updatedTasks)
+    //     // Actualiza el documento del usuario con las tareas actualizadas
+    //     await setDoc(userDocRef, { tareas: updatedTasks });
+
+    //     return updatedTasks
+    //   //   // Actualiza el estado local de las tareas (opcional)
+    //   //   setTareas(updatedTasks);
+    //   }
+    try{
+
+    }
+    catch (error) {
+      console.error("Error al eliminar la tarea:", error);
+      // Manejar el error aquí
+    }
+  };
+
+
+
   useEffect(() => {
     //con esto tambien veo ese objeto con la info. onAuthStateChanged detecta el cambio de sesion. si se logeo o cerro
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -97,6 +143,7 @@ export function AuthProvider({ children }) {
         loginWithGoogle,
         resetPassword,
         searchOrCreateDocument,
+        deleteTask,
       }}
     >
       {children}
