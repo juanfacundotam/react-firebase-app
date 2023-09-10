@@ -18,7 +18,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
-                <Chat/>
               </ProtectedRoute>
             }
           />
