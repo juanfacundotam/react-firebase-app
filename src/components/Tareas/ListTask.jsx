@@ -1,5 +1,9 @@
 import React from "react";
 import { useAuth } from "../../context/authContext";
+import Spinner from "../spinner"
+
+
+
 export default function ({ tareas, setTareas }) {
   const { user, logout, deleteTask } = useAuth();
 
@@ -9,8 +13,8 @@ export default function ({ tareas, setTareas }) {
   };
   return (
     <>
-      {tareas && !!tareas.length && (
-        <div className="w-fit flex flex-col justify-center items-center border-2 mt-5">
+      {tareas.length ? (
+        <div className="w-fit flex flex-col justify-center items-center border-2 mt-5 mb-12">
           {tareas.map((tarea, index) => {
             return (
               <div key={index}>
@@ -31,7 +35,10 @@ export default function ({ tareas, setTareas }) {
             );
           })}
         </div>
-      )}
+      ) :
+      <div className="flex justify-center items-center mt-10">
+      <Spinner/>
+      </div>}
     </>
   );
 }
