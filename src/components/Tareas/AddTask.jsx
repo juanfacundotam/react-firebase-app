@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { useAuth } from "../../context/authContext";
+import ClearIcon from "@mui/icons-material/Clear";
 
 export default function AddTask({ tareas, setTareas }) {
+  const [edit, setEdit] = useState(false)
   const { user, addTask, addFile } = useAuth();
   const newTaskHandler = async (e) => {
     e.preventDefault();
@@ -31,13 +33,15 @@ export default function AddTask({ tareas, setTareas }) {
           id="formDescription"
           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
         />
-        <input
-          type="file"
-          placeholder="Añadir archivo"
-          id="formFiles"
-          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-
-        />
+        <div className="flex items-center justify-center relative">
+          <input
+            type="file"
+            placeholder="Añadir archivo"
+            id="formFiles"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          />
+          {edit && <ClearIcon className="absolute -right-7"/>}
+        </div>
         <button
           type="submit"
           className="inline-flex items-center px-4 py-1.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
