@@ -3,13 +3,21 @@ import { useAuth } from "../../context/authContext";
 import ClearIcon from "@mui/icons-material/Clear";
 
 export default function AddTask({ tareas, setTareas }) {
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(true)
   const { user, addTask, addFile } = useAuth();
+  
+  
+  const editHandler = (e) => {
+    const fileInput = document.getElementById('formFiles');
+  fileInput.value = '';
+
+  }
+
+
   const newTaskHandler = async (e) => {
     e.preventDefault();
     const archive = e.target.formFiles.files[0];
     const urlDownload = await addFile(archive);
-
     const newTasks = [
       ...tareas,
       {
@@ -28,6 +36,7 @@ export default function AddTask({ tareas, setTareas }) {
         className=" flex flex-col items-center justify-center gap-2"
       >
         <input
+
           type="text"
           placeholder="Describe tu tarea"
           id="formDescription"
@@ -40,7 +49,7 @@ export default function AddTask({ tareas, setTareas }) {
             id="formFiles"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           />
-          {edit && <ClearIcon className="absolute -right-7"/>}
+          {edit && <ClearIcon className="absolute -right-7 cursor-pointer hover:text-red-600" onClick={editHandler}/>}
         </div>
         <button
           type="submit"
