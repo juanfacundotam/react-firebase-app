@@ -6,10 +6,11 @@ import Recover from "./views/Recover";
 import Register from "./views/Register";
 import Home from "./views/Home";
 import Login from "./views/Login";
+import Chat from "./views/Chat";
 
 function App() {
   return (
-    <div className=" h-screen bg-[#1C1E1F] text-white">
+    <div className=" min-h-screen bg-[#1C1E1F] text-white">
       <AuthProvider>
         <Routes>
           <Route
@@ -17,6 +18,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+                <Chat/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <Chat/>
               </ProtectedRoute>
             }
           />
