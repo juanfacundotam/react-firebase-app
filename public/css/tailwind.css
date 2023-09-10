@@ -570,6 +570,18 @@ video {
   top: 1.75rem;
 }
 
+.right-3 {
+  right: 0.75rem;
+}
+
+.-right-3 {
+  right: -0.75rem;
+}
+
+.-right-7 {
+  right: -1.75rem;
+}
+
 .z-10 {
   z-index: 10;
 }
