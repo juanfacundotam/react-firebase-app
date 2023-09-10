@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import CardEmployees from "../components/CardEmployees";
 import AddTask from "../components/Tareas/AddTask";
 import ListTask from "../components/Tareas/ListTask";
+import { AccessAlarm } from '@mui/icons-material'
 
 function Home() {
   const [tareas, setTareas] = useState([]);
@@ -32,7 +33,7 @@ function Home() {
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <div className="flex flex-col justify-center items-center h-fit relative">
+    <div className="flex flex-col justify-center items-center  relative">
       <Logo />
       <div className="absolute right-2 top-7 md:top-7 md:right-7 ">
         <button
@@ -54,8 +55,9 @@ function Home() {
       </>
 
       {/* <div className="border-b-2 w-96"></div> */}
-      <AddTask tareas={tareas} setTareas={setTareas}/>
-      <ListTask tareas={tareas} setTareas={setTareas}/>
+      <AccessAlarm />
+      <AddTask tareas={tareas} setTareas={setTareas} />
+      <ListTask tareas={tareas} setTareas={setTareas} />
     </div>
   );
 }
