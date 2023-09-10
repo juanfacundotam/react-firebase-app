@@ -5,7 +5,8 @@ import Logo from "../components/Logo";
 import CardEmployees from "../components/CardEmployees";
 import AddTask from "../components/Tareas/AddTask";
 import ListTask from "../components/Tareas/ListTask";
-import { AccessAlarm } from '@mui/icons-material'
+import { AccessAlarm } from "@mui/icons-material";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Home() {
   const [tareas, setTareas] = useState([]);
@@ -35,14 +36,11 @@ function Home() {
   return (
     <div className="flex flex-col justify-center items-center  relative">
       <Logo />
-      <div className="absolute right-2 top-7 md:top-7 md:right-7 ">
-        <button
-          onClick={handleLogout}
-          className="relative  border border-gray-600 rounded px-2 pb-1 overflow-hidden group bg-transparent  hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-400 text-white hover:ring-2 transition-all ease-out duration-300"
-        >
-          <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-          <span className="relative text-xs">Logout</span>
-        </button>
+      <div
+        className="absolute right-2 top-7 md:top-7 md:right-7 cursor-pointer hover:scale-110"
+        onClick={handleLogout}
+      >
+        <LogoutIcon />
       </div>
       <>
         {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" />
@@ -55,7 +53,6 @@ function Home() {
       </>
 
       {/* <div className="border-b-2 w-96"></div> */}
-      <AccessAlarm />
       <AddTask tareas={tareas} setTareas={setTareas} />
       <ListTask tareas={tareas} setTareas={setTareas} />
     </div>
