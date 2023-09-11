@@ -1080,6 +1080,10 @@ video {
   text-align: center;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .align-baseline {
   vertical-align: baseline;
 }
