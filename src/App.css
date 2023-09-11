@@ -33,3 +33,26 @@
 .scrollbar::-webkit-scrollbar-horizontal {
     display: none;
 }
+
+
+
+
+.expand-diagonal {
+    width: 0;
+    height: 0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: expand 1s forwards;
+    transform-origin: top right;
+    background-color: #202123;
+}
+
+@keyframes expand {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    100% {
+        width: 16rem;
+        height: 16rem;
+    }
+}
