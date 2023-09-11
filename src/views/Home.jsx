@@ -43,8 +43,8 @@ function Home() {
         <LogoutIcon />
       </div>
       <>
-        {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" />
-        <h1>Wellcome {user.displayName || user.email}</h1> */}
+        {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" /> */}
+        {/* <h1>Wellcome {user.displayName || user.email}</h1> */}
         <CardEmployees
           image={user.photoURL}
           name={user.displayName || user.email}
@@ -53,8 +53,8 @@ function Home() {
       </>
 
       {/* <div className="border-b-2 w-96"></div> */}
-      <AddTask tareas={tareas} setTareas={setTareas} />
-      <ListTask tareas={tareas} setTareas={setTareas} />
+      {/* <AddTask tareas={tareas} setTareas={setTareas} /> */}
+      {/* <ListTask tareas={tareas} setTareas={setTareas} /> */}
     </div>
   );
 }
