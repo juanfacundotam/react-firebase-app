@@ -1,10 +1,18 @@
 import React from "react";
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 export default function ContactsContainer() {
   return (
-    <div className="border-2 flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%]  mt-5 ">
-      <h1>v Contactos</h1>
-      <div className="border-2  mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-96">
+    <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%]  mt-5 text-[0.8rem]">
+      <div className="flex justify-center items-center">
+        {true ? (
+          <KeyboardArrowDownIcon sx={{ fontSize: 15, cursor: "pointer" }} />
+        ) : (
+          <KeyboardArrowUpIcon sx={{ fontSize: 15, cursor: "pointer" }} />
+        )}
+        <h1>Contactos</h1>
+      </div>
+      <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-96">
         <p className="ml-5">Pedro Juan Gomez</p>
         <p className="ml-5">Ricardo Iorio</p>
         <p className="ml-5">Tomas Achaval</p>
@@ -17,7 +25,6 @@ export default function ContactsContainer() {
         <p className="ml-5">Tomasssssssssssssssssssssss Achaval</p>
         <p className="ml-5">Tomasssssssssssssssssssssss Achaval</p>
         <p className="ml-5">Tomas Achaval</p>
-
       </div>
     </div>
   );
