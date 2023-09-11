@@ -833,6 +833,10 @@ video {
   gap: 1.25rem;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .gap-y-1 {
   row-gap: 0.25rem;
 }
@@ -1059,6 +1063,10 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pr-3 {
+  padding-right: 0.75rem;
 }
 
 .text-center {
