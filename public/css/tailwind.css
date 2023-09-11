@@ -716,8 +716,48 @@ video {
   height: 2.5rem;
 }
 
+.h-\[70\%\] {
+  height: 70%;
+}
+
+.h-\[86\%\] {
+  height: 86%;
+}
+
+.h-\[7\%\] {
+  height: 7%;
+}
+
+.h-\[8\%\] {
+  height: 8%;
+}
+
+.h-\[84\%\] {
+  height: 84%;
+}
+
+.h-\[100\%\] {
+  height: 100%;
+}
+
+.h-\[82\%\] {
+  height: 82%;
+}
+
+.h-\[75\%\] {
+  height: 75%;
+}
+
 .max-h-\[45\%\] {
   max-height: 45%;
+}
+
+.max-h-\[100px\] {
+  max-height: 100px;
+}
+
+.max-h-\[50px\] {
+  max-height: 50px;
 }
 
 .min-h-screen {
