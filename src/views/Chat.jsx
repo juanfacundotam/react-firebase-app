@@ -11,10 +11,10 @@ export default function Chat() {
         <Channels />
       </div>
       <div className="bg-[#343541] flex flex-col justify-center items-center h-full w-[80%]">
-        <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[10%] w-full">
+        <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
           <UpBar />
         </div>
-        <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-center items-center h-[80%] w-full mt-2">
+        <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-center items-center h-[82%] w-full mt-2">
           <BodyMessage />
         </div>
         <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
