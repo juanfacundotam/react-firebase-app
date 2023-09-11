@@ -7,7 +7,7 @@ import SendMessage from "../components/ChatContainers/SendMessage";
 export default function Chat() {
   return (
     <div className="border-2 flex justify-center items-center h-screen relative">
-      <div className="border-2 flex justify-center items-center h-full w-[20%]">
+      <div className="border-2 flex flex-col justify-start items-center h-full w-[20%]">
         <Channels />
       </div>
       <div className="border-2 flex flex-col justify-center items-center h-full w-[80%]">
