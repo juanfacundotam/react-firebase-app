@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Message() {
   return (
-    <div className='border-2 flex justify-center items-center w-full h-full'>
+    <div className='border-2  flex justify-center items-center w-full h-full'>
         <div className='border-2 flex justify-start items-start w-fit h-full'>
             <h1 className='m-2 bg-black rounded-full w-12 h-12'></h1>
         </div>
