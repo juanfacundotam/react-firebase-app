@@ -3,7 +3,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 export default function ContactsContainer() {
   return (
-    <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%]  mt-5 text-[0.8rem]">
+    <>
       <div className="flex justify-center items-center">
         {true ? (
           <KeyboardArrowDownIcon sx={{ fontSize: 15, cursor: "pointer" }} />
@@ -26,6 +26,6 @@ export default function ContactsContainer() {
         <p className="ml-5">Tomasssssssssssssssssssssss Achaval</p>
         <p className="ml-5">Tomas Achaval</p>
       </div>
-    </div>
+    </>
   );
 }
