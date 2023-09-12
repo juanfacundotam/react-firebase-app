@@ -15,11 +15,14 @@ function Home() {
   const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
     useAuth();
   const navigate = useNavigate();
-
+const changeSomethingInSettings = () => {
+  console.log("change")
+}
   useEffect(() => {
     getImage();
     getTareas();
-  }, []);
+  }, [changeSomethingInSettings]);
+
 
   async function getTareas() {
     const tasksSearched = await searchOrCreateDocument(user.email);
@@ -53,6 +56,7 @@ function Home() {
       {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" /> */}
       {/* <h1>Wellcome {user.displayName || user.email}</h1> */}
       <CardEmployees
+      changeSomethingInSettings ={changeSomethingInSettings}
         image={image}
         name={user.displayName || user.email}
         rol="FullStack Developer"
