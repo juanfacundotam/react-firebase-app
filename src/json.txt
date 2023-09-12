@@ -21,6 +21,6 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": tru
+    "singleProjectMode": true
   }
 }
