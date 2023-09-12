@@ -216,7 +216,6 @@ export function AuthProvider({ children }) {
         addTask,
         addFile,
         searchOrCreateImage,
-
         addNewImage,
       }}
     >
