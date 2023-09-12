@@ -10,8 +10,8 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import {getDoc, doc, setDoc, updateDoc} from "firebase/firestore";
-import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import { getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 export const authContext = createContext();
 
@@ -65,11 +65,11 @@ export function AuthProvider({ children }) {
     // revisar si existe
     if (consulta.exists()) {
       // si, existe
-      console.log("Entro en existe consulta")
+      console.log("Entro en existe consulta");
       const infoDoc = consulta.data();
       return infoDoc.tareas;
     } else {
-      console.log("Entro en NO existe consulta")
+      console.log("Entro en NO existe consulta");
       // no, no existe
       await setDoc(docRef, { tareas: [...arrayTasks] });
       const consulta = await getDoc(docRef);
@@ -79,17 +79,16 @@ export function AuthProvider({ children }) {
   };
 
   const deleteTask = async (updatedTasks) => {
-    console.log(updatedTasks)
-    try{
+    console.log(updatedTasks);
+    try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
-      await updateDoc(userDocRef, {tareas: [...updatedTasks]})
-      return updatedTasks
-    }
-    catch (error) {
+      await updateDoc(userDocRef, { tareas: [...updatedTasks] });
+      return updatedTasks;
+    } catch (error) {
       console.error("Error al eliminar la tarea:", error);
       // Manejar el error aquí
     }
-//podria ser asi
+    //podria ser asi
     // try {
     //   // Obtén una referencia al documento del usuario actual
     //   const userDocRef = doc(firestore, `usuarios/${user.email}`);
@@ -113,37 +112,75 @@ export function AuthProvider({ children }) {
     //   //   // Actualiza el estado local de las tareas (opcional)
     //   //   setTareas(updatedTasks);
     //   }
-    try{
-
-    }
-    catch (error) {
+    try {
+    } catch (error) {
       console.error("Error al eliminar la tarea:", error);
       // Manejar el error aquí
     }
   };
 
   const addTask = async (updatedTasks) => {
-    try{
+    try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
-      await updateDoc(userDocRef, {tareas: [...updatedTasks]})
-      return updatedTasks
-    }
-    catch (error) {
+      await updateDoc(userDocRef, { tareas: [...updatedTasks] });
+      return updatedTasks;
+    } catch (error) {
       console.error("Error al agregar la tarea:", error);
       // Manejar el error aquí
     }
-  }
+  };
 
-  const addFile = async (archive) => {
-console.log(archive)
-const archivoRef = ref(storage, `documentos/${archive.name}`)
-await uploadBytes(archivoRef, archive)
+  const addFile = async (idDocumento, archive) => {
+    console.log(archive);
+    const archivoRef = ref(storage, `documentos/${idDocumento}/${archive.name}`);
+    await uploadBytes(archivoRef, archive);
+    const urlDownload = await getDownloadURL(archivoRef);
+    return urlDownload;
+  };
 
 
- const urlDownload = await getDownloadURL(archivoRef)
- return urlDownload
-  }
+  //Image Profile
+    const searchOrCreateImage = async (idDocumento, fileURL) => {
 
+      const docRef = doc(firestore, `usuarios/${idDocumento}`);
+      let consulta = await getDoc(docRef);
+      let infoDoc = consulta.data();
+
+      if (consulta.exists()) {
+        if(infoDoc.hasOwnProperty('newImage')){
+          return infoDoc.newImage;
+        } else {
+          await updateDoc(docRef, { newImage: fileURL });
+          consulta = await getDoc(docRef);
+          infoDoc = consulta.data();
+          return infoDoc.newImage;
+        }
+      } else {
+        await setDoc(docRef, { newImage: fileURL });
+        consulta = await getDoc(docRef);
+        infoDoc = consulta.data();
+        return infoDoc.newImage;
+      }
+    };
+
+
+    const addNewImage = async (idDocumento, archive) => {
+      // Obtén una referencia a la carpeta de documentos
+      const documentosRef = ref(storage, `documentos/${idDocumento}`);
+      try {
+        await deleteObject(documentosRef);
+        // Sube el nuevo archivo
+        const archivoRef = ref(documentosRef, archive.name);
+        await uploadBytes(archivoRef, archive);
+    
+        // Obtén la URL de descarga del nuevo archivo
+        const urlDownload = await getDownloadURL(archivoRef);
+        return urlDownload;
+      } catch (error) {
+        console.error("Error al eliminar o subir archivos:", error);
+        throw error; // Puedes manejar el error como desees
+      }
+    };
 
 
   useEffect(() => {
@@ -154,6 +191,12 @@ await uploadBytes(archivoRef, archive)
       return () => unsubscribe();
     });
   }, []);
+
+
+
+
+
+
 
   return (
     <authContext.Provider
@@ -169,6 +212,7 @@ await uploadBytes(archivoRef, archive)
         deleteTask,
         addTask,
         addFile,
+        searchOrCreateImage,
       }}
     >
       {children}
