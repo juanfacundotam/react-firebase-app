@@ -4,7 +4,7 @@ import { useAuth } from "../context/authContext";
 import iconImage from "../assets/logoloro.png";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-export default function SettingsHome({ image, settingsHandler }) {
+export default function SettingsHome({ image, settingsHandler, changeSomethingInSettings}) {
   const { user, logout, loading, searchOrCreateDocument, addNewImage } = useAuth();
   const [editImage, setEditImage] = useState(false);
 
@@ -19,9 +19,15 @@ export default function SettingsHome({ image, settingsHandler }) {
     // Puedes hacer algo con el archivo seleccionado aquí si lo deseas.
   };
 
-  const setChangesHandler = () => {
+  const setChangesHandler = async () => {
     console.log("set Changes")
-    addNewImage(user.email, editImage)
+    if (selectedFile) {
+        console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+        // await deleteNewImage(user.email, selectedFile);
+        await addNewImage(user.email, selectedFile)
+        changeSomethingInSettings()
+    }
+    settingsHandler()
 
   }
 
@@ -75,7 +81,7 @@ export default function SettingsHome({ image, settingsHandler }) {
               }}
             />
           </div>
-          <img src={editImage && URL.createObjectURL(editImage) || image} className="w-16 h-16 rounded-full z-1" alt="" />
+          <img src={selectedFile && URL.createObjectURL(selectedFile) || image} className="w-16 h-16 rounded-full z-1" alt="" />
         </div>
         <div className="flex  justify-center items-start gap-5 text-[#cac7c7]">
           <CloseIcon
