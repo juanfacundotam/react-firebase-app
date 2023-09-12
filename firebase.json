@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -11,8 +11,7 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ],
-    "predeploy": ["yarn install && yarn run build"]
+    ]
   },
   "emulators": {
     "hosting": {
