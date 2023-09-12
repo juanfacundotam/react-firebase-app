@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import iconImage from "../assets/logoloro.png";
 import SettingsHome from "./SettingsHome";
+import Spinner from "./spinner";
 
 export default function CardEmployees({ name, image, rol }) {
   const [editing, setEditing] = useState(false);
@@ -25,13 +26,14 @@ export default function CardEmployees({ name, image, rol }) {
           onClick={settingsHandler}
         />
       </div>
-      {editing ? <SettingsHome image={image}/> : null}
+      {editing ? <SettingsHome settingsHandler={settingsHandler} image={image}/> : null}
       <div className="flex flex-col justify-center items-center pb-10">
+        {image ?
         <img
-          className=" w-20 h-20 mb-3 rounded-full shadow-lg flex justify-center items-center"
+          className=" w-20 h-20 mb-3 rounded-full shadow-lg flex justify-center items-center border-[1px] border-gray-700"
           src={image}
           alt="Imagen"
-        />
+        /> : <h1 className="border-[1px]  border-gray-500 w-20 h-20 mb-3 rounded-full shadow-lg flex justify-center items-center text-[#fafafa59]">Foto</h1> }
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
           {name}
         </h5>
