@@ -12,7 +12,9 @@
         "destination": "/index.html"
       }
     ],
-    "predeploy": ["yarn install && yarn run build"]
+    "predeploy": [
+      "yarn install && yarn run build"
+    ]
   },
   "emulators": {
     "hosting": {
