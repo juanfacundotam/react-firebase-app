@@ -10,16 +10,21 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 function Home() {
   const [tareas, setTareas] = useState([]);
-  const { user, logout, loading, searchOrCreateDocument } = useAuth();
+  const [image, setImage] = useState("");
+  const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     getTareas();
+    // getImage();
   }, []);
 
   async function getTareas() {
     const tasksSearched = await searchOrCreateDocument(user.email);
     setTareas(tasksSearched);
+  }
+  async function getImage() {
+    setImage(searchOrCreateImage(user.email, user.photoURL))
   }
 
   const handleLogout = async () => {
@@ -46,7 +51,7 @@ function Home() {
         {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" /> */}
         {/* <h1>Wellcome {user.displayName || user.email}</h1> */}
         <CardEmployees
-          image={user.photoURL}
+          image={image || user.photoURL}
           name={user.displayName || user.email}
           rol="FullStack Developer"
         />
