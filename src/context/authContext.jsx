@@ -11,7 +11,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject, listAll } from "firebase/storage";
 
 export const authContext = createContext();
 
@@ -147,16 +147,20 @@ export function AuthProvider({ children }) {
       let infoDoc = consulta.data();
 
       if (consulta.exists()) {
+        console.log("Existe consulta")
         if(infoDoc.hasOwnProperty('newImage')){
+          console.log("Existe Propiedad")
           return infoDoc.newImage;
         } else {
+          console.log("No Existe Propiedad")
           await updateDoc(docRef, { newImage: fileURL });
           consulta = await getDoc(docRef);
           infoDoc = consulta.data();
           return infoDoc.newImage;
         }
       } else {
-        await setDoc(docRef, { newImage: fileURL });
+        console.log("No existe consulta")
+        // await setDoc(docRef, { newImage: fileURL });
         consulta = await getDoc(docRef);
         infoDoc = consulta.data();
         return infoDoc.newImage;
@@ -166,20 +170,36 @@ export function AuthProvider({ children }) {
 
     const addNewImage = async (idDocumento, archive) => {
       // Obtén una referencia a la carpeta de documentos
-      const documentosRef = ref(storage, `documentos/${idDocumento}`);
-      try {
-        await deleteObject(documentosRef);
-        // Sube el nuevo archivo
+      const documentosRef =  ref(storage, `documentos/${idDocumento}`);
+      // const listResult = await listAll(documentosRef);
+      // const deletePromises = listResult.items.map((item) => deleteObject(item));
+      // await Promise.all(deletePromises);
+      // await deleteObject(documentosRef);
+      
+      // try {
+      //   // Sube el nuevo archivo
         const archivoRef = ref(documentosRef, archive.name);
         await uploadBytes(archivoRef, archive);
     
-        // Obtén la URL de descarga del nuevo archivo
+
         const urlDownload = await getDownloadURL(archivoRef);
         return urlDownload;
-      } catch (error) {
-        console.error("Error al eliminar o subir archivos:", error);
-        throw error; // Puedes manejar el error como desees
-      }
+      // } catch (error) {
+      //   if (error.code === 'storage/object-not-found') {
+      //     console.log("El archivo no existe, creando uno nuevo...");
+    
+
+      //     const archivoRef = ref(documentosRef, archive.name);
+      //     await uploadBytes(archivoRef, archive);
+    
+
+      //     const urlDownload = await getDownloadURL(archivoRef);
+      //     return urlDownload;
+      //   } else {
+      //     console.error("Error al verificar la existencia del archivo:", error);
+      //     throw error; // Puedes manejar el error como desees
+      //   }
+      // }
     };
 
 
@@ -213,6 +233,7 @@ export function AuthProvider({ children }) {
         addTask,
         addFile,
         searchOrCreateImage,
+        addNewImage,
       }}
     >
       {children}
