@@ -7,16 +7,18 @@ import AddTask from "../components/Tareas/AddTask";
 import ListTask from "../components/Tareas/ListTask";
 import { AccessAlarm } from "@mui/icons-material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Spinner from "../components/spinner";
 
 function Home() {
   const [tareas, setTareas] = useState([]);
   const [image, setImage] = useState("");
-  const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage} = useAuth();
+  const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
+    useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    getImage();
     getTareas();
-    // getImage();
   }, []);
 
   async function getTareas() {
@@ -24,7 +26,7 @@ function Home() {
     setTareas(tasksSearched);
   }
   async function getImage() {
-    setImage(searchOrCreateImage(user.email, user.photoURL))
+    setImage(await searchOrCreateImage(user.email, user.photoURL));
   }
 
   const handleLogout = async () => {
@@ -47,15 +49,14 @@ function Home() {
       >
         <LogoutIcon />
       </div>
-      <>
-        {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" /> */}
-        {/* <h1>Wellcome {user.displayName || user.email}</h1> */}
-        <CardEmployees
-          image={image || user.photoURL}
-          name={user.displayName || user.email}
-          rol="FullStack Developer"
-        />
-      </>
+
+      {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" /> */}
+      {/* <h1>Wellcome {user.displayName || user.email}</h1> */}
+      <CardEmployees
+        image={image}
+        name={user.displayName || user.email}
+        rol="FullStack Developer"
+      />
 
       {/* <div className="border-b-2 w-96"></div> */}
       {/* <AddTask tareas={tareas} setTareas={setTareas} /> */}
