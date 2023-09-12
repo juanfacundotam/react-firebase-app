@@ -11,7 +11,13 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL, deleteObject, listAll } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+  listAll,
+} from "firebase/storage";
 
 export const authContext = createContext();
 
@@ -132,75 +138,58 @@ export function AuthProvider({ children }) {
 
   const addFile = async (idDocumento, archive) => {
     console.log(archive);
-    const archivoRef = ref(storage, `documentos/${idDocumento}/${archive.name}`);
+    const archivoRef = ref(
+      storage,
+      `documentos/${idDocumento}/${archive.name}`
+    );
     await uploadBytes(archivoRef, archive);
     const urlDownload = await getDownloadURL(archivoRef);
     return urlDownload;
   };
 
-
   //Image Profile
-    const searchOrCreateImage = async (idDocumento, fileURL) => {
+  const searchOrCreateImage = async (idDocumento, fileURL) => {
+    const docRef = doc(firestore, `usuarios/${idDocumento}`);
+    let consulta = await getDoc(docRef);
+    let infoDoc = consulta.data();
 
-      const docRef = doc(firestore, `usuarios/${idDocumento}`);
-      let consulta = await getDoc(docRef);
-      let infoDoc = consulta.data();
-
-      if (consulta.exists()) {
-        console.log("Existe consulta")
-        if(infoDoc.hasOwnProperty('newImage')){
-          console.log("Existe Propiedad")
-          return infoDoc.newImage;
-        } else {
-          console.log("No Existe Propiedad")
-          await updateDoc(docRef, { newImage: fileURL });
-          consulta = await getDoc(docRef);
-          infoDoc = consulta.data();
-          return infoDoc.newImage;
-        }
+    if (consulta.exists()) {
+      console.log("Existe consulta");
+      if (infoDoc.hasOwnProperty("newImage")) {
+        console.log("Existe Propiedad");
+        return infoDoc.newImage;
       } else {
-        console.log("No existe consulta")
-        // await setDoc(docRef, { newImage: fileURL });
+        console.log("No Existe Propiedad");
+        await updateDoc(docRef, { newImage: fileURL });
         consulta = await getDoc(docRef);
         infoDoc = consulta.data();
         return infoDoc.newImage;
       }
-    };
+    } else {
+      console.log("No existe consulta");
+      // await setDoc(docRef, { newImage: fileURL });
+      consulta = await getDoc(docRef);
+      infoDoc = consulta.data();
+      return infoDoc.newImage;
+    }
+  };
+
+  const addNewImage = async (idDocumento, archive) => {
+    // Obtén una referencia a la carpeta de documentos
+    const documentosRef = ref(storage, `documentos/${idDocumento}`);
+    const listResult = await listAll(documentosRef);
+    listResult.items.forEach(async (item) => await deleteObject(item));
 
 
-    const addNewImage = async (idDocumento, archive) => {
-      // Obtén una referencia a la carpeta de documentos
-      const documentosRef =  ref(storage, `documentos/${idDocumento}`);
-      // const listResult = await listAll(documentosRef);
-      // const deletePromises = listResult.items.map((item) => deleteObject(item));
-      // await Promise.all(deletePromises);
-      // await deleteObject(documentosRef);
-      
-      // try {
-      //   // Sube el nuevo archivo
-        const archivoRef = ref(documentosRef, archive.name);
-        await uploadBytes(archivoRef, archive);
-    
 
-        const urlDownload = await getDownloadURL(archivoRef);
-        return urlDownload;
-      // } catch (error) {
-      //   if (error.code === 'storage/object-not-found') {
-      //     console.log("El archivo no existe, creando uno nuevo...");
-    
+    const archivoRef = ref(documentosRef, archive.name);
+    await uploadBytes(archivoRef, archive);
+    const urlDownload = await getDownloadURL(archivoRef);
 
-      //     const archivoRef = ref(documentosRef, archive.name);
-      //     await uploadBytes(archivoRef, archive);
-    
-
-      //     const urlDownload = await getDownloadURL(archivoRef);
-      //     return urlDownload;
-      //   } else {
-      //     console.error("Error al verificar la existencia del archivo:", error);
-      //     throw error; // Puedes manejar el error como desees
-      //   }
-      // }
-    };
+    const docRef =  doc(firestore, `usuarios/${idDocumento}`);
+    await updateDoc(docRef, { newImage: urlDownload });
+    return urlDownload;
+  };
 
 
   useEffect(() => {
@@ -211,12 +200,6 @@ export function AuthProvider({ children }) {
       return () => unsubscribe();
     });
   }, []);
-
-
-
-
-
-
 
   return (
     <authContext.Provider
@@ -233,6 +216,7 @@ export function AuthProvider({ children }) {
         addTask,
         addFile,
         searchOrCreateImage,
+
         addNewImage,
       }}
     >
