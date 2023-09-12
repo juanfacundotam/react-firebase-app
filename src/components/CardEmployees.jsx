@@ -5,7 +5,7 @@ import iconImage from "../assets/logoloro.png";
 import SettingsHome from "./SettingsHome";
 import Spinner from "./spinner";
 
-export default function CardEmployees({ name, image, rol }) {
+export default function CardEmployees({ name, image, rol, changeSomethingInSettings }) {
   const [editing, setEditing] = useState(false);
   const settingsHandler = () => {
     setEditing(!editing);
@@ -26,7 +26,7 @@ export default function CardEmployees({ name, image, rol }) {
           onClick={settingsHandler}
         />
       </div>
-      {editing ? <SettingsHome settingsHandler={settingsHandler} image={image}/> : null}
+      {editing ? <SettingsHome settingsHandler={settingsHandler} image={image} changeSomethingInSettings={changeSomethingInSettings}/> : null}
       <div className="flex flex-col justify-center items-center pb-10">
         {image ?
         <img
