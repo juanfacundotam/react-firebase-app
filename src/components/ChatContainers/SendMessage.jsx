@@ -13,10 +13,8 @@ setMessage(e.target.value)
     if (e.key === 'Enter') {
       // Llama a tu función aquí cuando se presiona "Enter"
       console.log("enviado: ", message)
-
       setMessageArray([...messageArray, message])
-      setMessage("")
- 
+    setMessage("")
     }
   };
 
