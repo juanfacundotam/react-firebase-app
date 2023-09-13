@@ -15,7 +15,7 @@ export default function CardEmployees({
   getImage,
   getDatos,
   setDatos,
-  datos
+  datos,
 }) {
   const [editing, setEditing] = useState(false);
   const settingsHandler = () => {
@@ -71,22 +71,21 @@ export default function CardEmployees({
               {nickName}
             </h5>
             <div className="flex justify-center items-center w-[300px] h-fit whitespace-normal">
-
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-              {estado}
-            </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+                {estado}
+              </p>
             </div>
             <Link
               to="chat"
               className="mt-7 cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 gap-3"
             >
+              <h1 className="">Chatea!</h1>
               <img
                 src={iconImage}
                 alt=""
                 className="  w-7 h-7 p-1 rounded-full"
               />
               {/* <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add friend</a> */}
-              <h1 className="">Ir al Chat</h1>
             </Link>
           </div>
         </>
