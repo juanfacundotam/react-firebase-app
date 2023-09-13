@@ -4,9 +4,24 @@ import { useAuth } from "../context/authContext";
 import iconImage from "../assets/logoloro.png";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-export default function SettingsHome({ image, settingsHandler, changeSomethingInSettings}) {
-  const { user, logout, loading, searchOrCreateDocument, addNewImage } = useAuth();
+export default function SettingsHome({
+  nickName,
+  estado,
+  image,
+  setDatos,
+  settingsHandler,
+  getImage,
+  getDatos,
+  setLoadSpinner,
+  datos,
+}) {
+  const { user, logout, loading, searchOrCreateDocument, addNewImage, addDatos } =
+    useAuth();
   const [editImage, setEditImage] = useState(false);
+  const [datosUpdated, setDatosUpdated] = useState({
+    nickName: datos.nickName,
+    estado: datos.estado,
+  });
 
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -14,22 +29,35 @@ export default function SettingsHome({ image, settingsHandler, changeSomethingIn
   const ImageInputChangeHandler = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    console.log(file)
-    setEditImage(file)
+    console.log(file);
+    setEditImage(file);
     // Puedes hacer algo con el archivo seleccionado aquí si lo deseas.
   };
 
-  const setChangesHandler = async () => {
-    console.log("set Changes")
-    if (selectedFile) {
-        console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-        // await deleteNewImage(user.email, selectedFile);
-        await addNewImage(user.email, selectedFile)
-        changeSomethingInSettings()
-    }
-    settingsHandler()
+  const changeInputDatosHandler = (e) => {
+    console.log("cambiando");
+    setDatosUpdated({ ...datosUpdated, [e.target.name]: e.target.value });
+  };
 
-  }
+  const setChangesSubmit = async () => {
+    setLoadSpinner(true);
+    settingsHandler();
+    if (selectedFile) {
+      // await deleteNewImage(user.email, selectedFile);
+      await addNewImage(user.email, selectedFile);
+      await getImage();
+    }
+    if (
+      (datosUpdated.nickName.trim() !== "" && datosUpdated.nickName !== datos.nickName) ||
+      (datosUpdated.estado.trim() !== "" && datosUpdated.estado !== datos.estado)
+      ) {
+        await addDatos(datosUpdated)
+        await getDatos();
+      console.log("Entro a datosUpdated");
+    }
+
+    setLoadSpinner(false);
+  };
 
   const divImageEditHandler = () => {
     fileInputRef.current.click();
@@ -46,7 +74,10 @@ export default function SettingsHome({ image, settingsHandler, changeSomethingIn
         </label>
         <input
           type="text"
-          name="text"
+          name="nickName"
+          maxlength="25"
+          defaultValue={nickName}
+          onChange={changeInputDatosHandler}
           placeholder="Edita tu NickName"
           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
         />
@@ -60,7 +91,10 @@ export default function SettingsHome({ image, settingsHandler, changeSomethingIn
         </label>
         <input
           type="text"
-          name="text"
+          name="estado"
+          maxlength="31"
+          defaultValue={estado}
+          onChange={changeInputDatosHandler}
           placeholder="Edita tu Estado"
           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
         />
@@ -77,11 +111,14 @@ export default function SettingsHome({ image, settingsHandler, changeSomethingIn
                 cursor: "pointer",
                 color: "white",
                 marginTop: 0.3,
-                
               }}
             />
           </div>
-          <img src={selectedFile && URL.createObjectURL(selectedFile) || image} className="w-16 h-16 rounded-full z-1" alt="" />
+          <img
+            src={(selectedFile && URL.createObjectURL(selectedFile)) || image}
+            className="w-16 h-16 rounded-full z-1"
+            alt=""
+          />
         </div>
         <div className="flex  justify-center items-start gap-5 text-[#cac7c7]">
           <CloseIcon
@@ -110,7 +147,7 @@ export default function SettingsHome({ image, settingsHandler, changeSomethingIn
                 border: "1px solid white",
               },
             }}
-            onClick={setChangesHandler}
+            onClick={setChangesSubmit}
           />
         </div>
       </div>
