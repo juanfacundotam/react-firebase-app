@@ -15,7 +15,7 @@ function Home() {
     estado: "eee"
   });
   const [image, setImage] = useState("");
-  const [loadSpinner, setLoadSpinner] = useState(false);
+  const [loadSpinner, setLoadSpinner] = useState(true);
   const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
     useAuth();
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ function Home() {
     const datosSearched = await searchOrCreateDocument(user.email);
     console.log(datosSearched)
     setDatos(datosSearched);
+    setLoadSpinner(false)
   }
   async function getImage() {
     setImage(await searchOrCreateImage(user.email, user.photoURL));
