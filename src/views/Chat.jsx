@@ -9,6 +9,8 @@ import Spinner from "../components/spinner";
 
 export default function Chat() {
   const [loadSpinner, setLoadSpinner] = useState(true);
+  const [message, setMessage] = useState("");
+  const [messageArray, setMessageArray] = useState([]);
   const [datos, setDatos] = useState({
     nickName: "NickName",
     estado: "Estado",
@@ -18,11 +20,15 @@ export default function Chat() {
   const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
     useAuth();
   useEffect( ( )  => {
-
     getImage();
     getDatos()
     
   }, []);
+
+
+  async function SetMessageArrayFunction() {
+
+  }
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
@@ -33,6 +39,8 @@ export default function Chat() {
   async function getImage() {
     setImage(await searchOrCreateImage(user.email, user.photoURL));
   }
+
+  console.log(messageArray)
   return (
     <div className="flex justify-center items-center h-screen relative">
       {loadSpinner ? (
@@ -47,10 +55,10 @@ export default function Chat() {
               <UpBar />
             </div>
             <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-center items-center h-[82%] w-full mt-2">
-              <BodyMessage datos={datos} image={image}/>
+              <BodyMessage datos={datos} image={image} messageArray={messageArray}/>
             </div>
             <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
-              <SendMessage />
+              <SendMessage setMessage={setMessage} message={message} messageArray={messageArray} setMessageArray={setMessageArray}/>
             </div>
           </div>
         </>
