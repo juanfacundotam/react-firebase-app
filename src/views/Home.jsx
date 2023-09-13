@@ -10,23 +10,25 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Spinner from "../components/spinner";
 
 function Home() {
-  const [tareas, setTareas] = useState([]);
+  const [datos, setDatos] = useState({
+    nickName: "wwww",
+    estado: "eee"
+  });
   const [image, setImage] = useState("");
+  const [loadSpinner, setLoadSpinner] = useState(false);
   const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
     useAuth();
   const navigate = useNavigate();
-const changeSomethingInSettings = () => {
-  console.log("change")
-}
+
   useEffect(() => {
     getImage();
-    getTareas();
-  }, [changeSomethingInSettings]);
+    getDatos();
+  }, []);
 
-
-  async function getTareas() {
-    const tasksSearched = await searchOrCreateDocument(user.email);
-    setTareas(tasksSearched);
+  async function getDatos() {
+    const datosSearched = await searchOrCreateDocument(user.email);
+    console.log(datosSearched)
+    setDatos(datosSearched);
   }
   async function getImage() {
     setImage(await searchOrCreateImage(user.email, user.photoURL));
@@ -41,7 +43,7 @@ const changeSomethingInSettings = () => {
     // navigate("/login");  Ya no haria falta esto porque lo hace el componente ProtectedRoute
   };
 
-  if (loading) return <h1>Loading</h1>;
+  if (loading) return <Spinner />;
 
   return (
     <div className="flex flex-col justify-center items-center  relative">
@@ -53,18 +55,18 @@ const changeSomethingInSettings = () => {
         <LogoutIcon />
       </div>
 
-      {/* <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full" /> */}
-      {/* <h1>Wellcome {user.displayName || user.email}</h1> */}
       <CardEmployees
-      changeSomethingInSettings ={changeSomethingInSettings}
+      setLoadSpinner={setLoadSpinner}
+      loadSpinner={loadSpinner}
+      getImage={getImage}
+      getDatos={getDatos}
         image={image}
-        name={user.displayName || user.email}
+        nickName={datos.nickName || "" }
+        estado={datos.estado || ""}
+        setDatos={setDatos}
+        datos={datos}
         rol="FullStack Developer"
       />
-
-      {/* <div className="border-b-2 w-96"></div> */}
-      {/* <AddTask tareas={tareas} setTareas={setTareas} /> */}
-      {/* <ListTask tareas={tareas} setTareas={setTareas} /> */}
     </div>
   );
 }
