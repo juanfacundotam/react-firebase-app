@@ -587,6 +587,11 @@ video {
   margin-bottom: 1.25rem;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -645,6 +650,10 @@ video {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mb-auto {
+  margin-bottom: auto;
 }
 
 .block {
@@ -748,6 +757,10 @@ video {
   height: 3rem;
 }
 
+.h-32 {
+  height: 8rem;
+}
+
 .max-h-\[45\%\] {
   max-height: 45%;
 }
@@ -756,8 +769,44 @@ video {
   max-height: 50px;
 }
 
+.max-h-\[30\%\] {
+  max-height: 30%;
+}
+
+.max-h-\[35\%\] {
+  max-height: 35%;
+}
+
+.max-h-\[33\%\] {
+  max-height: 33%;
+}
+
+.max-h-\[34\%\] {
+  max-height: 34%;
+}
+
+.max-h-\[20\%\] {
+  max-height: 20%;
+}
+
+.max-h-\[28\%\] {
+  max-height: 28%;
+}
+
+.max-h-\[29\%\] {
+  max-height: 29%;
+}
+
+.max-h-\[100px\] {
+  max-height: 100px;
+}
+
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-\[40px\] {
+  min-height: 40px;
 }
 
 .w-10 {
@@ -853,12 +902,24 @@ video {
   max-width: 24rem;
 }
 
+.max-w-2xl {
+  max-width: 42rem;
+}
+
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.resize-none {
+  resize: none;
+}
+
+.resize {
+  resize: both;
 }
 
 .flex-col {
@@ -925,6 +986,10 @@ video {
   overflow: hidden;
 }
 
+.overflow-visible {
+  overflow: visible;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -971,6 +1036,10 @@ video {
 
 .border-b-\[1px\] {
   border-bottom-width: 1px;
+}
+
+.border-t {
+  border-top-width: 1px;
 }
 
 .border-\[\#646464\] {
@@ -1086,6 +1155,10 @@ video {
   padding: 1.25rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -1176,6 +1249,10 @@ video {
   font-weight: 500;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .text-\[\#45baf0\] {
   --tw-text-opacity: 1;
   color: rgb(69 186 240 / var(--tw-text-opacity));
@@ -1223,6 +1300,11 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .shadow {
