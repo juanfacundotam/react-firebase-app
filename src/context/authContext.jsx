@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
     // Si la función se ejecuta correctamente, puedes realizar acciones adicionales aquí.
   };
 
-  const searchOrCreateDocument = async (idDocumento) => {
+  const searchOrCreateDocument = async (idDocumento, datos) => {
     //crear referencia al documento
     const docRef = doc(firestore, `usuarios/${idDocumento}`);
     //buscar documento
@@ -73,16 +73,36 @@ export function AuthProvider({ children }) {
       // si, existe
       console.log("Entro en existe consulta");
       const infoDoc = consulta.data();
-      return infoDoc.tareas;
+      return infoDoc.datos;
     } else {
       console.log("Entro en NO existe consulta");
       // no, no existe
-      await setDoc(docRef, { tareas: [...arrayTasks] });
+      await setDoc(docRef, { datos: {nickName: user.displayName || user.email, estado:'...'} });
       const consulta = await getDoc(docRef);
       const infoDoc = consulta.data();
       return infoDoc.tareas;
     }
   };
+  // const searchOrCreateDocument = async (idDocumento) => {
+  //   //crear referencia al documento
+  //   const docRef = doc(firestore, `usuarios/${idDocumento}`);
+  //   //buscar documento
+  //   const consulta = await getDoc(docRef);
+  //   // revisar si existe
+  //   if (consulta.exists()) {
+  //     // si, existe
+  //     console.log("Entro en existe consulta");
+  //     const infoDoc = consulta.data();
+  //     return infoDoc.tareas;
+  //   } else {
+  //     console.log("Entro en NO existe consulta");
+  //     // no, no existe
+  //     await setDoc(docRef, { tareas: [...arrayTasks] });
+  //     const consulta = await getDoc(docRef);
+  //     const infoDoc = consulta.data();
+  //     return infoDoc.tareas;
+  //   }
+  // };
 
   const deleteTask = async (updatedTasks) => {
     console.log(updatedTasks);
@@ -180,8 +200,6 @@ export function AuthProvider({ children }) {
     const listResult = await listAll(documentosRef);
     listResult.items.forEach(async (item) => await deleteObject(item));
 
-
-
     const archivoRef = ref(documentosRef, archive.name);
     await uploadBytes(archivoRef, archive);
     const urlDownload = await getDownloadURL(archivoRef);
@@ -189,6 +207,17 @@ export function AuthProvider({ children }) {
     const docRef =  doc(firestore, `usuarios/${idDocumento}`);
     await updateDoc(docRef, { newImage: urlDownload });
     return urlDownload;
+  };
+
+  const addDatos = async (datosUpdated) => {
+    try {
+      const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      await updateDoc(userDocRef, { datos: datosUpdated });
+      return datosUpdated;
+    } catch (error) {
+      console.error("Error al agregar los datos:", error);
+      // Manejar el error aquí
+    }
   };
 
 
@@ -217,6 +246,7 @@ export function AuthProvider({ children }) {
         addFile,
         searchOrCreateImage,
         addNewImage,
+        addDatos,
       }}
     >
       {children}
