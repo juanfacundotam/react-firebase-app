@@ -1,8 +1,15 @@
 import React, {useState} from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-export default function PublicChannels() {
+
+const channel = ["General", "Ciclismo"]
+
+export default function PublicChannels({setActiveChannel}) {
   const [openChannels, setOpenChannels] = useState(true)
+
+  const setChannel = (channel) => {
+    setActiveChannel(channel)
+  }
 
   return (
 <>
@@ -18,23 +25,11 @@ export default function PublicChannels() {
       </div>
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
-        <p className="ml-5"># General</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo B</p>
+      {channel.map((item, index) => {
+        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item)}}># {item}</p>)
+      })}
+        
+
 
  
       </div>}
