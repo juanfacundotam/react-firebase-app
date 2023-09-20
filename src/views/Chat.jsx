@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import Channels from "../components/ChatContainers/Channels";
@@ -8,6 +8,7 @@ import SendMessage from "../components/ChatContainers/SendMessage";
 import Spinner from "../components/spinner";
 
 export default function Chat() {
+  const anchor = useRef()
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
   const [messageArray, setMessageArray] = useState([]);
@@ -54,11 +55,11 @@ export default function Chat() {
             <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
               <UpBar />
             </div>
-            <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
-              <BodyMessage datos={datos} image={image} messageArray={messageArray}/>
+            <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar"  >
+              <BodyMessage messageArray={messageArray} anchor={anchor}/>
             </div>
             <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
-              <SendMessage setMessage={setMessage} message={message} messageArray={messageArray} setMessageArray={setMessageArray}/>
+              <SendMessage setMessage={setMessage} message={message} messageArray={messageArray} setMessageArray={setMessageArray} datos={datos} user={user.email} image={image} anchor={anchor}/>
             </div>
           </div>
         </>
