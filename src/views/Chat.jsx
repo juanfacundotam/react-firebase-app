@@ -9,6 +9,7 @@ import Spinner from "../components/spinner";
 
 export default function Chat() {
   const anchor = useRef()
+
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
   const [messageArray, setMessageArray] = useState([]);
@@ -59,7 +60,7 @@ export default function Chat() {
               <BodyMessage messageArray={messageArray} anchor={anchor}/>
             </div>
             <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
-              <SendMessage setMessage={setMessage} message={message} messageArray={messageArray} setMessageArray={setMessageArray} datos={datos} user={user.email} image={image} anchor={anchor}/>
+              <SendMessage setMessage={setMessage} message={message} messageArray={messageArray} setMessageArray={setMessageArray}  datos={datos} user={user.email} image={image} anchor={anchor}/>
             </div>
           </div>
         </>
