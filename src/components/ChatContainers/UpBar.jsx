@@ -1,11 +1,11 @@
 import React from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SearchIcon from '@mui/icons-material/Search';
-export default function UpBar() {
+export default function UpBar({activeChannel}) {
   return (
     <div className="flex justify-between items-center w-[98%] h-full">
       <div>
-        <h1>#General</h1>
+        <h1># {activeChannel || "???"}</h1>
       </div>
       <div className="flex justify-between items-center gap-1 ">
         <AddCircleIcon
