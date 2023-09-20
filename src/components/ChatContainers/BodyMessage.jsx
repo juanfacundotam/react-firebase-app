@@ -6,7 +6,7 @@ export default function BodyMessage({ datos, image, messageArray, anchor }) {
 
   const [currentName, setCurrentName] = useState("");
   return (
-    <div className=" flex flex-col justify-start items-start border-2 w-full h-fit" ref={anchor}>
+    <div className=" flex flex-col justify-start items-start border-2 w-full h-fit" >
       {/* <Perfil datos={datos} image={image}/> */}
       {messageArray.map((item, index) => {
         return (
@@ -43,6 +43,7 @@ export default function BodyMessage({ datos, image, messageArray, anchor }) {
           </div>
         );
       })}
+      <div ref={anchor} className="mt-[45px]"></div>
     </div>
   );
 }
