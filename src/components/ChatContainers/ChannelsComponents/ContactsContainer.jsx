@@ -1,8 +1,16 @@
 import React, {useState} from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-export default function ContactsContainer() {
+
+const contact = ["Juan Pérez", "Josefina Gómez"]
+
+export default function ContactsContainer({setActiveChannel}) {
   const [openChannels, setOpenChannels] = useState(true)
+
+  const setContact = (contact) => {
+    setActiveChannel(contact)
+  }
+
 
   return (
 <>
@@ -18,32 +26,9 @@ export default function ContactsContainer() {
       </div>
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
-        <p className="ml-5"># General</p>
-        <p className="ml-5"># Grupo A</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
-        <p className="ml-5"># Grupo B</p>
+      {contact.map((item, index) => {
+        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item)}}># {item}</p>)
+      })}
 
  
       </div>}
