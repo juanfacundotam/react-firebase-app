@@ -2,19 +2,22 @@ import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-export default function SendMessage({setMessage, message, messageArray, setMessageArray}) {
 
+export default function SendMessage({setMessage, message, messageArray, setMessageArray, user, datos, image, anchor}) {
 
   const setMessageHandler = (e) => {
 setMessage(e.target.value)
   }
-  console.log(message)
   const handleKeyPress = (e) => {
+    console.log(datos)
     if (e.key === 'Enter') {
+      const hora = new Date();
+      const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
       console.log("enviado: ", message)
-      setMessageArray([...messageArray, message])
+      setMessageArray([...messageArray, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
     setMessage("")
+    anchor.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   };
 
