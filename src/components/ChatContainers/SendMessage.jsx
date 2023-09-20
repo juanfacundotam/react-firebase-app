@@ -10,7 +10,7 @@ setMessage(e.target.value)
   }
   const handleKeyPress = (e) => {
     console.log(datos)
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && message !== "") {
       const hora = new Date();
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
