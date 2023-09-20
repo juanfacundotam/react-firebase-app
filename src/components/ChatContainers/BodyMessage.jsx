@@ -9,7 +9,7 @@ export default function BodyMessage({ datos, image, messageArray }) {
       {/* <Perfil datos={datos} image={image}/> */}
       {messageArray.map((item, index) => {
         return (
-          <div className="border-2 flex justify-center items-start w-full h-full text-white">
+          <div key={index} className="border-2 flex justify-center items-start w-full h-full text-white">
         
               <img
                 src={image}
@@ -36,7 +36,7 @@ export default function BodyMessage({ datos, image, messageArray }) {
 
 
               <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white ">
-                <p>{item.mensaje}sssssssssss</p>
+                <p>{item}</p>
               </div>
             </div>
           </div>
