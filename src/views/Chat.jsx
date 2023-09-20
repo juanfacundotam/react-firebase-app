@@ -54,7 +54,7 @@ export default function Chat() {
             <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
               <UpBar />
             </div>
-            <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-center items-center h-[82%] w-full mt-2">
+            <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
               <BodyMessage datos={datos} image={image} messageArray={messageArray}/>
             </div>
             <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
