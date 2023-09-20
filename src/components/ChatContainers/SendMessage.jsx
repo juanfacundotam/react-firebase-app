@@ -3,7 +3,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
-export default function SendMessage({setMessage, message, messageArray, setMessageArray, user, datos, image, anchor}) {
+export default function SendMessage({setMessage, message, messageArray, setMessageArray, user, datos, image, anchor, scrollAmount}) {
 
   const setMessageHandler = (e) => {
 setMessage(e.target.value)
@@ -17,6 +17,13 @@ setMessage(e.target.value)
       console.log("enviado: ", message)
       setMessageArray([...messageArray, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
     setMessage("")
+
+// Cantidad de desplazamiento necesaria
+
+// anchor.scrollTo({
+//   top: scrollAmount,
+//   behavior: 'smooth',
+// });
     anchor.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   };
