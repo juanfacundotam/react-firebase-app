@@ -647,6 +647,18 @@ video {
   margin-top: auto;
 }
 
+.mb-\[55px\] {
+  margin-bottom: 55px;
+}
+
+.mt-\[55px\] {
+  margin-top: 55px;
+}
+
+.mt-\[45px\] {
+  margin-top: 45px;
+}
+
 .block {
   display: block;
 }
