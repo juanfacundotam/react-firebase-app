@@ -2,13 +2,12 @@ import React, { useState} from "react";
 import Message from "./BodyComponents/Message";
 import Perfil from "./BodyComponents/Perfil";
 
-export default function BodyMessage({ datos, image, messageArray, anchor }) {
+export default function BodyMessage({messageArray, anchor }) {
 
-  const [currentName, setCurrentName] = useState("");
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit" >
       {/* <Perfil datos={datos} image={image}/> */}
-      {messageArray.map((item, index) => {
+      {/* {messageArray ? messageArray.map((item, index) => {
         return (
           <div key={index}  className=" flex justify-center items-start w-full h-full text-white">
         
@@ -37,12 +36,12 @@ export default function BodyMessage({ datos, image, messageArray, anchor }) {
 
 
               <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white ">
-                <p>{item.message}</p>
+                <p>{item}</p>
               </div>
             </div>
           </div>
         );
-      })}
+      }) : null} */}
       <div ref={anchor} className="mt-[45px]"></div>
     </div>
   );
