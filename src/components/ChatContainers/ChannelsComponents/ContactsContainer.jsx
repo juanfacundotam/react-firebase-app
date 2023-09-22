@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const contact = ["Juan Pérez", "Josefina Gómez"]
 
-export default function ContactsContainer({setActiveChannel}) {
+
+export default function ContactsContainer({setActiveChannel, contact}) {
   const [openChannels, setOpenChannels] = useState(true)
 
   const setContact = (contact) => {
@@ -27,7 +27,7 @@ export default function ContactsContainer({setActiveChannel}) {
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
       {contact.map((item, index) => {
-        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item)}}># {item}</p>)
+        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.name)}}># {item.name}</p>)
       })}
 
  
