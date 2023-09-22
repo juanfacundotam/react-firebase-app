@@ -26,7 +26,7 @@ export default function PublicChannels({setActiveChannel, channel}) {
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
       {channel.map((item, index) => {
-        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.name)}}># {item.name}</p>)
+        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.name)}}># {item.name}</p>)
       })}
         
 
