@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const channel = ["General", "Ciclismo"]
 
-export default function PublicChannels({setActiveChannel}) {
+
+export default function PublicChannels({setActiveChannel, channel}) {
   const [openChannels, setOpenChannels] = useState(true)
 
   const setChannel = (channel) => {
@@ -26,7 +26,7 @@ export default function PublicChannels({setActiveChannel}) {
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
       {channel.map((item, index) => {
-        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item)}}># {item}</p>)
+        return (<p className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.name)}}># {item.name}</p>)
       })}
         
 
