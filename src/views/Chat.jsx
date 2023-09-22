@@ -14,19 +14,22 @@ export default function Chat() {
 
   const channelsFiltered = messageData.filter(channel => channel.category === "channel")
   const contactFiltered = messageData.filter(channel => channel.category === "contact")
-
-  console.log(channelsFiltered)
-  console.log(contactFiltered)
-
+  
+  const [activeChannel, setActiveChannel] = useState("");
+  
   const anchor = useRef();
   const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
-    useAuth();
+  useAuth();
+  
   useEffect(() => {
     getImage();
     getDatos();
   }, []);
+  
+  useEffect(()=> {
+    setMessageArray(messageData.filter((item)=> item.name === activeChannel).message)
+  }, [activeChannel])
 
-  const [activeChannel, setActiveChannel] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
   const [messageArray, setMessageArray] = useState([]);
