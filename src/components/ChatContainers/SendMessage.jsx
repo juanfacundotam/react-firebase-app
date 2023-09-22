@@ -15,7 +15,7 @@ setMessage(e.target.value)
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
       console.log("enviado: ", message)
-      setMessageArray([...messageArray, {date: formattedTime, user: datos.user,  message: datos.message, nickName: datos.nickName, estado: datos.estado, image: datos.image}])
+      setMessageArray([...messageArray, {date: formattedTime, user: datos.user,  message: message, nickName: datos.nickName, estado: datos.estado, image: datos.image}])
     setMessage("")
 
 // Cantidad de desplazamiento necesaria
