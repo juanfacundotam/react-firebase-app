@@ -7,35 +7,36 @@ import BodyMessage from "../components/ChatContainers/BodyMessage";
 import SendMessage from "../components/ChatContainers/SendMessage";
 import Spinner from "../components/spinner";
 
-const messageData = [{name: "General", category: "channel",  message: []}, {name: "Ciclismo", category: "channel", message: []}, , {name: "Juan Pedro", category: "contact", message: []}]
-
+const messageData = [
+  { name: "General", category: "channel", message: [] },
+  { name: "Ciclismo", category: "channel", message: [] },
+  ,
+  {
+    name: "Juan Pedro",
+    category: "contact",
+    message: ["Hola, como estas?", "Soy Juan"],
+  },
+];
 
 export default function Chat() {
+  const channelsFiltered = messageData.filter(
+    (channel) => channel.category === "channel"
+  );
+  const contactFiltered = messageData.filter(
+    (channel) => channel.category === "contact"
+  );
 
-  const channelsFiltered = messageData.filter(channel => channel.category === "channel")
-  const contactFiltered = messageData.filter(channel => channel.category === "contact")
-  
   const [activeChannel, setActiveChannel] = useState("");
-  
-  const anchor = useRef();
-  const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
-  useAuth();
-  
-  useEffect(() => {
-    getImage();
-    getDatos();
-  }, []);
-  
-  useEffect(()=> {
-    setMessageArray(messageData.filter((item)=> item.name === activeChannel).message)
-  }, [activeChannel])
-
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
-  const [messageArray, setMessageArray] = useState([]);
+  const [messageArray, setMessageArray] = useState({});
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
+
+  const anchor = useRef();
+  const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
+    useAuth();
   const [datos, setDatos] = useState({
     user: user.email,
     nickName: "NickName",
@@ -43,15 +44,25 @@ export default function Chat() {
     image: image,
   });
 
+  useEffect(() => {
+    getImage();
+    getDatos();
+  }, []);
 
-console.log(activeChannel)
+  useEffect(() => {
+    let dataFiltered = messageData.filter(
+      (item) => item.name === activeChannel
+    );
+    let messageFiltered = dataFiltered.length ? dataFiltered[0].message.map((item) => item) : [];
+    console.log(messageFiltered);
+    setMessageArray(messageFiltered);
 
-
+  }, [activeChannel]);
+console.log(messageArray)
   async function SetMessageArrayFunction() {}
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
-    console.log(datosSearched);
     setDatos(datosSearched);
     setLoadSpinner(false);
   }
@@ -59,7 +70,6 @@ console.log(activeChannel)
     setImage(await searchOrCreateImage(user.email, user.photoURL));
   }
 
-  console.log(messageArray);
   return (
     <div className="flex justify-center items-center h-screen relative">
       {loadSpinner ? (
@@ -67,11 +77,15 @@ console.log(activeChannel)
       ) : (
         <>
           <div className="bg-[#202123] flex flex-col justify-start items-center h-full w-[20%]">
-            <Channels  setActiveChannel={setActiveChannel} channelsFiltered={channelsFiltered} contactFiltered={contactFiltered}/>
+            <Channels
+              setActiveChannel={setActiveChannel}
+              channelsFiltered={channelsFiltered}
+              contactFiltered={contactFiltered}
+            />
           </div>
           <div className="bg-[#343541] flex flex-col justify-start items-center h-full w-[80%]">
             <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
-              <UpBar activeChannel={activeChannel}/>
+              <UpBar activeChannel={activeChannel} />
             </div>
             {activeChannel ? (
               <>
