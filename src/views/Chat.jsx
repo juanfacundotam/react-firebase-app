@@ -59,6 +59,8 @@ export default function Chat() {
 
   }, [activeChannel]);
 console.log(messageArray)
+
+
   async function SetMessageArrayFunction() {}
 
   async function getDatos() {
