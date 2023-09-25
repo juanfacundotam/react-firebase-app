@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 
 
-export default function PublicChannels({setActiveChannel, channel, messageArray}) {
+export default function PublicChannels({setActiveChannel, channel, messageObject}) {
   const [openChannels, setOpenChannels] = useState(true)
 
   const setChannel = (channel) => {
