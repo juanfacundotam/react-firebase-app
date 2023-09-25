@@ -7,7 +7,7 @@ export default function BodyMessage({messageArray, anchor }) {
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit" >
       {/* <Perfil datos={datos} image={image}/> */}
-      {/* {messageArray ? messageArray.map((item, index) => {
+      {messageArray ? messageArray.map((item, index) => {
         return (
           <div key={index}  className=" flex justify-center items-start w-full h-full text-white">
         
@@ -17,7 +17,7 @@ export default function BodyMessage({messageArray, anchor }) {
                 alt=""
               />
 
-            <div className="flex flex-col justify-center items-end w-full h-full">
+             <div className="flex flex-col justify-center items-end w-full h-full">
 
 
               <div className="flex  justify-start items-center w-full  gap-3">
@@ -36,12 +36,12 @@ export default function BodyMessage({messageArray, anchor }) {
 
 
               <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white ">
-                <p>{item}</p>
+                <p>{item.message}</p>
               </div>
             </div>
           </div>
         );
-      }) : null} */}
+      }) : null}
       <div ref={anchor} className="mt-[45px]"></div>
     </div>
   );
