@@ -25,6 +25,16 @@ const messageData = [
       {
         date: "2023-09-25T19:51:24.320Z",
         estado: "Desarrollador apasionado",
+        name: "facundo",
+        message: "Tanto tiempo!",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+        nickName: "Juan Facundo Tam",
+        user: "facutam@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
         name: "Javier",
         message: "Hola!",
         image:
@@ -47,6 +57,16 @@ const messageData = [
         estado: "Desarrollador apasionado",
         name: "facundo",
         message: "Bien y vos?",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+        nickName: "Juan Facundo Tam",
+        user: "facutam@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "facundo",
+        message: "Que se cuenta?",
         image:
           "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
         nickName: "Juan Facundo Tam",
