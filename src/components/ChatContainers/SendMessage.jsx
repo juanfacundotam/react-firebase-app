@@ -3,7 +3,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
-export default function SendMessage({setMessage, message, messageArray, setMessageArray, datos, user, image, anchor, scrollAmount}) {
+export default function SendMessage({setMessage, message, messageObject , setMessageObject , datos, user, image, anchor, scrollAmount}) {
   const setMessageHandler = (e) => {
 setMessage(e.target.value)
   }
@@ -15,7 +15,7 @@ setMessage(e.target.value)
       // Llama a tu función aquí cuando se presiona "Enter"
       console.log("enviado: ", message)
       console.log(datos.user)
-      setMessageArray([...messageArray, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
+      setMessageObject([...messageObject, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
     setMessage("")
 
 // Cantidad de desplazamiento necesaria
