@@ -24,8 +24,8 @@ export default function BodyMessage({ messageObject, anchor, user }) {
                     alt=""
                   />
 
-                  <div className="flex flex-col justify-center items-end w-full h-full">
-                    <div className="flex  justify-start items-center w-full  gap-3">
+                  <div className="flex flex-col justify-center items-end w-full h-full ">
+                    <div className="flex  justify-start items-center w-full  gap-3 ">
                       <h1 className="text-xs text-gray-200 mt-auto">
                         {item.nickName}
                       </h1>
@@ -36,7 +36,7 @@ export default function BodyMessage({ messageObject, anchor, user }) {
                       <h2 className="text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
                     </div>
 
-                    <div className=" text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white ">
+                    <div className=" text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white border-2">
                       <p>{item.message}</p>
                     </div>
                   </div>
@@ -47,10 +47,10 @@ export default function BodyMessage({ messageObject, anchor, user }) {
                 <div
                   key={index}
                   className={
-                    "border-2 flex  justify-end items-start w-full  h-full text-white"
+                    " flex  justify-end items-start w-full  h-full text-white"
                   }
                 >
-                  <div className="flex border-2 flex-col whitespace-nowrap mr-3 "> 
+                  <div className="flex  flex-col whitespace-nowrap mr-3 ">
                     
                     <div className="flex  justify-start items-center w-full  gap-3">
                       <h2 className="text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
@@ -63,7 +63,7 @@ export default function BodyMessage({ messageObject, anchor, user }) {
                
 
                     </div>
-                    <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-end w-full h-full gap-y-1 text-white ">
+                    <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-end w-full h-full gap-y-1 text-white border-2">
                       <p>{item.message}</p>
                     </div>
 
