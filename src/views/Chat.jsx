@@ -12,9 +12,37 @@ const messageData = [
   { name: "Ciclismo", category: "channel", message: [] },
   ,
   {
+    date: "2023-09-25T19:51:24.320Z",
+    estado: "Desarrollador apasionado",
     name: "Juan Pedro",
     category: "contact",
-    message: ["Hola, como estas?", "Soy Juan"],
+    message: "Hola, como estas?",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+    nickName: "Juan Facundo Tam",
+    user: "facutam@gmail.com",
+  },
+  {
+    date: "2023-09-25T19:51:24.320Z",
+    estado: "Desarrollador apasionado",
+    name: "Juan Pedro",
+    category: "contact",
+    message: "todo bien?",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+    nickName: "Juan Facundo Tam",
+    user: "facutam@gmail.com",
+  },
+  {
+    date: "2023-09-25T19:51:24.320Z",
+    estado: "Desarrollador apasionado",
+    name: "Juan Pedro",
+    category: "contact",
+    message: "Espero que si!",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+    nickName: "Juan Facundo Tam",
+    user: "facutam@gmail.com",
   },
 ];
 
@@ -53,13 +81,14 @@ export default function Chat() {
     let dataFiltered = messageData.filter(
       (item) => item.name === activeChannel
     );
-    let messageFiltered = dataFiltered.length ? dataFiltered[0].message.map((item) => item) : [];
-    console.log(messageFiltered);
-    setMessageArray(messageFiltered);
-
+    console.log(dataFiltered)
+    // let messageFiltered = dataFiltered.length
+    //   ? dataFiltered[0].message.map((item) => item)
+    //   : [];
+    // console.log(messageFiltered);
+    setMessageArray(dataFiltered);
   }, [activeChannel]);
-console.log(messageArray)
-
+  console.log(messageArray);
 
   async function SetMessageArrayFunction() {}
 
