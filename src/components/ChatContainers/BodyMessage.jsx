@@ -15,7 +15,7 @@ export default function BodyMessage({ messageObject, anchor, user }) {
                 <div
                   key={index}
                   className={
-                    "border-2 flex justify-end items-end w-full h-full text-white"
+                    " flex justify-end items-end w-full h-full text-white"
                   }
                 >
                   <img
