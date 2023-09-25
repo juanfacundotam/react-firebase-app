@@ -8,41 +8,90 @@ import SendMessage from "../components/ChatContainers/SendMessage";
 import Spinner from "../components/spinner";
 
 const messageData = [
-  { name: "General", category: "channel", message: [] },
+  {
+    name: "General",
+    category: "channel",
+    message: [
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "facundo",
+        message: "Hola!",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+        nickName: "Juan Facundo Tam",
+        user: "facutam@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "Javier",
+        message: "Hola!",
+        image:
+        "https://i.pravatar.cc/300",
+        nickName: "Javi",
+        user: "Javier@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "facundo",
+        message: "Como va!",
+        image:
+        "https://i.pravatar.cc/300",
+        nickName: "Javi",
+        user: "Javier@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "facundo",
+        message: "Bien y vos?",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+        nickName: "Juan Facundo Tam",
+        user: "facutam@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "facundo",
+        message: "Todo muy bien!",
+        image:
+        "https://i.pravatar.cc/300",
+        nickName: "Javi",
+        user: "Javier@gmail.com",
+      },
+    ],
+  },
+
   { name: "Ciclismo", category: "channel", message: [] },
-  ,
+
   {
-    date: "2023-09-25T19:51:24.320Z",
-    estado: "Desarrollador apasionado",
     name: "Juan Pedro",
     category: "contact",
-    message: "Hola, como estas?",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-    nickName: "Juan Facundo Tam",
-    user: "facutam@gmail.com",
-  },
-  {
-    date: "2023-09-25T19:51:24.320Z",
-    estado: "Desarrollador apasionado",
-    name: "Juan Pedro",
-    category: "contact",
-    message: "todo bien?",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-    nickName: "Juan Facundo Tam",
-    user: "facutam@gmail.com",
-  },
-  {
-    date: "2023-09-25T19:51:24.320Z",
-    estado: "Desarrollador apasionado",
-    name: "Juan Pedro",
-    category: "contact",
-    message: "Espero que si!",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-    nickName: "Juan Facundo Tam",
-    user: "facutam@gmail.com",
+    message: [
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "Juan Pedro",
+        message: "todo bien?",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+        nickName: "Juan Facundo Tam",
+        user: "facutam@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:58:24.320Z",
+        estado: "Data Science",
+        name: "Juan Pedro",
+        message: "bien, vos?",
+        image:
+          "https://i.pravatar.cc/300",
+        nickName: "JP",
+        user: "jpedro@gmail.com",
+      },
+    ],
   },
 ];
 
@@ -57,7 +106,7 @@ export default function Chat() {
   const [activeChannel, setActiveChannel] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
-  const [messageArray, setMessageArray] = useState({});
+  const [messageObject, setMessageObject] = useState({});
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
@@ -78,19 +127,28 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
+    loadMassageObject();
+  }, [activeChannel]);
+
+  function loadMassageObject() {
     let dataFiltered = messageData.filter(
       (item) => item.name === activeChannel
     );
-    console.log(dataFiltered)
+    setMessageObject(dataFiltered[0]);
+    // setMessageObject(dataFiltered.message)
+    // if(dataFiltered.category === "channel"){
+    //   setMessageObject(dataFiltered);
+    // } else {
+    //   console.log(dataFiltered)
+    // }
     // let messageFiltered = dataFiltered.length
-    //   ? dataFiltered[0].message.map((item) => item)
+    //   ? dataFiltered[0].date.sort()
     //   : [];
-    // console.log(messageFiltered);
-    setMessageArray(dataFiltered);
-  }, [activeChannel]);
-  console.log(messageArray);
 
-  async function SetMessageArrayFunction() {}
+    // console.log(messageFiltered);
+    // setmessageObject(dataFiltered);
+  }
+  console.log(messageObject);
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
@@ -121,14 +179,14 @@ export default function Chat() {
             {activeChannel ? (
               <>
                 <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
-                  <BodyMessage messageArray={messageArray} anchor={anchor} />
+                  <BodyMessage messageObject={messageObject} anchor={anchor} user={user.email}/>
                 </div>
                 <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
                   <SendMessage
                     setMessage={setMessage}
                     message={message}
-                    messageArray={messageArray}
-                    setMessageArray={setMessageArray}
+                    messageObject={messageObject}
+                    setMessageObject={setMessageObject}
                     datos={datos}
                     user={user.email}
                     image={image}
