@@ -126,7 +126,7 @@ export default function Chat() {
   const [activeChannel, setActiveChannel] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
-  const [messageObject, setMessageObject] = useState({});
+  const [messageChats, setMessageChats] = useState({});
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
@@ -154,10 +154,10 @@ export default function Chat() {
     let dataFiltered = messageData.filter(
       (item) => item.name === activeChannel
     );
-    setMessageObject(dataFiltered[0]);
-    // setMessageObject(dataFiltered.message)
+    setMessageChats(dataFiltered[0]);
+    // setMessageChats(dataFiltered.message)
     // if(dataFiltered.category === "channel"){
-    //   setMessageObject(dataFiltered);
+    //   setMessageChats(dataFiltered);
     // } else {
     // }
     // let messageFiltered = dataFiltered.length
@@ -166,6 +166,7 @@ export default function Chat() {
 
     // setmessageObject(dataFiltered);
   }
+  console.log(messageChats)
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
@@ -196,14 +197,14 @@ export default function Chat() {
             {activeChannel ? (
               <>
                 <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
-                  <BodyMessage messageObject={messageObject} anchor={anchor} user={user.email}/>
+                  <BodyMessage messageChats={messageChats} anchor={anchor} user={user.email}/>
                 </div>
                 <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
                   <SendMessage
                     setMessage={setMessage}
                     message={message}
-                    messageObject={messageObject}
-                    setMessageObject={setMessageObject}
+                    messageChats={messageChats}
+                    setMessageChats={setMessageChats}
                     datos={datos}
                     user={user.email}
                     image={image}
