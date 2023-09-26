@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Message from "./BodyComponents/Message";
 import Perfil from "./BodyComponents/Perfil";
 
-export default function BodyMessage({ messageObject, anchor, user }) {
+export default function BodyMessage({ messageChats, anchor, user }) {
   let current = "";
   let firstCurrent = true;
   let flagCurrent = true;
@@ -10,8 +10,8 @@ export default function BodyMessage({ messageObject, anchor, user }) {
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit">
       {/* <Perfil datos={datos} image={image}/> */}
-      {messageObject && messageObject.message
-        ? messageObject.message.map((item, index) => {
+      {messageChats && messageChats.message.length
+        ? messageChats.message.map((item, index) => {
             if (firstCurrent) {
               current = item.user;
               firstCurrent = false;
