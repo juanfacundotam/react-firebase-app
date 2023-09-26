@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import { useAuth } from "../../context/authContext";
 
 export default function SendMessage({
   setMessage,
@@ -14,6 +15,10 @@ export default function SendMessage({
   anchor,
   scrollAmount,
 }) {
+
+  const {sendMessageFirebase} =
+    useAuth();
+
   const setMessageHandler = (e) => {
     setMessage(e.target.value);
   };
@@ -39,9 +44,12 @@ export default function SendMessage({
       //   behavior: 'smooth',
       // });
       anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
+
+      sendMessageFirebase(messageChats)
+      console.log(messageChats)
     }
   };
-  console.log(messageChats);
+
 
   return (
     <div className=" bg-[#40414F] flex justify-center items-center w-[95%] h-[75%] max-h-[50px] rounded-lg text-white gap-3 ">
