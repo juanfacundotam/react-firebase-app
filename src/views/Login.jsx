@@ -31,7 +31,6 @@ function Login() {
       await login(user.email, user.password);
       navigate("/");
     } catch (error) {
-      console.log(error.code);
       if (error.code === "auth/invalid-email") {
         setError("Cuenta de correo inválida");
       } else if (error.code === "auth/wrong-password") {

@@ -159,16 +159,13 @@ export default function Chat() {
     // if(dataFiltered.category === "channel"){
     //   setMessageObject(dataFiltered);
     // } else {
-    //   console.log(dataFiltered)
     // }
     // let messageFiltered = dataFiltered.length
     //   ? dataFiltered[0].date.sort()
     //   : [];
 
-    // console.log(messageFiltered);
     // setmessageObject(dataFiltered);
   }
-  console.log(messageObject);
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);

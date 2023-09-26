@@ -27,7 +27,6 @@ function Home() {
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
-    console.log(datosSearched)
     setDatos(datosSearched);
     setLoadSpinner(false)
   }
