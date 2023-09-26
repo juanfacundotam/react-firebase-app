@@ -21,7 +21,6 @@ export default function CardEmployees({
   const settingsHandler = () => {
     setEditing(!editing);
   };
-  console.log(editing);
   return (
     <div className="relative flex flex-col justify-center items-center w-[500px] h-[300px] max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {loadSpinner ? (
