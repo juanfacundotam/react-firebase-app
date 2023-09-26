@@ -3,28 +3,45 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
-export default function SendMessage({setMessage, message, messageObject , setMessageObject , datos, user, image, anchor, scrollAmount}) {
+export default function SendMessage({
+  setMessage,
+  message,
+  messageChats,
+  setMessageChats,
+  datos,
+  user,
+  image,
+  anchor,
+  scrollAmount,
+}) {
   const setMessageHandler = (e) => {
-setMessage(e.target.value)
-  }
+    setMessage(e.target.value);
+  };
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && message !== "") {
+    if (e.key === "Enter" && message !== "") {
       const hora = new Date();
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
-      
-      setMessageObject([...messageObject.message, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
-    setMessage("")
 
-// Cantidad de desplazamiento necesaria
+      messageChats.message.push({
+        date: formattedTime,
+        user: user,
+        message: message,
+        nickName: datos.nickName,
+        estado: datos.estado,
+        image: image,
+      });
+      setMessage("")
+      // Cantidad de desplazamiento necesaria
 
-// anchor.scrollTo({
-//   top: scrollAmount,
-//   behavior: 'smooth',
-// });
-    anchor.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      // anchor.scrollTo({
+      //   top: scrollAmount,
+      //   behavior: 'smooth',
+      // });
+      anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   };
+  console.log(messageChats);
 
   return (
     <div className=" bg-[#40414F] flex justify-center items-center w-[95%] h-[75%] max-h-[50px] rounded-lg text-white gap-3 ">
@@ -36,7 +53,7 @@ setMessage(e.target.value)
       /> */}
 
       <input
-      type="text"
+        type="text"
         name="message"
         value={message}
         className="w-full min-h-[40px] resize-y h-fit focus:outline-none overflow-hidden bg-[#40414F] text-white text-[13px] p-2"
