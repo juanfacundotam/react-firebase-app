@@ -74,7 +74,10 @@ export function AuthProvider({ children }) {
       return infoDoc.datos;
     } else {
       // no, no existe
-      await setDoc(docRef, { datos: {nickName: user.displayName || user.email, estado:'...'} });
+      await setDoc(docRef, {
+        datos: { nickName: user.displayName || user.email, estado: "..." },
+        contacts: [],
+      });
       const consulta = await getDoc(docRef);
       const infoDoc = consulta.data();
       return infoDoc.tareas;
@@ -193,7 +196,7 @@ export function AuthProvider({ children }) {
     await uploadBytes(archivoRef, archive);
     const urlDownload = await getDownloadURL(archivoRef);
 
-    const docRef =  doc(firestore, `usuarios/${idDocumento}`);
+    const docRef = doc(firestore, `usuarios/${idDocumento}`);
     await updateDoc(docRef, { newImage: urlDownload });
     return urlDownload;
   };
@@ -209,6 +212,36 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const sendMessageFirebase = async (messageChats) => {
+    try {
+      if (messageChats.category === "channel") {
+        console.log("entro por channel");
+      } 
+      else {
+        const userDocRef = doc(firestore, `usuarios/${user.email}`);
+        const userDocSnap = await getDoc(userDocRef);
+        const userData =  userDocSnap.data();
+        console.log(userData)
+        const contactFiltered = userData.contacts.find(item => item.email === "jpedro@gmail.com")
+        if(contactFiltered){
+
+        }
+        console.log(contactFiltered)
+        // if(userData.contacts[0].email === "jpedro@gmail.com"){
+        //   console.log("entro por email")
+        // }
+        // userData.contacts.push(messageChats);
+        // await updateDoc(userDocRef, {contacts: userData.contacts});
+        // await updateDoc(userDocRef, { contacts: messageChats });
+      }
+      // const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      // await updateDoc(userDocRef, { datos: datosUpdated });
+      // return datosUpdated;
+    } catch (error) {
+      console.error("Error al agregar los datos:", error);
+      // Manejar el error aquí
+    }
+  };
 
   useEffect(() => {
     //con esto tambien veo ese objeto con la info. onAuthStateChanged detecta el cambio de sesion. si se logeo o cerro
@@ -236,6 +269,7 @@ export function AuthProvider({ children }) {
         searchOrCreateImage,
         addNewImage,
         addDatos,
+        sendMessageFirebase,
       }}
     >
       {children}
