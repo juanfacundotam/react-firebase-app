@@ -46,7 +46,6 @@ export function AuthProvider({ children }) {
   // const login = (email, password) => {
   //   //podemos guardar la respuesta que es un objeto con info
   //   const userCredencial = signInWithEmailAndPassword(auth, email, password)
-  //   console.log(userCredencial)
   // }
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
@@ -71,11 +70,9 @@ export function AuthProvider({ children }) {
     // revisar si existe
     if (consulta.exists()) {
       // si, existe
-      console.log("Entro en existe consulta");
       const infoDoc = consulta.data();
       return infoDoc.datos;
     } else {
-      console.log("Entro en NO existe consulta");
       // no, no existe
       await setDoc(docRef, { datos: {nickName: user.displayName || user.email, estado:'...'} });
       const consulta = await getDoc(docRef);
@@ -91,11 +88,11 @@ export function AuthProvider({ children }) {
   //   // revisar si existe
   //   if (consulta.exists()) {
   //     // si, existe
-  //     console.log("Entro en existe consulta");
+
   //     const infoDoc = consulta.data();
   //     return infoDoc.tareas;
   //   } else {
-  //     console.log("Entro en NO existe consulta");
+
   //     // no, no existe
   //     await setDoc(docRef, { tareas: [...arrayTasks] });
   //     const consulta = await getDoc(docRef);
@@ -105,7 +102,6 @@ export function AuthProvider({ children }) {
   // };
 
   const deleteTask = async (updatedTasks) => {
-    console.log(updatedTasks);
     try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
       await updateDoc(userDocRef, { tareas: [...updatedTasks] });
@@ -126,11 +122,9 @@ export function AuthProvider({ children }) {
     //   if (userDocAccess.exists()) {
     //     // Obtiene las tareas actuales del usuario
     //     const userTasks = userDocAccess.data().tareas;
-    //     console.log(userTasks)
 
     //     // Filtra las tareas para eliminar la que coincida con el ID proporcionado
     //     const updatedTasks = userTasks.filter((tarea) => tarea.id !== taskId);
-    //     console.log(updatedTasks)
     //     // Actualiza el documento del usuario con las tareas actualizadas
     //     await setDoc(userDocRef, { tareas: updatedTasks });
 
@@ -157,7 +151,6 @@ export function AuthProvider({ children }) {
   };
 
   const addFile = async (idDocumento, archive) => {
-    console.log(archive);
     const archivoRef = ref(
       storage,
       `documentos/${idDocumento}/${archive.name}`
@@ -174,19 +167,15 @@ export function AuthProvider({ children }) {
     let infoDoc = consulta.data();
 
     if (consulta.exists()) {
-      console.log("Existe consulta");
       if (infoDoc.hasOwnProperty("newImage")) {
-        console.log("Existe Propiedad");
         return infoDoc.newImage;
       } else {
-        console.log("No Existe Propiedad");
         await updateDoc(docRef, { newImage: fileURL });
         consulta = await getDoc(docRef);
         infoDoc = consulta.data();
         return infoDoc.newImage;
       }
     } else {
-      console.log("No existe consulta");
       // await setDoc(docRef, { newImage: fileURL });
       consulta = await getDoc(docRef);
       infoDoc = consulta.data();

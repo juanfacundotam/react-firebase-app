@@ -8,14 +8,12 @@ export default function SendMessage({setMessage, message, messageObject , setMes
 setMessage(e.target.value)
   }
   const handleKeyPress = (e) => {
-    console.log(datos)
     if (e.key === 'Enter' && message !== "") {
       const hora = new Date();
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
-      console.log("enviado: ", message)
-      console.log(datos.user)
-      setMessageObject([...messageObject, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
+      
+      setMessageObject([...messageObject.message, {date: formattedTime, user: user,  message: message, nickName: datos.nickName, estado: datos.estado, image: image}])
     setMessage("")
 
 // Cantidad de desplazamiento necesaria

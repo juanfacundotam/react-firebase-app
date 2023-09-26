@@ -29,13 +29,11 @@ export default function SettingsHome({
   const ImageInputChangeHandler = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    console.log(file);
     setEditImage(file);
     // Puedes hacer algo con el archivo seleccionado aquí si lo deseas.
   };
 
   const changeInputDatosHandler = (e) => {
-    console.log("cambiando");
     setDatosUpdated({ ...datosUpdated, [e.target.name]: e.target.value });
   };
 
@@ -53,7 +51,6 @@ export default function SettingsHome({
       ) {
         await addDatos(datosUpdated)
         await getDatos();
-      console.log("Entro a datosUpdated");
     }
 
     setLoadSpinner(false);
