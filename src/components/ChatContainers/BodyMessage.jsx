@@ -10,14 +10,13 @@ export default function BodyMessage({ messageObject, anchor, user }) {
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit">
       {/* <Perfil datos={datos} image={image}/> */}
-      {messageObject && messageObject.message.length
+      {messageObject && messageObject.message
         ? messageObject.message.map((item, index) => {
             if (firstCurrent) {
               current = item.user;
               firstCurrent = false;
             } else {
               if (current === item.user) {
-                console.log("es el mismo");
                 flagCurrent = false;
               } else {
                 current = item.user;
