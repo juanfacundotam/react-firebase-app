@@ -10,7 +10,14 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import {
   ref,
   uploadBytes,
@@ -214,29 +221,76 @@ export function AuthProvider({ children }) {
 
   const sendMessageFirebase = async (messageChats) => {
     try {
+      const userDocRef = doc(firestore, `usuarios/${user.email}`);
+
+
       if (messageChats.category === "channel") {
         console.log("entro por channel");
-      } 
-      else {
-        const userDocRef = doc(firestore, `usuarios/${user.email}`);
-        const userDocSnap = await getDoc(userDocRef);
-        const userData =  userDocSnap.data();
-        console.log(userData)
-        const contactFiltered = userData.contacts.find(item => item.email === "jpedro@gmail.com")
-        if(contactFiltered){
+      } else {
+        console.log("entro por contactos");
 
-        }
-        console.log(contactFiltered)
+        const contactsCollectionRef = collection(userDocRef, "contactos");
+
+
+        const contactEmail = 'jpedro@gmail.com';
+        const contactData = messageChats
+
+        const contactDocRef = doc(contactsCollectionRef, contactEmail);
+
+        setDoc(contactDocRef, contactData)
+          .then(() => {
+            console.log(`Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`);
+          })
+          .catch((error) => {
+            console.error(`Error al agregar datos en la carpeta '${contactEmail}' dentro de la subcolección 'contacts':`, error);
+          });
+
+        // const consulta = await getDoc(docRef);
+        // console.log(consulta);
+        // if (consulta.exists()) {
+        //   const infoDoc = consulta.data();
+        //   console.log(infoDoc);
+        //   return infoDoc;
+        // } else {
+        //   await setDoc(docRef, {
+        //     jorge: {},
+        //   });
+        //   const consulta = await getDoc(docRef);
+        //   const infoDoc = consulta.data();
+        //   console.log(infoDoc);
+        //   return infoDoc;
+        // }
+
+        // const userDocRef = doc(firestore, `usuarios/${user.email}`);
+        // const userDocSnap = await getDoc(userDocRef);
+        // const userData = userDocSnap.data();
+        // const contactFiltered = userData.contacts.find(
+        //   (item, index) => item.email === "jpedro@gmail.com"
+        // );
+        // const indexFiltered = userData.contacts.findIndex(
+        //   (item) => item.email === "jpedro@gmail.com"
+        // );
+        // console.log(contactFiltered);
+        // console.log(indexFiltered);
+
+        // if (contactFiltered) {
+        //   contactFiltered.message.push(
+        //     messageChats.message[messageChats.message.length - 1]
+        //   );
+
+        // contactFiltered.me
+
         // if(userData.contacts[0].email === "jpedro@gmail.com"){
         //   console.log("entro por email")
         // }
         // userData.contacts.push(messageChats);
         // await updateDoc(userDocRef, {contacts: userData.contacts});
         // await updateDoc(userDocRef, { contacts: messageChats });
+
+        // const userDocRef = doc(firestore, `usuarios/${user.email}`);
+        // await updateDoc(userDocRef, { datos: datosUpdated });
+        // return datosUpdated;
       }
-      // const userDocRef = doc(firestore, `usuarios/${user.email}`);
-      // await updateDoc(userDocRef, { datos: datosUpdated });
-      // return datosUpdated;
     } catch (error) {
       console.error("Error al agregar los datos:", error);
       // Manejar el error aquí
