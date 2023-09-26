@@ -84,11 +84,9 @@ const messageData = [
       },
     ],
   },
-
-  { name: "Ciclismo", category: "channel", message: [] },
-
   {
     name: "Juan Pedro",
+    email: "jpedro@gmail.com",
     category: "contact",
     message: [
       {
@@ -166,7 +164,6 @@ export default function Chat() {
 
     // setmessageObject(dataFiltered);
   }
-  console.log(messageChats)
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
