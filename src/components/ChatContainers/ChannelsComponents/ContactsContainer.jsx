@@ -27,7 +27,7 @@ export default function ContactsContainer({setActiveChannel, contact}) {
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
       {contact.map((item, index) => {
-        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.name)}}># {item.name}</p>)
+        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.email)}}># {item.email}</p>)
       })}
 
  
