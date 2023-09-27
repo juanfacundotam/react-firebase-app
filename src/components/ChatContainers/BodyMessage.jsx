@@ -10,7 +10,7 @@ export default function BodyMessage({ messageChats, anchor, user }) {
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit">
       {/* <Perfil datos={datos} image={image}/> */}
-      {messageChats && messageChats.message.length
+      {messageChats && messageChats.message
         ? messageChats.message.map((item, index) => {
             if (firstCurrent) {
               current = item.user;
