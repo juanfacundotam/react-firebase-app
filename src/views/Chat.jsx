@@ -168,7 +168,7 @@ export default function Chat() {
     searchOrCreateImage,
     getMessageContacts,
   } = useAuth();
-  const [messageChats, setMessageChats] = useState(getMessageContacts());
+  const [messageChats, setMessageChats] = useState([]);
   const [datos, setDatos] = useState({
     user: user.email,
     nickName: "NickName",
