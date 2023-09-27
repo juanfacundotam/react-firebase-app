@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import {
   getDoc,
+  getDocs,
   doc,
   setDoc,
   updateDoc,
@@ -220,80 +221,67 @@ export function AuthProvider({ children }) {
   };
 
   const sendMessageFirebase = async (messageChats) => {
+    console.log(messageChats);
     try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
-
 
       if (messageChats.category === "channel") {
         console.log("entro por channel");
       } else {
         console.log("entro por contactos");
-
         const contactsCollectionRef = collection(userDocRef, "contactos");
-
-
-        const contactEmail = 'jpedro@gmail.com';
-        const contactData = messageChats
+        const contactEmail = messageChats.email;
+        const contactData = messageChats;
 
         const contactDocRef = doc(contactsCollectionRef, contactEmail);
 
         setDoc(contactDocRef, contactData)
           .then(() => {
-            console.log(`Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`);
+            console.log(
+              `Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`
+            );
           })
           .catch((error) => {
-            console.error(`Error al agregar datos en la carpeta '${contactEmail}' dentro de la subcolección 'contacts':`, error);
+            console.error(
+              `Error al agregar datos en la carpeta '${contactEmail}' dentro de la subcolección 'contacts':`,
+              error
+            );
           });
-
-        // const consulta = await getDoc(docRef);
-        // console.log(consulta);
-        // if (consulta.exists()) {
-        //   const infoDoc = consulta.data();
-        //   console.log(infoDoc);
-        //   return infoDoc;
-        // } else {
-        //   await setDoc(docRef, {
-        //     jorge: {},
-        //   });
-        //   const consulta = await getDoc(docRef);
-        //   const infoDoc = consulta.data();
-        //   console.log(infoDoc);
-        //   return infoDoc;
-        // }
-
-        // const userDocRef = doc(firestore, `usuarios/${user.email}`);
-        // const userDocSnap = await getDoc(userDocRef);
-        // const userData = userDocSnap.data();
-        // const contactFiltered = userData.contacts.find(
-        //   (item, index) => item.email === "jpedro@gmail.com"
-        // );
-        // const indexFiltered = userData.contacts.findIndex(
-        //   (item) => item.email === "jpedro@gmail.com"
-        // );
-        // console.log(contactFiltered);
-        // console.log(indexFiltered);
-
-        // if (contactFiltered) {
-        //   contactFiltered.message.push(
-        //     messageChats.message[messageChats.message.length - 1]
-        //   );
-
-        // contactFiltered.me
-
-        // if(userData.contacts[0].email === "jpedro@gmail.com"){
-        //   console.log("entro por email")
-        // }
-        // userData.contacts.push(messageChats);
-        // await updateDoc(userDocRef, {contacts: userData.contacts});
-        // await updateDoc(userDocRef, { contacts: messageChats });
-
-        // const userDocRef = doc(firestore, `usuarios/${user.email}`);
-        // await updateDoc(userDocRef, { datos: datosUpdated });
-        // return datosUpdated;
       }
     } catch (error) {
       console.error("Error al agregar los datos:", error);
       // Manejar el error aquí
+    }
+  };
+
+  
+  const getMessageContacts = async () => {
+    try {
+      // Obtener una referencia al documento del usuario
+      const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      
+      // Obtener una referencia a la colección "contactos"
+      const contactsCollectionRef = collection(userDocRef, "contactos");
+  
+      // Obtener todos los documentos de la colección "contactos"
+      const querySnapshot = await getDocs(contactsCollectionRef);
+
+      const documentos = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data()
+      }));
+  console.log(documentos)
+      // Consololear todo el array de documentos
+      return documentos;
+  
+      // Iterar a través de los documentos y mostrar sus datos
+      // querySnapshot.forEach((doc) => {
+      //   console.log(doc.id, " => ", doc.data());
+      // });
+// console.log(querySnapshot.data())
+//       return querySnapshot
+    } catch (error) {
+      console.error("Error obteniendo documentos: ", error);
     }
   };
 
@@ -324,6 +312,7 @@ export function AuthProvider({ children }) {
         addNewImage,
         addDatos,
         sendMessageFirebase,
+        getMessageContacts,
       }}
     >
       {children}
