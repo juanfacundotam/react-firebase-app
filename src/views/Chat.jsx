@@ -37,8 +37,7 @@ const messageData = [
         estado: "Desarrollador apasionado",
         name: "Javier",
         message: "Hola!",
-        image:
-        "https://i.pravatar.cc/300",
+        image: "https://i.pravatar.cc/300",
         nickName: "Javi",
         user: "Javier@gmail.com",
       },
@@ -47,8 +46,7 @@ const messageData = [
         estado: "Desarrollador apasionado",
         name: "facundo",
         message: "Como va!",
-        image:
-        "https://i.pravatar.cc/300",
+        image: "https://i.pravatar.cc/300",
         nickName: "Javi",
         user: "Javier@gmail.com",
       },
@@ -77,8 +75,7 @@ const messageData = [
         estado: "Desarrollador apasionado",
         name: "facundo",
         message: "Todo muy bien!",
-        image:
-        "https://i.pravatar.cc/300",
+        image: "https://i.pravatar.cc/300",
         nickName: "Javi",
         user: "Javier@gmail.com",
       },
@@ -104,10 +101,44 @@ const messageData = [
         estado: "Data Science",
         name: "Juan Pedro",
         message: "bien, vos?",
-        image:
-          "https://i.pravatar.cc/300",
+        image: "https://i.pravatar.cc/300",
         nickName: "JP",
         user: "jpedro@gmail.com",
+      },
+    ],
+  },
+  {
+    name: "Javier Alonso",
+    email: "javialo@gmail.com",
+    category: "contact",
+    message: [
+      {
+        date: "2023-09-25T19:51:24.320Z",
+        estado: "Desarrollador apasionado",
+        name: "Juan Pedro",
+        message: "todo bien?",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+        nickName: "Juan Facundo Tam",
+        user: "facutam@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:58:24.320Z",
+        estado: "Data Science",
+        name: "Javier Alonso",
+        message: "Todo bien!",
+        image: "https://i.pravatar.cc/300",
+        nickName: "Javi",
+        user: "javialo@gmail.com",
+      },
+      {
+        date: "2023-09-25T19:58:24.320Z",
+        estado: "Data Science",
+        name: "Javier Alonso",
+        message: "vos?",
+        image: "https://i.pravatar.cc/300",
+        nickName: "Javi",
+        user: "javialo@gmail.com",
       },
     ],
   },
@@ -124,35 +155,59 @@ export default function Chat() {
   const [activeChannel, setActiveChannel] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
-  const [messageChats, setMessageChats] = useState({});
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
 
   const anchor = useRef();
-  const { user, logout, loading, searchOrCreateDocument, searchOrCreateImage } =
-    useAuth();
+  const {
+    user,
+    logout,
+    loading,
+    searchOrCreateDocument,
+    searchOrCreateImage,
+    getMessageContacts,
+  } = useAuth();
+  const [messageChats, setMessageChats] = useState(getMessageContacts());
   const [datos, setDatos] = useState({
     user: user.email,
     nickName: "NickName",
     estado: "Estado",
     image: image,
   });
-
   useEffect(() => {
-    getImage();
-    getDatos();
+    const fetchData = async () => {
+      const contacts = await getMessageContacts();
+      setMessageChats(contacts);
+      getImage();
+      getDatos();
+    };
+    fetchData();
   }, []);
+
+  console.log(messageChats);
 
   useEffect(() => {
     loadMassageObject();
   }, [activeChannel]);
 
   function loadMassageObject() {
-    let dataFiltered = messageData.filter(
-      (item) => item.name === activeChannel
-    );
-    setMessageChats(dataFiltered[0]);
+// Verifica si messageChats es un array antes de usar filter
+if (Array.isArray(messageChats)) {
+  let dataFiltered = messageChats.filter((item) => item.id === activeChannel);
+  if (dataFiltered.length > 0) {
+    console.log(dataFiltered[0].data);
+    setMessageChats(dataFiltered[0].data);
+  } else {
+    console.log("No se encontraron elementos que coincidan con activeChannel.");
+  }
+} else {
+  console.error("messageChats no es un array.");
+}
+
+
+    // console.log(dataFiltered);
+    // setMessageChats(dataFiltered[0]);
     // setMessageChats(dataFiltered.message)
     // if(dataFiltered.category === "channel"){
     //   setMessageChats(dataFiltered);
@@ -162,7 +217,6 @@ export default function Chat() {
     //   ? dataFiltered[0].date.sort()
     //   : [];
 
-    // setmessageObject(dataFiltered);
   }
 
   async function getDatos() {
@@ -194,7 +248,11 @@ export default function Chat() {
             {activeChannel ? (
               <>
                 <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
-                  <BodyMessage messageChats={messageChats} anchor={anchor} user={user.email}/>
+                  <BodyMessage
+                    messageChats={messageChats}
+                    anchor={anchor}
+                    user={user.email}
+                  />
                 </div>
                 <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
                   <SendMessage
