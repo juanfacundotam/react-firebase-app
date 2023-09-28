@@ -155,6 +155,7 @@ export default function Chat() {
   const [activeChannel, setActiveChannel] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
+  const [messageBody, setMessageBody] = useState("");
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
@@ -185,25 +186,27 @@ export default function Chat() {
     fetchData();
   }, []);
 
-  console.log(messageChats);
 
   useEffect(() => {
-    loadMassageObject();
+    if(activeChannel !== ""){
+      loadMessageBody();
+    }
   }, [activeChannel]);
 
-  function loadMassageObject() {
+  function loadMessageBody() {
+    let messageBodyFilered = messageChats.filter((item) => item.id === activeChannel);
+    setMessageBody(messageBodyFilered)
 // Verifica si messageChats es un array antes de usar filter
-if (Array.isArray(messageChats)) {
-  let dataFiltered = messageChats.filter((item) => item.id === activeChannel);
-  if (dataFiltered.length > 0) {
-    console.log(dataFiltered[0].data);
-    setMessageChats(dataFiltered[0].data);
-  } else {
-    console.log("No se encontraron elementos que coincidan con activeChannel.");
-  }
-} else {
-  console.error("messageChats no es un array.");
-}
+// if (Array.isArray(messageChats)) {
+//   if (dataFiltered.length > 0) {
+//     console.log(dataFiltered[0].data);
+//     setMessageChats(dataFiltered[0].data);
+//   } else {
+//     console.log("No se encontraron elementos que coincidan con activeChannel.");
+//   }
+// } else {
+//   console.error("messageChats no es un array.");
+// }
 
 
     // console.log(dataFiltered);
@@ -239,6 +242,7 @@ if (Array.isArray(messageChats)) {
               setActiveChannel={setActiveChannel}
               channelsFiltered={channelsFiltered}
               contactFiltered={contactFiltered}
+              messageChats={messageChats}
             />
           </div>
           <div className="bg-[#343541] flex flex-col justify-start items-center h-full w-[80%]">
@@ -260,6 +264,8 @@ if (Array.isArray(messageChats)) {
                     message={message}
                     messageChats={messageChats}
                     setMessageChats={setMessageChats}
+                    messageBody={messageBody}
+                    setMessageBody={setMessageBody}
                     datos={datos}
                     user={user.email}
                     image={image}
