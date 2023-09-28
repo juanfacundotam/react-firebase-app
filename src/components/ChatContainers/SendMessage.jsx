@@ -14,6 +14,8 @@ export default function SendMessage({
   image,
   anchor,
   scrollAmount,
+  setMessageBody,
+  messageBody
 }) {
 
   const {sendMessageFirebase} =
@@ -27,15 +29,48 @@ export default function SendMessage({
       const hora = new Date();
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
-
-      messageChats.message.push({
-        date: formattedTime,
-        user: user,
-        message: message,
-        nickName: datos.nickName,
-        estado: datos.estado,
-        image: image,
-      });
+      if(!messageBody[0].data.message){
+        console.log("entra NO HAY")
+        
+        messageBody[0].data = 
+        {
+          name: "Juan Pedro",
+          email: messageBody[0].id,
+          category: "contact",
+          message: [
+            {
+              date: "2023-09-25T19:51:24.320Z",
+              estado: "Desarrollador apasionado",
+              name: "Juan Pedro",
+              message: "todo bien?",
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+              nickName: "Juan Facundo Tam",
+              user: "facutam@gmail.com",
+            },
+            {
+              date: "2023-09-25T19:58:24.320Z",
+              estado: "Data Science",
+              name: "Juan Pedro",
+              message: "bien, vos?",
+              image: "https://i.pravatar.cc/300",
+              nickName: "JP",
+              user: "jpedro@gmail.com",
+            },
+          ],
+        },
+        console.log(messageBody)
+      } else {
+        console.log("entra HAY")
+        messageBody[0].data.message.push({
+          date: formattedTime,
+          user: user,
+          message: message,
+          nickName: datos.nickName,
+          estado: datos.estado,
+          image: image,
+        });
+      }
       setMessage("")
       // Cantidad de desplazamiento necesaria
 
@@ -45,7 +80,7 @@ export default function SendMessage({
       // });
       anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
 
-      sendMessageFirebase(messageChats)
+      sendMessageFirebase(messageBody)
       console.log(messageChats)
     }
   };
