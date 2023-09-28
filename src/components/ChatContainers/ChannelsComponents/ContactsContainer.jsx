@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 
 
-export default function ContactsContainer({setActiveChannel, contact}) {
+export default function ContactsContainer({setActiveChannel, contact, messageChats}) {
   const [openChannels, setOpenChannels] = useState(true)
 
   const setContact = (contact) => {
@@ -26,9 +26,8 @@ export default function ContactsContainer({setActiveChannel, contact}) {
       </div>
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
-      {contact.map((item, index) => {
-        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.email)}}># {item.email}</p>)
-
+      {messageChats.map((item, index) => {
+        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.id)}}># {item.id}</p>)
       })}
  
       </div>}
