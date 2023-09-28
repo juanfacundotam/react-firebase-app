@@ -5,7 +5,7 @@ import PublicChannels from "./ChannelsComponents/PublicChannels";
 import PrivateChannels from "./ChannelsComponents/PrivateChannels";
 
 
-export default function Channels({setActiveChannel, channelsFiltered, contactFiltered}) {
+export default function Channels({setActiveChannel, channelsFiltered, contactFiltered, messageChats}) {
 
 
 
@@ -19,7 +19,7 @@ export default function Channels({setActiveChannel, channelsFiltered, contactFil
         <PrivateChannels />
       </div> */}
       <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%] mt-5 text-[0.8rem] ">
-        <ContactsContainer setActiveChannel={setActiveChannel} contact={contactFiltered}/>
+        <ContactsContainer setActiveChannel={setActiveChannel} contact={contactFiltered} messageChats={messageChats}/>
       </div>
     </>
   );
