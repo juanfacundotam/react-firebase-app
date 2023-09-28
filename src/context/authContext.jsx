@@ -220,66 +220,54 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const sendMessageFirebase = async (messageChats) => {
-    console.log(messageChats);
+  const sendMessageFirebase = async (messageBody) => {
+    console.log(messageBody);
+
     try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      const contactsCollectionRef = collection(userDocRef, "contactos");
 
-      if (messageChats.category === "channel") {
-        console.log("entro por channel");
-      } else {
-        console.log("entro por contactos");
-        const contactsCollectionRef = collection(userDocRef, "contactos");
-        const contactEmail = messageChats.email;
-        const contactData = messageChats;
+      const contactEmail = messageBody[0].id;
+      const contactData = messageBody[0].data;
 
-        const contactDocRef = doc(contactsCollectionRef, contactEmail);
+      const contactDocRef = doc(contactsCollectionRef, contactEmail);
 
-        setDoc(contactDocRef, contactData)
-          .then(() => {
-            console.log(
-              `Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`
-            );
-          })
-          .catch((error) => {
-            console.error(
-              `Error al agregar datos en la carpeta '${contactEmail}' dentro de la subcolección 'contacts':`,
-              error
-            );
-          });
-      }
+      await setDoc(contactDocRef, contactData);
+
+      console.log(
+        `Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`
+      );
     } catch (error) {
       console.error("Error al agregar los datos:", error);
       // Manejar el error aquí
     }
   };
 
-  
   const getMessageContacts = async () => {
     try {
       // Obtener una referencia al documento del usuario
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
-      
+
       // Obtener una referencia a la colección "contactos"
       const contactsCollectionRef = collection(userDocRef, "contactos");
-  
+
       // Obtener todos los documentos de la colección "contactos"
       const querySnapshot = await getDocs(contactsCollectionRef);
 
       const documentos = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        data: doc.data()
+        data: doc.data(),
       }));
-  console.log(documentos)
+      console.log(documentos);
       // Consololear todo el array de documentos
       return documentos;
-  
+
       // Iterar a través de los documentos y mostrar sus datos
       // querySnapshot.forEach((doc) => {
       //   console.log(doc.id, " => ", doc.data());
       // });
-// console.log(querySnapshot.data())
-//       return querySnapshot
+      // console.log(querySnapshot.data())
+      //       return querySnapshot
     } catch (error) {
       console.error("Error obteniendo documentos: ", error);
     }
