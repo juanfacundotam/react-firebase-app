@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import PhotoIcon from '@mui/icons-material/Photo';
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { useAuth } from "../../context/authContext";
@@ -73,7 +74,7 @@ export default function SendMessage({
 
   return (
     <div className=" bg-[#40414F] flex justify-center items-center w-[95%] h-[75%] max-h-[50px] rounded-lg text-white gap-3 ">
-      <AddCircleIcon sx={{ fontSize: 25, cursor: "pointer", marginLeft: 1 }} />
+      <PhotoIcon sx={{ fontSize: 25, cursor: "pointer", marginLeft: 1 }} />
       {/* <input
         className=" bg-[#40414F] rounded S  focus:outline-none w-full h-[100%] overflow-hidden"
         type="text"
