@@ -6,12 +6,13 @@ export default function BodyMessage({ messageChats, anchor, user }) {
   let current = "";
   let firstCurrent = true;
   let flagCurrent = true;
-
+console.log(messageChats[0].data.message)
   return (
-    <div className=" flex flex-col justify-start items-start w-full h-fit">
+    <div className=" flex flex-col justify-start items-start w-full h-fit pl-2">
       {/* <Perfil datos={datos} image={image}/> */}
-      {messageChats && messageChats.message
-        ? messageChats.message.map((item, index) => {
+      {messageChats && messageChats[0].data.message
+        ? messageChats[0].data.message.map((item, index) => {
+          console.log(item)
             if (firstCurrent) {
               current = item.user;
               firstCurrent = false;
