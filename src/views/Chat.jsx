@@ -81,32 +81,32 @@ const messageData = [
       },
     ],
   },
-  {
-    name: "Juan Pedro",
-    email: "jpedro@gmail.com",
-    category: "contact",
-    message: [
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "Juan Pedro",
-        message: "todo bien?",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-        nickName: "Juan Facundo Tam",
-        user: "facutam@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:58:24.320Z",
-        estado: "Data Science",
-        name: "Juan Pedro",
-        message: "bien, vos?",
-        image: "https://i.pravatar.cc/300",
-        nickName: "JP",
-        user: "jpedro@gmail.com",
-      },
-    ],
-  },
+  // {
+  //   name: "Juan Pedro",
+  //   email: "jpedro@gmail.com",
+  //   category: "contact",
+  //   message: [
+  //     {
+  //       date: "2023-09-25T19:51:24.320Z",
+  //       estado: "Desarrollador apasionado",
+  //       name: "Juan Pedro",
+  //       message: "todo bien?",
+  //       image:
+  //         "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
+  //       nickName: "Juan Facundo Tam",
+  //       user: "facutam@gmail.com",
+  //     },
+  //     {
+  //       date: "2023-09-25T19:58:24.320Z",
+  //       estado: "Data Science",
+  //       name: "Juan Pedro",
+  //       message: "bien, vos?",
+  //       image: "https://i.pravatar.cc/300",
+  //       nickName: "JP",
+  //       user: "jpedro@gmail.com",
+  //     },
+  //   ],
+  // },
   {
     name: "Javier Alonso",
     email: "javialo@gmail.com",
@@ -153,12 +153,14 @@ export default function Chat() {
   );
 
   const [activeChannel, setActiveChannel] = useState("");
+  const [channelName, setChannelName] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
   const [messageBody, setMessageBody] = useState("");
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
+  const [newContact, setNewContact] = useState("")
 
   const anchor = useRef();
   const {
@@ -168,6 +170,7 @@ export default function Chat() {
     searchOrCreateDocument,
     searchOrCreateImage,
     getMessageContacts,
+    searchAndLinkContactFirebase,
   } = useAuth();
   const [messageChats, setMessageChats] = useState([]);
   const [datos, setDatos] = useState({
@@ -222,6 +225,13 @@ export default function Chat() {
 
   }
 
+  async function fetchData() {
+    const contacts = await getMessageContacts();
+    setMessageChats(contacts);
+    getImage();
+    getDatos();
+  };
+
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
     setDatos(datosSearched);
@@ -231,6 +241,13 @@ export default function Chat() {
     setImage(await searchOrCreateImage(user.email, user.photoURL));
   }
 
+  const setNewContactFunction = (contact) => {
+setNewContact(contact)
+  }
+  const searchAndLinkContact = () => {
+    searchAndLinkContactFirebase(newContact)
+    fetchData()
+  }
   return (
     <div className="flex justify-center items-center h-screen relative">
       {loadSpinner ? (
@@ -240,14 +257,17 @@ export default function Chat() {
           <div className="bg-[#202123] flex flex-col justify-start items-center h-full w-[20%]">
             <Channels
               setActiveChannel={setActiveChannel}
+              setChannelName={setChannelName}
               channelsFiltered={channelsFiltered}
               contactFiltered={contactFiltered}
               messageChats={messageChats}
+              setNewContactFunction = {setNewContactFunction}
+              searchAndLinkContact = {searchAndLinkContact}
             />
           </div>
           <div className="bg-[#343541] flex flex-col justify-start items-center h-full w-[80%]">
             <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
-              <UpBar activeChannel={activeChannel} />
+              <UpBar channelName={channelName} />
             </div>
             {activeChannel ? (
               <>
@@ -270,6 +290,7 @@ export default function Chat() {
                     user={user.email}
                     image={image}
                     anchor={anchor}
+                    fetchData={fetchData}
                   />
                 </div>
               </>
