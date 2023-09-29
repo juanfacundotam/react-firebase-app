@@ -258,7 +258,7 @@ export function AuthProvider({ children }) {
         id: doc.id,
         data: doc.data(),
       }));
-      console.log(documentos);
+    
       // Consololear todo el array de documentos
       return documentos;
 
@@ -270,6 +270,35 @@ export function AuthProvider({ children }) {
       //       return querySnapshot
     } catch (error) {
       console.error("Error obteniendo documentos: ", error);
+    }
+  };
+
+  const searchAndLinkContactFirebase = async (newContact) => {
+    try {
+      const docRef = doc(firestore, 'usuarios', newContact);
+      const docSnapshot = await getDoc(docRef);
+  
+      if (docSnapshot.exists()) {
+        console.log('El documento existe:', docSnapshot.data());
+        const datos = docSnapshot.data().datos;
+  
+        // Asegúrate de que tengas la variable 'user' definida en tu contexto
+        const userDocRef = doc(firestore, `usuarios/${user.email}`);
+        const contactsCollectionRef = collection(userDocRef, "contactos");
+  
+        const contactEmail = newContact;
+        const contactData = { ...datos, user: newContact };
+  
+        const contactDocRef = doc(contactsCollectionRef, contactEmail);
+  
+        const updatedDoc = await setDoc(contactDocRef, contactData);
+  
+        console.log(updatedDoc);
+      } else {
+        console.log('El documento no existe');
+      }
+    } catch (error) {
+      console.error('Error al comprobar el documento:', error);
     }
   };
 
@@ -301,6 +330,7 @@ export function AuthProvider({ children }) {
         addDatos,
         sendMessageFirebase,
         getMessageContacts,
+        searchAndLinkContactFirebase
       }}
     >
       {children}
