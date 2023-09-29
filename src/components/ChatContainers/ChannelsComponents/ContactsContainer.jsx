@@ -22,9 +22,9 @@ export default function ContactsContainer({setActiveChannel, contact, messageCha
       >
         <div className="flex hover:text-gray-300" onClick={() => {setOpenChannels(!openChannels)}}>
         {openChannels ? (
-          <KeyboardArrowDownIcon sx={{ fontSize: 10, cursor: "pointer" }} />
+          <KeyboardArrowDownIcon sx={{ fontSize: 15, cursor: "pointer" }} />
         ) : (
-          <KeyboardArrowUpIcon sx={{ fontSize: 10, cursor: "pointer" }} />
+          <KeyboardArrowUpIcon sx={{ fontSize: 15, cursor: "pointer" }} />
         )}
         <h1>Contactos</h1>
 
