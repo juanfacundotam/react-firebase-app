@@ -221,8 +221,6 @@ export function AuthProvider({ children }) {
   };
 
   const sendMessageFirebase = async (messageBody) => {
-    console.log(messageBody);
-
     try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
       const contactsCollectionRef = collection(userDocRef, "contactos");
@@ -244,6 +242,7 @@ export function AuthProvider({ children }) {
   };
 
   const getMessageContacts = async () => {
+    //Me va a traer todos los contactos con sus chats
     try {
       // Obtener una referencia al documento del usuario
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
@@ -254,51 +253,71 @@ export function AuthProvider({ children }) {
       // Obtener todos los documentos de la colección "contactos"
       const querySnapshot = await getDocs(contactsCollectionRef);
 
-      const documentos = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        data: doc.data(),
-      }));
-    
-      // Consololear todo el array de documentos
-      return documentos;
+      const documentos = querySnapshot.docs.map((doc) => {
+        // console.log(doc.id)
+        return {
+          id: doc.id,
+          data: doc.data(),
+        };
+      });
 
-      // Iterar a través de los documentos y mostrar sus datos
-      // querySnapshot.forEach((doc) => {
-      //   console.log(doc.id, " => ", doc.data());
-      // });
-      // console.log(querySnapshot.data())
-      //       return querySnapshot
+      return documentos;
     } catch (error) {
       console.error("Error obteniendo documentos: ", error);
     }
   };
 
-  const searchAndLinkContactFirebase = async (newContact) => {
+  const searchAndLinkMyContacts = async (newContact) => {
     try {
-      const docRef = doc(firestore, 'usuarios', newContact);
+      const docRef = doc(firestore, "usuarios", newContact);
       const docSnapshot = await getDoc(docRef);
-  
+
       if (docSnapshot.exists()) {
-        console.log('El documento existe:', docSnapshot.data());
+        console.log("El documento existe:", docSnapshot.data());
         const datos = docSnapshot.data().datos;
-  
+
         // Asegúrate de que tengas la variable 'user' definida en tu contexto
         const userDocRef = doc(firestore, `usuarios/${user.email}`);
         const contactsCollectionRef = collection(userDocRef, "contactos");
-  
+
         const contactEmail = newContact;
         const contactData = { ...datos, user: newContact };
-  
+
         const contactDocRef = doc(contactsCollectionRef, contactEmail);
-  
+
         const updatedDoc = await setDoc(contactDocRef, contactData);
-  
-        console.log(updatedDoc);
       } else {
-        console.log('El documento no existe');
+        console.log("El documento no existe");
       }
     } catch (error) {
-      console.error('Error al comprobar el documento:', error);
+      console.error("Error al comprobar el documento:", error);
+    }
+  };
+
+  const searchAndCopyInDocumentContact = async (newContact) => {
+    try {
+      const docRef = doc(firestore, "usuarios", newContact);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        console.log("El documento existe:", docSnapshot.data());
+        const datos = docSnapshot.data().datos;
+
+        // Asegúrate de que tengas la variable 'user' definida en tu contexto
+        const userDocRef = doc(firestore, `usuarios/${user.email}`);
+        const contactsCollectionRef = collection(userDocRef, "contactos");
+
+        const contactEmail = newContact;
+        const contactData = { ...datos, user: newContact };
+
+        const contactDocRef = doc(contactsCollectionRef, contactEmail);
+
+        const updatedDoc = await setDoc(contactDocRef, contactData);
+      } else {
+        console.log("El documento no existe");
+      }
+    } catch (error) {
+      console.error("Error al comprobar el documento:", error);
     }
   };
 
@@ -330,7 +349,8 @@ export function AuthProvider({ children }) {
         addDatos,
         sendMessageFirebase,
         getMessageContacts,
-        searchAndLinkContactFirebase
+        searchAndLinkMyContacts,
+        searchAndCopyInDocumentContact,
       }}
     >
       {children}
