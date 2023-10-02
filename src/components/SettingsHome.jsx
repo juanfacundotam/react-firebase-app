@@ -72,7 +72,7 @@ export default function SettingsHome({
         <input
           type="text"
           name="nickName"
-          maxlength="25"
+          maxLength="25"
           defaultValue={nickName}
           onChange={changeInputDatosHandler}
           placeholder="Edita tu NickName"
@@ -89,7 +89,7 @@ export default function SettingsHome({
         <input
           type="text"
           name="estado"
-          maxlength="31"
+          maxLength="31"
           defaultValue={estado}
           onChange={changeInputDatosHandler}
           placeholder="Edita tu Estado"
