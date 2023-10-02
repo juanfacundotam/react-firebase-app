@@ -88,7 +88,8 @@ export function AuthProvider({ children }) {
       });
       const consulta = await getDoc(docRef);
       const infoDoc = consulta.data();
-      return infoDoc.tareas;
+      console.log(infoDoc)
+      return infoDoc.datos;
     }
   };
   // const searchOrCreateDocument = async (idDocumento) => {
@@ -187,7 +188,7 @@ export function AuthProvider({ children }) {
         return infoDoc.newImage;
       }
     } else {
-      // await setDoc(docRef, { newImage: fileURL });
+      await setDoc(docRef, { newImage: fileURL });
       consulta = await getDoc(docRef);
       infoDoc = consulta.data();
       return infoDoc.newImage;
