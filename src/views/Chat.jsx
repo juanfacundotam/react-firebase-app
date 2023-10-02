@@ -188,7 +188,6 @@ export default function Chat() {
     // };
     fetchData();
   }, []);
-console.log(activeChannel)
 
   useEffect(() => {
     if(activeChannel !== ""){
@@ -208,7 +207,6 @@ console.log(activeChannel)
     getImage();
     getDatos();
   };
-  console.log(messageChats)
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
