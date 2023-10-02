@@ -222,22 +222,67 @@ export function AuthProvider({ children }) {
 
   const sendMessageFirebase = async (messageBody) => {
     try {
-      const userDocRef = doc(firestore, `usuarios/${user.email}`);
-      const contactsCollectionRef = collection(userDocRef, "contactos");
 
-      const contactEmail = messageBody[0].id;
-      const contactData = messageBody[0].data;
+      // const docRef = doc(firestore, "usuarios", messageBody[0].id);
+      // const docSnapshotRecept = await getDoc(docRef);
 
-      const contactDocRef = doc(contactsCollectionRef, contactEmail);
+      // // if(newContact === user.email) {
+      // //   console.log("No puede buscarse a si mismo");
+      // //   return;
+      // // }
 
-      await setDoc(contactDocRef, contactData);
+      // if (docSnapshotRecept.exists()) {
+      //   console.log("El documento existe:", docSnapshotRecept.data());
+      //   const datos = docSnapshotRecept.data().datos;
+      //   console.log(datos)
 
-      console.log(
-        `Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`
-      );
+
+
+      const userDocRefEmisor = doc(firestore, `usuarios/${user.email}`);
+      const contactsCollectionRefEmisor = collection(userDocRefEmisor, "contactos");
+      const contactEmailEmisor = messageBody[0].id;
+      const contactDataEmisor = messageBody[0].data;
+      const contactDocRefEmisor = doc(contactsCollectionRefEmisor, contactEmailEmisor);
+      await setDoc(contactDocRefEmisor, contactDataEmisor);
+      
+      
+      const userDocRefReceptor = doc(firestore, `usuarios/${messageBody[0].id}`);
+      const contactsCollectionRefReceptor = collection(userDocRefReceptor, "contactos");
+      const contactEmailReceptor = user.email;
+      const contactDataReceptor = messageBody[0].data;
+      const contactDocRefReceptor = doc(contactsCollectionRefReceptor, contactEmailReceptor);
+      await setDoc(contactDocRefReceptor, contactDataReceptor);
+      
+
+      //   const contactEmail = newContact;
+      //   const contactData = { ...datos, user: newContact };
+
+      //   const contactDocRef = doc(contactsCollectionRef, contactEmail);
+
+      //   const updatedDoc = await setDoc(contactDocRef, contactData);
+      // } else {
+      //   console.log("El documento no existe");
+      // }
+
+
+
+
+    //   const userDocRef = doc(firestore, `usuarios/${user.email}`);
+    //   const contactsCollectionRef = collection(userDocRef, "contactos");
+
+      
+
+    //   const contactEmail = messageBody[0].id;
+    //   const contactData = messageBody[0].data;
+
+
+
+    //   console.log(
+    //     `Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`
+    //   );
     } catch (error) {
       console.error("Error al agregar los datos:", error);
-      // Manejar el error aquí
+
     }
   };
 
@@ -254,7 +299,6 @@ export function AuthProvider({ children }) {
       const querySnapshot = await getDocs(contactsCollectionRef);
 
       const documentos = querySnapshot.docs.map((doc) => {
-        // console.log(doc.id)
         return {
           id: doc.id,
           data: doc.data(),
@@ -271,6 +315,11 @@ export function AuthProvider({ children }) {
     try {
       const docRef = doc(firestore, "usuarios", newContact);
       const docSnapshot = await getDoc(docRef);
+
+      if(newContact === user.email) {
+        console.log("No puede buscarse a si mismo");
+        return;
+      }
 
       if (docSnapshot.exists()) {
         console.log("El documento existe:", docSnapshot.data());
