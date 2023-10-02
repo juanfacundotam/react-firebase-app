@@ -12,7 +12,7 @@ import Spinner from "../components/spinner";
 function Home() {
   const [datos, setDatos] = useState({
     nickName: "wwww",
-    estado: "eee"
+    estado: "eee",
   });
   const [image, setImage] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
@@ -28,7 +28,7 @@ function Home() {
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
     setDatos(datosSearched);
-    setLoadSpinner(false)
+    setLoadSpinner(false);
   }
   async function getImage() {
     setImage(await searchOrCreateImage(user.email, user.photoURL));
@@ -56,12 +56,12 @@ function Home() {
       </div>
 
       <CardEmployees
-      setLoadSpinner={setLoadSpinner}
-      loadSpinner={loadSpinner}
-      getImage={getImage}
-      getDatos={getDatos}
+        setLoadSpinner={setLoadSpinner}
+        loadSpinner={loadSpinner}
+        getImage={getImage}
+        getDatos={getDatos}
         image={image}
-        nickName={datos.nickName || "" }
+        nickName={datos.nickName || ""}
         estado={datos.estado || ""}
         setDatos={setDatos}
         datos={datos}
