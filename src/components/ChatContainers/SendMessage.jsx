@@ -41,7 +41,7 @@ export default function SendMessage({
             {
 
               date: formattedTime,
-              user: messageBody[0].id,
+              user: user,
               message: message,
               nickName: datos.nickName,
               estado: datos.estado,
@@ -49,7 +49,7 @@ export default function SendMessage({
             },
           ],
         },
-        console.log(messageBody)
+        console.log("")
       } else {
 
 
@@ -67,7 +67,6 @@ export default function SendMessage({
 
       await sendMessageFirebase(messageBody)
       await fetchData()
-      console.log(messageChats)
     }
   };
 
