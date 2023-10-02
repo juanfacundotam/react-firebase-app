@@ -2,24 +2,30 @@ import React, { useEffect, useState } from "react";
 import Message from "./BodyComponents/Message";
 import Perfil from "./BodyComponents/Perfil";
 
-export default function BodyMessage({ messageChats, anchor, user }) {
+export default function BodyMessage({ messageBody, anchor, user, activeChannel }) {
   let current = "";
   let firstCurrent = true;
   let flagCurrent = true;
-console.log(messageChats[0].data.message)
+// console.log(messageChats[0].data.message)
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit pl-2">
       {/* <Perfil datos={datos} image={image}/> */}
-      {messageChats && messageChats[0].data.message
-        ? messageChats[0].data.message.map((item, index) => {
-          console.log(item)
+      {messageBody && messageBody[0].data.message
+        ? messageBody[0].data.message.map((item, index) => {
             if (firstCurrent) {
+              console.log(item.user)
               current = item.user;
+              console.log()
               firstCurrent = false;
+              // flagCurrent = false;
+              console.log("entro1")
             } else {
+              console.log("entro2")
               if (current === item.user) {
+                console.log("entro3")
                 flagCurrent = false;
               } else {
+                console.log("entro4")
                 current = item.user;
                 flagCurrent = true;
               }
