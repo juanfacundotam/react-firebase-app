@@ -170,7 +170,7 @@ export default function Chat() {
     searchOrCreateDocument,
     searchOrCreateImage,
     getMessageContacts,
-    searchAndLinkContactFirebase,
+    searchAndLinkMyContacts,
   } = useAuth();
   const [messageChats, setMessageChats] = useState([]);
   const [datos, setDatos] = useState({
@@ -180,15 +180,15 @@ export default function Chat() {
     image: image,
   });
   useEffect(() => {
-    const fetchData = async () => {
-      const contacts = await getMessageContacts();
-      setMessageChats(contacts);
-      getImage();
-      getDatos();
-    };
+    // const fetchData = async () => {
+    //   const contacts = await getMessageContacts();
+    //   setMessageChats(contacts);
+    //   getImage();
+    //   getDatos();
+    // };
     fetchData();
   }, []);
-
+console.log(activeChannel)
 
   useEffect(() => {
     if(activeChannel !== ""){
@@ -199,38 +199,16 @@ export default function Chat() {
   function loadMessageBody() {
     let messageBodyFilered = messageChats.filter((item) => item.id === activeChannel);
     setMessageBody(messageBodyFilered)
-// Verifica si messageChats es un array antes de usar filter
-// if (Array.isArray(messageChats)) {
-//   if (dataFiltered.length > 0) {
-//     console.log(dataFiltered[0].data);
-//     setMessageChats(dataFiltered[0].data);
-//   } else {
-//     console.log("No se encontraron elementos que coincidan con activeChannel.");
-//   }
-// } else {
-//   console.error("messageChats no es un array.");
-// }
-
-
-    // console.log(dataFiltered);
-    // setMessageChats(dataFiltered[0]);
-    // setMessageChats(dataFiltered.message)
-    // if(dataFiltered.category === "channel"){
-    //   setMessageChats(dataFiltered);
-    // } else {
-    // }
-    // let messageFiltered = dataFiltered.length
-    //   ? dataFiltered[0].date.sort()
-    //   : [];
-
   }
 
+
   async function fetchData() {
-    const contacts = await getMessageContacts();
+    const contacts = await getMessageContacts(activeChannel);
     setMessageChats(contacts);
     getImage();
     getDatos();
   };
+  console.log(messageChats)
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
@@ -245,7 +223,7 @@ export default function Chat() {
 setNewContact(contact)
   }
   const searchAndLinkContact = () => {
-    searchAndLinkContactFirebase(newContact)
+    searchAndLinkMyContacts(newContact)
     fetchData()
   }
   return (
@@ -273,9 +251,10 @@ setNewContact(contact)
               <>
                 <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
                   <BodyMessage
-                    messageChats={messageChats}
+                    messageBody={messageBody}
                     anchor={anchor}
                     user={user.email}
+                    activeChannel={activeChannel}
                   />
                 </div>
                 <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
