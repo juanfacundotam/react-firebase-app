@@ -55,7 +55,6 @@ export default function CardEmployees({
             />
           ) : null}
           <div className="flex flex-col justify-center items-center pb-10">
-            {console.log(image)}
             {image ? (
               <img
                 className="text-center text-base w-20 h-20 mb-3 rounded-full shadow-lg flex justify-center items-center border-[1px] border-gray-700"
