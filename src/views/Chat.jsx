@@ -152,7 +152,7 @@ export default function Chat() {
     (channel) => channel.category === "contact"
   );
 
-  const [activeChannel, setActiveChannel] = useState("");
+  const [activeChannel, setActiveChannel] = useState({name:"", category: ""});
   const [channelName, setChannelName] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
@@ -180,12 +180,6 @@ export default function Chat() {
     image: image,
   });
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const contacts = await getMessageContacts();
-    //   setMessageChats(contacts);
-    //   getImage();
-    //   getDatos();
-    // };
     fetchData();
   }, []);
 
@@ -196,14 +190,21 @@ export default function Chat() {
   }, [activeChannel]);
 
   function loadMessageBody() {
-    let messageBodyFilered = messageChats.filter((item) => item.id === activeChannel);
-    setMessageBody(messageBodyFilered)
+    if(activeChannel.category === "channel"){
+      let messageBodyFilered = messageChats.canales.filter((item) => item.id === activeChannel);
+      setMessageBody(messageBodyFilered)
+    }
+    if(activeChannel.category === "contact"){
+      let messageBodyFilered = messageChats.contactos.filter((item) => item.id === activeChannel.name);
+      setMessageBody(messageBodyFilered)
+    }
   }
 
 
   async function fetchData() {
-    const contacts = await getMessageContacts(activeChannel);
-    setMessageChats(contacts);
+    console.log()
+    const messages = await getMessageContacts();
+    setMessageChats(messages);
     getImage();
     getDatos();
   };
