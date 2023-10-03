@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import PhotoIcon from '@mui/icons-material/Photo';
+import PhotoIcon from "@mui/icons-material/Photo";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { useAuth } from "../../context/authContext";
@@ -17,11 +17,10 @@ export default function SendMessage({
   scrollAmount,
   setMessageBody,
   messageBody,
-  fetchData
+  fetchData,
+  activeChannel,
 }) {
-
-  const {sendMessageFirebase} =
-    useAuth();
+  const { sendMessageFirebase, sendMessagePublicFirebase } = useAuth();
 
   const setMessageHandler = (e) => {
     setMessage(e.target.value);
@@ -32,14 +31,11 @@ export default function SendMessage({
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
 
-      if(!messageBody[0].data.message){
-
-        messageBody[0].data = 
-        {
+      if (!messageBody[0].data.message) {
+        (messageBody[0].data = {
           ...messageBody[0].data,
           message: [
             {
-
               date: formattedTime,
               user: user,
               message: message,
@@ -48,11 +44,9 @@ export default function SendMessage({
               image: image,
             },
           ],
-        },
-        console.log("")
+        }),
+          console.log("");
       } else {
-
-
         messageBody[0].data.message.push({
           date: formattedTime,
           user: user,
@@ -62,14 +56,17 @@ export default function SendMessage({
           image: image,
         });
       }
-      setMessage("")
+      setMessage("");
       anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
 
-      await sendMessageFirebase(messageBody)
-      await fetchData()
+      if (activeChannel.category === "contact") {
+        await sendMessageFirebase(messageBody);
+      } else {
+        await sendMessagePublicFirebase(messageBody);
+      }
+      await fetchData();
     }
   };
-
 
   return (
     <div className=" bg-[#40414F] flex justify-center items-center w-[95%] h-[75%] max-h-[50px] rounded-lg text-white gap-3 ">
