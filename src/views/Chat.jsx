@@ -191,7 +191,7 @@ export default function Chat() {
 
   function loadMessageBody() {
     if(activeChannel.category === "channel"){
-      let messageBodyFilered = messageChats.canales.filter((item) => item.id === activeChannel);
+      let messageBodyFilered = messageChats.canales.filter((item) => item.id === activeChannel.name);
       setMessageBody(messageBodyFilered)
     }
     if(activeChannel.category === "contact"){
@@ -202,7 +202,6 @@ export default function Chat() {
 
 
   async function fetchData() {
-    console.log()
     const messages = await getMessageContacts();
     setMessageChats(messages);
     getImage();
@@ -258,6 +257,7 @@ setNewContact(contact)
                 </div>
                 <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
                   <SendMessage
+                    activeChannel ={activeChannel}
                     setMessage={setMessage}
                     message={message}
                     messageChats={messageChats}
