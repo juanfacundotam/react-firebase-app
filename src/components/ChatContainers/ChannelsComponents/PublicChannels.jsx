@@ -4,11 +4,13 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 
 
-export default function PublicChannels({setActiveChannel, channel, messageChats}) {
+export default function PublicChannels({setActiveChannel, contact, messageChats, setNewContactFunction, searchAndLinkContact, setChannelName}) {
   const [openChannels, setOpenChannels] = useState(true)
 
   const setChannel = (channel) => {
-    setActiveChannel(channel)
+    console.log(channel)
+    setActiveChannel({name: channel, category: "channel"})
+    setChannelName(channel)
   }
 
   return (
@@ -25,8 +27,8 @@ export default function PublicChannels({setActiveChannel, channel, messageChats}
       </div>
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
-      {channel.map((item, index) => {
-        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.name)}}># {item.name}</p>)
+      {messageChats.canales.map((item, index) => {
+        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.id)}}># {item.id}</p>)
       })}
         
 
