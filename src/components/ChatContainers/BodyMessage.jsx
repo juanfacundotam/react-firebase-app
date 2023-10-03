@@ -6,6 +6,7 @@ export default function BodyMessage({ messageBody, anchor, user, activeChannel }
   let current = "";
   let firstCurrent = true;
   let flagCurrent = true;
+  console.log(messageBody)
   return (
     <div className=" flex flex-col justify-start items-start w-full h-fit pl-2">
       {/* <Perfil datos={datos} image={image}/> */}
