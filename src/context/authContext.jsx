@@ -18,6 +18,7 @@ import {
   updateDoc,
   collection,
   addDoc,
+  getFirestore
 } from "firebase/firestore";
 import {
   ref,
@@ -224,20 +225,6 @@ export function AuthProvider({ children }) {
   const sendMessageFirebase = async (messageBody) => {
     try {
 
-      // const docRef = doc(firestore, "usuarios", messageBody[0].id);
-      // const docSnapshotRecept = await getDoc(docRef);
-
-      // // if(newContact === user.email) {
-      // //   console.log("No puede buscarse a si mismo");
-      // //   return;
-      // // }
-
-      // if (docSnapshotRecept.exists()) {
-      //   console.log("El documento existe:", docSnapshotRecept.data());
-      //   const datos = docSnapshotRecept.data().datos;
-      //   console.log(datos)
-
-
 
       const userDocRefEmisor = doc(firestore, `usuarios/${user.email}`);
       const contactsCollectionRefEmisor = collection(userDocRefEmisor, "contactos");
@@ -253,34 +240,6 @@ export function AuthProvider({ children }) {
       const contactDataReceptor = messageBody[0].data;
       const contactDocRefReceptor = doc(contactsCollectionRefReceptor, contactEmailReceptor);
       await setDoc(contactDocRefReceptor, contactDataReceptor);
-      
-
-      //   const contactEmail = newContact;
-      //   const contactData = { ...datos, user: newContact };
-
-      //   const contactDocRef = doc(contactsCollectionRef, contactEmail);
-
-      //   const updatedDoc = await setDoc(contactDocRef, contactData);
-      // } else {
-      //   console.log("El documento no existe");
-      // }
-
-
-
-
-    //   const userDocRef = doc(firestore, `usuarios/${user.email}`);
-    //   const contactsCollectionRef = collection(userDocRef, "contactos");
-
-      
-
-    //   const contactEmail = messageBody[0].id;
-    //   const contactData = messageBody[0].data;
-
-
-
-    //   console.log(
-    //     `Datos agregados con éxito en la carpeta '${contactEmail}' dentro de la subcolección 'contacts'`
-    //   );
     } catch (error) {
       console.error("Error al agregar los datos:", error);
 
@@ -290,23 +249,43 @@ export function AuthProvider({ children }) {
   const getMessageContacts = async () => {
     //Me va a traer todos los contactos con sus chats
     try {
+
+      const db = getFirestore(); // Obtén una referencia a tu base de datos Firestore
+      const canalesRef = collection(db, 'canales');
+      
+      // Consulta todos los documentos dentro de la colección "canales"
+      const querySnapshot = await getDocs(canalesRef)
+
+      const documentosCanales = [];
+
+      // Recorre cada documento en el querySnapshot y agrega sus datos al array
+      querySnapshot.forEach((doc) => {
+        documentosCanales.push({
+          id: doc.id,
+          data: doc.data()
+        });
+      });
+
+   
+
       // Obtener una referencia al documento del usuario
-      const userDocRef = doc(firestore, `usuarios/${user.email}`);
+      const userDocRefContactos = doc(firestore, `usuarios/${user.email}`);
 
       // Obtener una referencia a la colección "contactos"
-      const contactsCollectionRef = collection(userDocRef, "contactos");
+      const contactsCollectionRefContactos = collection(userDocRefContactos, "contactos");
 
       // Obtener todos los documentos de la colección "contactos"
-      const querySnapshot = await getDocs(contactsCollectionRef);
+      const querySnapshotContactos = await getDocs(contactsCollectionRefContactos);
 
-      const documentos = querySnapshot.docs.map((doc) => {
+      const documentosContactos = querySnapshotContactos.docs.map((doc) => {
         return {
           id: doc.id,
           data: doc.data(),
         };
       });
 
-      return documentos;
+      console.log({canales: documentosCanales, contactos: documentosContactos});
+      return {canales: documentosCanales, contactos: documentosContactos};
     } catch (error) {
       console.error("Error obteniendo documentos: ", error);
     }
