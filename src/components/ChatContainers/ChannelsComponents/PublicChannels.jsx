@@ -8,7 +8,6 @@ export default function PublicChannels({setActiveChannel, contact, messageChats,
   const [openChannels, setOpenChannels] = useState(true)
 
   const setChannel = (channel) => {
-    console.log(channel)
     setActiveChannel({name: channel, category: "channel"})
     setChannelName(channel)
   }
