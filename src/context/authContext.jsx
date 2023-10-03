@@ -246,22 +246,11 @@ export function AuthProvider({ children }) {
   };
   const sendMessagePublicFirebase = async (messageBody) => {
     try {
-      console.log(messageBody[0].id)
       const userDocRefEmisor = doc(firestore, `canales/${messageBody[0].id}`);
       const contactDataEmisor = messageBody[0].data;
-  
       await setDoc(userDocRefEmisor, contactDataEmisor);
-      
-      
-      // const userDocRefReceptor = doc(firestore, `usuarios/${messageBody[0].id}`);
-      // const contactsCollectionRefReceptor = collection(userDocRefReceptor, "contactos");
-      // const contactEmailReceptor = user.email;
-      // const contactDataReceptor = messageBody[0].data;
-      // const contactDocRefReceptor = doc(contactsCollectionRefReceptor, contactEmailReceptor);
-      // await setDoc(contactDocRefReceptor, contactDataReceptor);
     } catch (error) {
       console.error("Error al agregar los datos:", error);
-
     }
   };
 
