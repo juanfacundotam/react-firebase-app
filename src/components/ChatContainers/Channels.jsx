@@ -13,7 +13,7 @@ export default function Channels({setActiveChannel, setChannelName, channelsFilt
     <>
     
      <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%] mt-5 text-[0.8rem] ">
-        <PublicChannels setActiveChannel={setActiveChannel} channel={channelsFiltered} />
+        <PublicChannels setActiveChannel={setActiveChannel} setChannelName={setChannelName} contact={contactFiltered} messageChats={messageChats} setNewContactFunction={setNewContactFunction} searchAndLinkContact={searchAndLinkContact}/>
       </div>
       {/* <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[29%] mt-5 text-[0.8rem] ">
         <PrivateChannels
