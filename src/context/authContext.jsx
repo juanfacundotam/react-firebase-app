@@ -89,7 +89,6 @@ export function AuthProvider({ children }) {
       });
       const consulta = await getDoc(docRef);
       const infoDoc = consulta.data();
-      console.log(infoDoc)
       return infoDoc.datos;
     }
   };
@@ -245,6 +244,26 @@ export function AuthProvider({ children }) {
 
     }
   };
+  const sendMessagePublicFirebase = async (messageBody) => {
+    try {
+      console.log(messageBody[0].id)
+      const userDocRefEmisor = doc(firestore, `canales/${messageBody[0].id}`);
+      const contactDataEmisor = messageBody[0].data;
+  
+      await setDoc(userDocRefEmisor, contactDataEmisor);
+      
+      
+      // const userDocRefReceptor = doc(firestore, `usuarios/${messageBody[0].id}`);
+      // const contactsCollectionRefReceptor = collection(userDocRefReceptor, "contactos");
+      // const contactEmailReceptor = user.email;
+      // const contactDataReceptor = messageBody[0].data;
+      // const contactDocRefReceptor = doc(contactsCollectionRefReceptor, contactEmailReceptor);
+      // await setDoc(contactDocRefReceptor, contactDataReceptor);
+    } catch (error) {
+      console.error("Error al agregar los datos:", error);
+
+    }
+  };
 
   const getMessageContacts = async () => {
     //Me va a traer todos los contactos con sus chats
@@ -284,7 +303,7 @@ export function AuthProvider({ children }) {
         };
       });
 
-      console.log({canales: documentosCanales, contactos: documentosContactos});
+      // console.log({canales: documentosCanales, contactos: documentosContactos});
       return {canales: documentosCanales, contactos: documentosContactos};
     } catch (error) {
       console.error("Error obteniendo documentos: ", error);
@@ -377,6 +396,7 @@ export function AuthProvider({ children }) {
         addNewImage,
         addDatos,
         sendMessageFirebase,
+        sendMessagePublicFirebase,
         getMessageContacts,
         searchAndLinkMyContacts,
         searchAndCopyInDocumentContact,
