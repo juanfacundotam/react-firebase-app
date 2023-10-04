@@ -247,7 +247,7 @@ setNewContact(contact)
             <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
               <UpBar channelName={channelName} />
             </div>
-            {activeChannel ? (
+            {activeChannel.name ? (
               <>
                 <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
                   <BodyMessage
