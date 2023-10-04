@@ -31,7 +31,7 @@ export default function UpBar({channelName}) {
           transition: "color 0.3s ease",
           "&:hover": {
             color: "grey",
-            scale: "1.2",
+            scale: "1.1",
           },
         }} onClick={() => navigate("/")}/>
 
