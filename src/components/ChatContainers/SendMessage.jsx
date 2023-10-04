@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PhotoIcon from "@mui/icons-material/Photo";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+
 import { useAuth } from "../../context/authContext";
+
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 export default function SendMessage({
   setMessage,
@@ -21,10 +25,35 @@ export default function SendMessage({
   activeChannel,
 }) {
   const { sendMessageFirebase, sendMessagePublicFirebase } = useAuth();
+  const [showEmoji, setShowEmoji] = useState(false);
+  const inputRef = useRef(null);
+
+  const toggleEmojiPicker = () => {
+    setEmojiPickerVisible(!emojiPickerVisible);
+  };
+
+  const handleEmojiClick = (emoji) => {
+    // Maneja la inserción del emoji en tu mensaje o donde sea necesario
+    // Ejemplo: setText(text + emoji);
+  };
 
   const setMessageHandler = (e) => {
     setMessage(e.target.value);
   };
+
+  const addEmojiHandler = (e) => {
+const symbol = e.unified.split("_")
+const array = []
+symbol.forEach(elem => {
+  array.push("0x" + elem);
+});
+let emoji = String.fromCodePoint(...array);
+setMessage(message + emoji);
+inputRef.current.focus();
+
+  }
+
+
   const handleKeyPress = async (e) => {
     if (e.key === "Enter" && message !== "") {
       const hora = new Date();
@@ -57,6 +86,7 @@ export default function SendMessage({
         });
       }
       setMessage("");
+      setShowEmoji(false);
       anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
 
       if (activeChannel.category === "contact") {
@@ -69,8 +99,8 @@ export default function SendMessage({
   };
 
   return (
-    <div className=" bg-[#40414F] flex justify-center items-center w-[95%] h-[75%] max-h-[50px] rounded-lg text-white gap-3 ">
-      <PhotoIcon sx={{ fontSize: 25, cursor: "pointer", marginLeft: 1 }} />
+    <div className=" bg-[#40414F] flex justify-center items-center w-[95%] h-[75%] max-h-[50px] rounded-lg text-white gap-3 relative">
+      {/* <PhotoIcon sx={{ fontSize: 25, cursor: "pointer", marginLeft: 1 }} /> */}
       {/* <input
         className=" bg-[#40414F] rounded S  focus:outline-none w-full h-[100%] overflow-hidden"
         type="text"
@@ -85,12 +115,40 @@ export default function SendMessage({
         placeholder="Escribe un mensaje..."
         onChange={setMessageHandler}
         onKeyDown={handleKeyPress}
+        ref={inputRef}
       />
 
-      <GifBoxIcon sx={{ fontSize: 25, cursor: "pointer", marginRight: 1 }} />
+      {/* <GifBoxIcon sx={{ fontSize: 25, cursor: "pointer", marginRight: 1 }} /> */}
       <EmojiEmotionsIcon
         sx={{ fontSize: 25, cursor: "pointer", marginRight: 1 }}
+        onClick={() => {
+          setShowEmoji(!showEmoji)
+        }}
       />
+      {showEmoji && (
+        <div className="absolute flex justify-center items-center bottom-16 right-0">
+
+        <Picker
+          data={data}
+          onEmojiSelect={addEmojiHandler}
+          emojiSize={20}
+          emojiButtonSize={25}
+          // maxFrequentRows={0}
+          />
+          </div>
+      )}
+
+      {/* <div>
+      <input
+        type="text"
+        placeholder="Escribe tu mensaje..."
+      />
+      <button onClick={toggleEmojiPicker}>Mostrar emojis</button>
+      
+      {emojiPickerVisible && (
+  <EmojiPicker onEmojiClick={handleEmojiClick} />
+)}
+    </div> */}
     </div>
   );
 }
