@@ -16,13 +16,13 @@ export default function UpBar({channelName}) {
 
 
 
-        <div className=" flex justify-between items-center bg-[#40414F] rounded   ">
+        {/* <div className=" flex justify-between items-center bg-[#40414F] rounded   ">
           <input
             type="text"
             className="bg-[#40414F] rounded py-1 pl-3 focus:outline-none "
           />
                 <SearchIcon sx={{ fontSize: 25, marginRight:1, cursor: "pointer", marginLeft: 1}}/>
-        </div>
+        </div> */}
                 <HomeIcon         sx={{
           fontSize: 25,
           cursor: "pointer",
