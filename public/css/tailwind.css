@@ -558,6 +558,14 @@ video {
   top: -1.75rem;
 }
 
+.bottom-16 {
+  bottom: 4rem;
+}
+
+.right-0 {
+  right: 0px;
+}
+
 .right-2 {
   right: 0.5rem;
 }
@@ -572,26 +580,6 @@ video {
 
 .top-8 {
   top: 2rem;
-}
-
-.bottom-0 {
-  bottom: 0px;
-}
-
-.right-0 {
-  right: 0px;
-}
-
-.top-0 {
-  top: 0px;
-}
-
-.bottom-20 {
-  bottom: 5rem;
-}
-
-.bottom-16 {
-  bottom: 4rem;
 }
 
 .z-50 {
