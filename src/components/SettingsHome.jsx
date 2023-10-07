@@ -4,6 +4,7 @@ import { useAuth } from "../context/authContext";
 import iconImage from "../assets/logoloro.png";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import ConvertImage from "react-convert-image";
 export default function SettingsHome({
   nickName,
   estado,
@@ -26,10 +27,66 @@ export default function SettingsHome({
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const ImageInputChangeHandler = (e) => {
+
+
+  // const ImageInputChangeHandler = (e) => {
+  //   const file = e.target.files[0];
+  //   setSelectedFile(file);
+  //   setEditImage(file);
+  // };
+
+
+
+  const ImageInputChangeHandler = async (e) => {
     const file = e.target.files[0];
-    setSelectedFile(file);
-    setEditImage(file);
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = async () => {
+        const image = new Image();
+        image.src = reader.result;
+
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          // Define el nuevo tamaño de la imagen (ajusta según sea necesario)
+          const maxWidth = 800;
+          const maxHeight = 600;
+          let newWidth = image.width;
+          let newHeight = image.height;
+
+          if (newWidth > maxWidth) {
+            newWidth = maxWidth;
+            newHeight = (image.height * maxWidth) / image.width;
+          }
+
+          if (newHeight > maxHeight) {
+            newHeight = maxHeight;
+            newWidth = (image.width * maxHeight) / image.height;
+          }
+
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+
+          ctx.drawImage(image, 0, 0, newWidth, newHeight);
+
+          // Convierte el lienzo a WebP (puedes ajustar la calidad según tus necesidades)
+          canvas.toBlob(async (blob) => {
+            const webpFile = new File([blob], 'converted-image.webp', {
+              type: 'image/webp',
+            });
+            // setConvertedFile(webpFile);
+            setSelectedFile(webpFile);
+            setEditImage(webpFile);
+          }, 'image/webp', 0.7);
+        };
+      };
+
+      reader.readAsDataURL(file);
+    }
+
     // Puedes hacer algo con el archivo seleccionado aquí si lo deseas.
   };
 
