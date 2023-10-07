@@ -67,6 +67,16 @@ function Home() {
         datos={datos}
         rol="FullStack Developer"
       />
+            <div className="flex flex-col justify-center items-start mt-10 text-start border-2 w-96">
+        <h1 className="text-center w-full">Canales Publicos:</h1>
+        <h1>- Los canales generales son dos, de momento no se pueden añadir</h1>
+        <h1 className="mt-10 text-center w-full">Chats Privados:</h1>
+        <h1>- Para añadir un contacto debes ingresar su email</h1>
+        <h1>- Solo aparecera si este se encuentra registrado</h1>
+        <h1>- Puedes hacer la prueba creandote dos usuarios ingresando con google desde dos cuentas diferentes</h1>
+
+
+      </div>
     </div>
   );
 }
