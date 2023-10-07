@@ -8,6 +8,20 @@ import SendMessage from "../components/ChatContainers/SendMessage";
 import Spinner from "../components/spinner";
 
 
+
+import {
+  getDocs,
+  doc,
+  collection,
+  getFirestore,
+  onSnapshot
+} from "firebase/firestore";
+
+
+
+
+
+
 export default function Chat() {
 
 
@@ -32,7 +46,7 @@ export default function Chat() {
     loading,
     searchOrCreateDocument,
     searchOrCreateImage,
-    getMessageContacts,
+    // getMessageContacts,
     searchAndLinkMyContacts,
     updatedMessage
   } = useAuth();
@@ -87,7 +101,7 @@ export default function Chat() {
         unsubscribeContactos();
       }
     };
-  }, [dataChanged]);
+  }, []);
 
 
   console.log(messageChats)
@@ -98,7 +112,7 @@ export default function Chat() {
     if (activeChannel !== "") {
       loadMessageBody();
     }
-  }, [activeChannel]);
+  }, [activeChannel, messageChats]);
 
   function loadMessageBody() {
     if (activeChannel.category === "channel") {
@@ -115,12 +129,61 @@ export default function Chat() {
     }
   }
 
-  // async function fetchData() {
-  //   const messages = await getMessageContacts();
-  //   setMessageChats(messages);
-  //   getImage();
-  //   getDatos();
-  // }
+  const getMessageContacts = async () => {
+    try {
+      const db = getFirestore();
+      const canalesRef = collection(db, 'canales');
+      const userDocRefContactos = doc(db, `usuarios/${user.email}`);
+      const contactsCollectionRefContactos = collection(userDocRefContactos, 'contactos');
+  
+      // Escucha cambios en la colección "canales"
+      const unsubscribeCanales = onSnapshot(canalesRef, (querySnapshot) => {
+        const documentosCanales = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+        // Actualiza tu estado o realiza cualquier otra acción con los datos de "canales"
+        console.log('Canales actualizados:', documentosCanales);
+        setMessageChats((prevChats) => ({ ...prevChats, canales: documentosCanales }));
+      });
+  
+      // Escucha cambios en la colección "contactos"
+      const unsubscribeContactos = onSnapshot(contactsCollectionRefContactos, (querySnapshot) => {
+        const documentosContactos = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+        // Actualiza tu estado o realiza cualquier otra acción con los datos de "contactos"
+        console.log('Contactos actualizados:', documentosContactos);
+        setMessageChats((prevChats) => ({ ...prevChats, contactos: documentosContactos }));
+      });
+  
+      // Obtén los datos iniciales de canales y contactos
+      const canalesSnapshot = await getDocs(canalesRef);
+      const contactosSnapshot = await getDocs(contactsCollectionRefContactos);
+  
+      const documentosCanales = canalesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }));
+  
+      const documentosContactos = contactosSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }));
+  
+      // Devuelve tanto los datos como las funciones de cancelación
+      return {
+        canales: documentosCanales,
+        contactos: documentosContactos,
+        unsubscribeCanales,
+        unsubscribeContactos,
+      };
+    } catch (error) {
+      console.error('Error obteniendo documentos:', error);
+      throw error; // Re-lanza el error para manejarlo en el componente
+    }
+  };
 
 
   async function getDatos() {
@@ -139,6 +202,7 @@ export default function Chat() {
     searchAndLinkMyContacts(newContact);
     fetchData();
   };
+
   return (
     <div className="flex justify-center items-center h-screen relative">
       {loadSpinner ? (
