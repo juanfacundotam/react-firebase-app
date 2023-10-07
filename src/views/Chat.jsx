@@ -8,153 +8,13 @@ import SendMessage from "../components/ChatContainers/SendMessage";
 import Spinner from "../components/spinner";
 
 
-
-const messageData = [
-  {
-    name: "General",
-    category: "channel",
-    message: [
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "facundo",
-        message: "Hola!",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-        nickName: "Juan Facundo Tam",
-        user: "facutam@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "facundo",
-        message: "Tanto tiempo!",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-        nickName: "Juan Facundo Tam",
-        user: "facutam@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "Javier",
-        message: "Hola!",
-        image: "https://i.pravatar.cc/300",
-        nickName: "Javi",
-        user: "Javier@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "facundo",
-        message: "Como va!",
-        image: "https://i.pravatar.cc/300",
-        nickName: "Javi",
-        user: "Javier@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "facundo",
-        message: "Bien y vos?",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-        nickName: "Juan Facundo Tam",
-        user: "facutam@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "facundo",
-        message: "Que se cuenta?",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-        nickName: "Juan Facundo Tam",
-        user: "facutam@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "facundo",
-        message: "Todo muy bien!",
-        image: "https://i.pravatar.cc/300",
-        nickName: "Javi",
-        user: "Javier@gmail.com",
-      },
-    ],
-  },
-  // {
-  //   name: "Juan Pedro",
-  //   email: "jpedro@gmail.com",
-  //   category: "contact",
-  //   message: [
-  //     {
-  //       date: "2023-09-25T19:51:24.320Z",
-  //       estado: "Desarrollador apasionado",
-  //       name: "Juan Pedro",
-  //       message: "todo bien?",
-  //       image:
-  //         "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-  //       nickName: "Juan Facundo Tam",
-  //       user: "facutam@gmail.com",
-  //     },
-  //     {
-  //       date: "2023-09-25T19:58:24.320Z",
-  //       estado: "Data Science",
-  //       name: "Juan Pedro",
-  //       message: "bien, vos?",
-  //       image: "https://i.pravatar.cc/300",
-  //       nickName: "JP",
-  //       user: "jpedro@gmail.com",
-  //     },
-  //   ],
-  // },
-  {
-    name: "Javier Alonso",
-    email: "javialo@gmail.com",
-    category: "contact",
-    message: [
-      {
-        date: "2023-09-25T19:51:24.320Z",
-        estado: "Desarrollador apasionado",
-        name: "Juan Pedro",
-        message: "todo bien?",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-firebase-app-d4e2b.appspot.com/o/documentos%2Ffacutam%40gmail.com%2FfotoCV-removebg-preview.png?alt=media&token=c82358f0-946c-45e5-95b1-a769c73f3e7d",
-        nickName: "Juan Facundo Tam",
-        user: "facutam@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:58:24.320Z",
-        estado: "Data Science",
-        name: "Javier Alonso",
-        message: "Todo bien!",
-        image: "https://i.pravatar.cc/300",
-        nickName: "Javi",
-        user: "javialo@gmail.com",
-      },
-      {
-        date: "2023-09-25T19:58:24.320Z",
-        estado: "Data Science",
-        name: "Javier Alonso",
-        message: "vos?",
-        image: "https://i.pravatar.cc/300",
-        nickName: "Javi",
-        user: "javialo@gmail.com",
-      },
-    ],
-  },
-];
-
 export default function Chat() {
-  const channelsFiltered = messageData.filter(
-    (channel) => channel.category === "channel"
-  );
-  const contactFiltered = messageData.filter(
-    (channel) => channel.category === "contact"
-  );
 
-  const [activeChannel, setActiveChannel] = useState({name:"", category: ""});
+
+  const [activeChannel, setActiveChannel] = useState({
+    name: "",
+    category: "",
+  });
   const [channelName, setChannelName] = useState("");
   const [loadSpinner, setLoadSpinner] = useState(true);
   const [message, setMessage] = useState("");
@@ -162,7 +22,8 @@ export default function Chat() {
   const [channelMessageArray, setChannelMessageArray] = useState([]);
   const [contactMessageArray, setContactMessageArray] = useState([]);
   const [image, setImage] = useState("");
-  const [newContact, setNewContact] = useState("")
+  const [newContact, setNewContact] = useState("");
+  const [dataChanged, setDataChanged] = useState(false);
 
   const anchor = useRef();
   const {
@@ -173,6 +34,7 @@ export default function Chat() {
     searchOrCreateImage,
     getMessageContacts,
     searchAndLinkMyContacts,
+    updatedMessage
   } = useAuth();
   const [messageChats, setMessageChats] = useState([]);
   const [datos, setDatos] = useState({
@@ -181,34 +43,85 @@ export default function Chat() {
     estado: "Estado",
     image: image,
   });
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  
+  const fetchData = async () => {
+    let unsubscribeCanales, unsubscribeContactos;
+    try {
+      const result = await getMessageContacts();
+      unsubscribeCanales = result.unsubscribeCanales;
+      unsubscribeContactos = result.unsubscribeContactos;
+      setMessageChats({canales: result.canales, contactos: result.contactos });
+    } catch (error) {
+      console.error('Error obteniendo documentos:', error);
+    }
+  };
   useEffect(() => {
+    let unsubscribeCanales, unsubscribeContactos;
+    
+    const fetchData = async () => {
+      try {
+        const result = await getMessageContacts();
+        unsubscribeCanales = result.unsubscribeCanales;
+        unsubscribeContactos = result.unsubscribeContactos;
+        setMessageChats({canales: result.canales, contactos: result.contactos });
+      } catch (error) {
+        console.error('Error obteniendo documentos:', error);
+      }
+    };
+    getImage();
+    getDatos();
     fetchData();
-  }, []);
+  
+    // Puedes realizar cualquier acción adicional con los datos aquí si es necesario
+  
+    // Limpia la escucha cuando el componente se desmonta
+    return () => {
+      if (unsubscribeCanales) {
+        unsubscribeCanales();
+      }
+      if (unsubscribeContactos) {
+        unsubscribeContactos();
+      }
+    };
+  }, [dataChanged]);
+
+
+  console.log(messageChats)
+
+
 
   useEffect(() => {
-    if(activeChannel !== ""){
+    if (activeChannel !== "") {
       loadMessageBody();
     }
   }, [activeChannel]);
 
   function loadMessageBody() {
-    if(activeChannel.category === "channel"){
-      let messageBodyFilered = messageChats.canales.filter((item) => item.id === activeChannel.name);
-      setMessageBody(messageBodyFilered)
+    if (activeChannel.category === "channel") {
+      let messageBodyFilered = messageChats.canales.filter(
+        (item) => item.id === activeChannel.name
+      );
+      setMessageBody(messageBodyFilered);
     }
-    if(activeChannel.category === "contact"){
-      let messageBodyFilered = messageChats.contactos.filter((item) => item.id === activeChannel.name);
-      setMessageBody(messageBodyFilered)
+    if (activeChannel.category === "contact") {
+      let messageBodyFilered = messageChats.contactos.filter(
+        (item) => item.id === activeChannel.name
+      );
+      setMessageBody(messageBodyFilered);
     }
   }
 
+  // async function fetchData() {
+  //   const messages = await getMessageContacts();
+  //   setMessageChats(messages);
+  //   getImage();
+  //   getDatos();
+  // }
 
-  async function fetchData() {
-    const messages = await getMessageContacts();
-    setMessageChats(messages);
-    getImage();
-    getDatos();
-  };
 
   async function getDatos() {
     const datosSearched = await searchOrCreateDocument(user.email);
@@ -220,15 +133,16 @@ export default function Chat() {
   }
 
   const setNewContactFunction = (contact) => {
-setNewContact(contact)
-  }
+    setNewContact(contact);
+  };
   const searchAndLinkContact = () => {
-    searchAndLinkMyContacts(newContact)
-    fetchData()
-  }
+    searchAndLinkMyContacts(newContact);
+    fetchData();
+  };
   return (
     <div className="flex justify-center items-center h-screen relative">
       {loadSpinner ? (
+      // {true ? (
         <Spinner />
       ) : (
         <>
@@ -236,11 +150,9 @@ setNewContact(contact)
             <Channels
               setActiveChannel={setActiveChannel}
               setChannelName={setChannelName}
-              channelsFiltered={channelsFiltered}
-              contactFiltered={contactFiltered}
               messageChats={messageChats}
-              setNewContactFunction = {setNewContactFunction}
-              searchAndLinkContact = {searchAndLinkContact}
+              setNewContactFunction={setNewContactFunction}
+              searchAndLinkContact={searchAndLinkContact}
             />
           </div>
           <div className="bg-[#343541] flex flex-col justify-start items-center h-full w-[80%]">
@@ -259,7 +171,7 @@ setNewContact(contact)
                 </div>
                 <div className=" bg-[#343541] flex flex-col justify-center items-center h-[10%] w-full">
                   <SendMessage
-                    activeChannel ={activeChannel}
+                    activeChannel={activeChannel}
                     setMessage={setMessage}
                     message={message}
                     messageChats={messageChats}
