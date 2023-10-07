@@ -841,6 +841,14 @@ video {
   width: 100%;
 }
 
+.w-52 {
+  width: 13rem;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
 .min-w-\[40px\] {
   min-width: 40px;
 }
@@ -1143,6 +1151,10 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.text-start {
+  text-align: start;
 }
 
 .align-baseline {
