@@ -18,7 +18,8 @@ import {
   updateDoc,
   collection,
   addDoc,
-  getFirestore
+  getFirestore,
+  onSnapshot
 } from "firebase/firestore";
 import {
   ref,
@@ -255,47 +256,56 @@ export function AuthProvider({ children }) {
   };
 
   const getMessageContacts = async () => {
-    //Me va a traer todos los contactos con sus chats
     try {
-
-      const db = getFirestore(); // Obtén una referencia a tu base de datos Firestore
+      const db = getFirestore();
       const canalesRef = collection(db, 'canales');
-      
-      // Consulta todos los documentos dentro de la colección "canales"
-      const querySnapshot = await getDocs(canalesRef)
-
-      const documentosCanales = [];
-
-      // Recorre cada documento en el querySnapshot y agrega sus datos al array
-      querySnapshot.forEach((doc) => {
-        documentosCanales.push({
-          id: doc.id,
-          data: doc.data()
-        });
-      });
-
-   
-
-      // Obtener una referencia al documento del usuario
-      const userDocRefContactos = doc(firestore, `usuarios/${user.email}`);
-
-      // Obtener una referencia a la colección "contactos"
-      const contactsCollectionRefContactos = collection(userDocRefContactos, "contactos");
-
-      // Obtener todos los documentos de la colección "contactos"
-      const querySnapshotContactos = await getDocs(contactsCollectionRefContactos);
-
-      const documentosContactos = querySnapshotContactos.docs.map((doc) => {
-        return {
+      const userDocRefContactos = doc(db, `usuarios/${user.email}`);
+      const contactsCollectionRefContactos = collection(userDocRefContactos, 'contactos');
+  
+      // Escucha cambios en la colección "canales"
+      const unsubscribeCanales = onSnapshot(canalesRef, (querySnapshot) => {
+        const documentosCanales = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
-        };
+        }));
+        // Actualiza tu estado o realiza cualquier otra acción con los datos de "canales"
+        console.log('Canales actualizados:', documentosCanales);
       });
-
-      // console.log({canales: documentosCanales, contactos: documentosContactos});
-      return {canales: documentosCanales, contactos: documentosContactos};
+  
+      // Escucha cambios en la colección "contactos"
+      const unsubscribeContactos = onSnapshot(contactsCollectionRefContactos, (querySnapshot) => {
+        const documentosContactos = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+        // Actualiza tu estado o realiza cualquier otra acción con los datos de "contactos"
+        console.log('Contactos actualizados:', documentosContactos);
+      });
+  
+      // Obtén los datos iniciales de canales y contactos
+      const canalesSnapshot = await getDocs(canalesRef);
+      const contactosSnapshot = await getDocs(contactsCollectionRefContactos);
+  
+      const documentosCanales = canalesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }));
+  
+      const documentosContactos = contactosSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }));
+  
+      // Devuelve tanto los datos como las funciones de cancelación
+      return {
+        canales: documentosCanales,
+        contactos: documentosContactos,
+        unsubscribeCanales,
+        unsubscribeContactos,
+      };
     } catch (error) {
-      console.error("Error obteniendo documentos: ", error);
+      console.error('Error obteniendo documentos:', error);
+      throw error; // Re-lanza el error para manejarlo en el componente
     }
   };
 
