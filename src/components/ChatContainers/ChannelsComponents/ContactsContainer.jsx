@@ -15,7 +15,6 @@ export default function ContactsContainer({setActiveChannel, contact, messageCha
     setChannelName(nickName)
   }
 
-
   return (
 <>
       <div className="flex justify-between items-center cursor-pointer w-full " 
@@ -34,7 +33,7 @@ export default function ContactsContainer({setActiveChannel, contact, messageCha
       </div>
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
-      {messageChats.contactos.map((item, index) => {
+      {messageChats.contactos && messageChats.contactos.map((item, index) => {
         return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.id, item.data.nickName)}}># {item.data.nickName}</p>)
       })}
  
