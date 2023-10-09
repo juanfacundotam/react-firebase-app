@@ -4,7 +4,6 @@ import { useAuth } from "../context/authContext";
 import iconImage from "../assets/logoloro.png";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import ConvertImage from "react-convert-image";
 export default function SettingsHome({
   nickName,
   estado,
@@ -74,12 +73,13 @@ export default function SettingsHome({
 
           // Convierte el lienzo a WebP (puedes ajustar la calidad según tus necesidades)
           canvas.toBlob(async (blob) => {
-            const webpFile = new File([blob], 'converted-image.webp', {
+            const webpFile = new File([blob], `image.webp`, {
               type: 'image/webp',
             });
             // setConvertedFile(webpFile);
             setSelectedFile(webpFile);
             setEditImage(webpFile);
+            console.log(webpFile)
           }, 'image/webp', 0.7);
         };
       };
