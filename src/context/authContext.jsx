@@ -211,6 +211,37 @@ export function AuthProvider({ children }) {
     return urlDownload;
   };
 
+  // const setUpdatedDatos = async () => {
+  //   const docRef = doc(firestore, `usuarios/${user.email}`);
+  //   let consulta = await getDoc(docRef);
+  //   let infoDoc = consulta.data();
+
+  //   let imageSaved;
+
+  //   if (consulta.exists()) {
+  //     if (infoDoc.hasOwnProperty("newImage")) {
+  //       imageSaved = infoDoc.newImage;
+  //     } else {
+  //       await updateDoc(docRef, { newImage: fileURL });
+  //       consulta = await getDoc(docRef);
+  //       infoDoc = consulta.data();
+  //       imageSaved = infoDoc.newImage;
+  //     }
+  //   }
+    
+    
+    
+    
+    // else {
+    //   await setDoc(docRef, { newImage: fileURL });
+    //   consulta = await getDoc(docRef);
+    //   infoDoc = consulta.data();
+    //   return infoDoc.newImage;
+    // }
+  // };
+
+  // setUpdatedDatos();
+
   const addDatos = async (datosUpdated) => {
     try {
       const userDocRef = doc(firestore, `usuarios/${user.email}`);
@@ -399,6 +430,7 @@ export function AuthProvider({ children }) {
         getMessageContacts,
         searchAndLinkMyContacts,
         searchAndCopyInDocumentContact,
+        // setUpdatedDatos,
       }}
     >
       {children}
