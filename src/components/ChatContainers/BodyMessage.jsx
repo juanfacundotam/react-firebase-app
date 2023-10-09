@@ -37,7 +37,7 @@ if(!messageBody.length){
                 <div
                   key={index}
                   className={
-                    " flex justify-end items-end w-full h-full text-white"
+                    " flex justify-end items-end w-full h-full text-white "
                   }
                 >
                   <img
@@ -47,7 +47,7 @@ if(!messageBody.length){
                   />
 
                   <div className="flex flex-col justify-center items-end w-full h-full ">
-                    <div className="flex  justify-start items-center w-full  gap-3 mb-2">
+                    <div className="flex  justify-start items-center w-full  gap-3 mb-2 mt-5">
                       <h1 className="text-xs text-gray-200 mt-auto">
                         {item.nickName}
                       </h1>
@@ -66,7 +66,7 @@ if(!messageBody.length){
               ) : (
                 <div
                   key={index}
-                  className=" flex justify-end items-end w-full h-fit text-white "
+                  className=" flex justify-end items-end w-full h-fit text-white  "
                 >
                   <div
                     src={item.image}
@@ -84,11 +84,11 @@ if(!messageBody.length){
                 <div
                   key={index}
                   className={
-                    " flex  justify-end items-start w-full  h-full text-white"
+                    " flex  justify-end items-start w-full  h-full text-white mt-5"
                   }
                 >
                   <div className="flex  flex-col whitespace-nowrap mr-3 ">
-                    <div className="flex  justify-start items-center w-full  gap-3 mb-2">
+                    <div className="flex  justify-start items-center w-full  gap-3 mb-2 ">
                       <h2 className="text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
                       <h3 className="text-[0.6rem] text-gray-400 mt-auto">
                         {item.date}
@@ -114,7 +114,7 @@ if(!messageBody.length){
                 <div
                 key={index}
                 className={
-                  " flex  justify-end items-start w-full  h-full text-white"
+                  " flex  justify-end items-start w-full  h-full text-white "
                 }
               >
                 <div className="flex  flex-col whitespace-nowrap mr-3 ">
