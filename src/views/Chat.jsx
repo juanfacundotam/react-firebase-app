@@ -6,6 +6,8 @@ import UpBar from "../components/ChatContainers/UpBar";
 import BodyMessage from "../components/ChatContainers/BodyMessage";
 import SendMessage from "../components/ChatContainers/SendMessage";
 import Spinner from "../components/spinner";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 
@@ -38,6 +40,8 @@ export default function Chat() {
   const [image, setImage] = useState("");
   const [newContact, setNewContact] = useState("");
   const [dataChanged, setDataChanged] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [iconsHidden, setIconsHidden] = useState(false);
 
   const anchor = useRef();
   const {
@@ -60,6 +64,24 @@ export default function Chat() {
   // useEffect(() => {
   //   fetchData();
   // }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 767) {
+        setMenuOpen(false);
+        setIconsHidden(false)
+      } else {
+        setMenuOpen(true);
+        setIconsHidden(true)
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   
   const fetchData = async () => {
@@ -210,8 +232,23 @@ export default function Chat() {
         <Spinner />
       ) : (
         <>
-          <div className="bg-[#202123] flex flex-col justify-start items-center h-full w-[20%]">
+          <div className={menuOpen ? "bg-[#202123] flex flex-col justify-start items-center h-screen md:w-[20%] md:relative absolute  w-full z-50" : "hidden"}>
+          {!iconsHidden && <ArrowBackIcon sx={{
+          fontSize: 25,
+          position: "absolute",
+          right: 10,
+          top: 15,
+          cursor: "pointer",
+          marginLeft: 3,
+          marginRight: 1,
+          transition: "color 0.3s ease",
+          "&:hover": {
+            color: "grey",
+            scale: "1.1",
+          },
+        }} onClick={() => setMenuOpen(false)}/>}
             <Channels
+            setMenuOpen={setMenuOpen}
               setActiveChannel={setActiveChannel}
               setChannelName={setChannelName}
               messageChats={messageChats}
@@ -219,9 +256,9 @@ export default function Chat() {
               searchAndLinkContact={searchAndLinkContact}
             />
           </div>
-          <div className="bg-[#343541] flex flex-col justify-start items-center h-full w-[80%]">
+          <div className="bg-[#343541] flex flex-col justify-start items-center h-full w-full md:w-[80%]">
             <div className="border-b-[1px] border-[#646464] flex flex-col justify-center items-center h-[8%] w-full">
-              <UpBar channelName={channelName} />
+              <UpBar iconsHidden={iconsHidden} channelName={channelName} setMenuOpen={setMenuOpen}/>
             </div>
             {activeChannel.name ? (
               <>
