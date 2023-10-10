@@ -226,7 +226,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen relative">
+    <div className="flex justify-center items-center h-screen relative text-xl md:text-xs">
       {loadSpinner ? (
       // {true ? (
         <Spinner />
@@ -264,6 +264,7 @@ export default function Chat() {
               <>
                 <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
                   <BodyMessage
+                  iconsHidden={iconsHidden}
                     messageBody={messageBody}
                     anchor={anchor}
                     user={user.email}
