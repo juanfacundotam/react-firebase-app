@@ -12,7 +12,7 @@ export default function Channels({setActiveChannel, setMenuOpen, setChannelName,
   return (
     <>
     
-     <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%] mt-5 text-[0.8rem] ">
+     <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%] mt-5 text-xl md:text-xs ">
         <PublicChannels setMenuOpen={setMenuOpen} setActiveChannel={setActiveChannel} setChannelName={setChannelName} contact={contactFiltered} messageChats={messageChats} setNewContactFunction={setNewContactFunction} searchAndLinkContact={searchAndLinkContact}/>
       </div>
       {/* <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[29%] mt-5 text-[0.8rem] ">
@@ -20,7 +20,7 @@ export default function Channels({setActiveChannel, setMenuOpen, setChannelName,
          />
       </div> */}
       <div className="border w-[80%] border-gray-500 mt-5"></div>
-      <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%] mt-5 text-[0.8rem] ">
+      <div className="flex flex-col justify-start items-start w-[80%] h-fit max-h-[45%] mt-5 text-xl md:text-xs ">
         <ContactsContainer setMenuOpen={setMenuOpen} setActiveChannel={setActiveChannel} setChannelName={setChannelName} contact={contactFiltered} messageChats={messageChats} setNewContactFunction={setNewContactFunction} searchAndLinkContact={searchAndLinkContact}/>
       </div>
     </>
