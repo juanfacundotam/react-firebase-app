@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Message from "./BodyComponents/Message";
 import Perfil from "./BodyComponents/Perfil";
 
-export default function BodyMessage({ messageBody, anchor, user, activeChannel }) {
+export default function BodyMessage({iconsHidden, messageBody, anchor, user, activeChannel }) {
   let current = "";
   let firstCurrent = true;
   let flagCurrent = true;
@@ -47,18 +47,18 @@ if(!messageBody.length){
                   />
 
                   <div className="flex flex-col justify-center items-end w-full h-full ">
-                    <div className="flex  justify-start items-center w-full  gap-3 mb-2 mt-5">
-                      <h1 className="text-xs text-gray-200 mt-auto">
+                    <div className="flex  justify-start items-center w-full  gap-3 mb-2 mt-5 md:mt-auto">
+                      <h1 className=" text-gray-200 text-xl  md:text-xs">
                         {item.nickName}
                       </h1>
-                      <h3 className="text-[0.6rem] text-gray-400 mt-auto">
+                      <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
                         {item.date}
                       </h3>
 
-                      <h2 className="text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
+                      {iconsHidden && <h2 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>}
                     </div>
 
-                    <div className="text-[0.8rem] flex flex-col justify-start items-start w-full h-full  text-white">
+                    <div className="text-base md:text-[0.8rem] flex flex-col justify-start items-start w-full h-full  text-white">
                       <p className="ml-2">{item.message}</p>
                     </div>
                   </div>
@@ -89,11 +89,11 @@ if(!messageBody.length){
                 >
                   <div className="flex  flex-col whitespace-nowrap mr-3 ">
                     <div className="flex  justify-start items-center w-full  gap-3 mb-2 ">
-                      <h2 className="text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
-                      <h3 className="text-[0.6rem] text-gray-400 mt-auto">
+                      <h2 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
+                      <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
                         {item.date}
                       </h3>
-                      <h1 className="text-xs text-gray-200 mt-auto">
+                      <h1 className="text-xs  md:text-xl text-gray-200 mt-auto">
                         {item.nickName}
                       </h1>
                     </div>
