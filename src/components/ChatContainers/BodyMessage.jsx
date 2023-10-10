@@ -93,7 +93,7 @@ if(!messageBody.length){
                       <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
                         {item.date}
                       </h3>
-                      <h1 className="text-xs  md:text-xl text-gray-200 mt-auto">
+                      <h1 className="text-gray-200 text-xl  md:text-xs">
                         {item.nickName}
                       </h1>
                     </div>
