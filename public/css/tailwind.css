@@ -1209,6 +1209,19 @@ video {
   line-height: 1rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-\[230px\] {
+  font-size: 230px;
+}
+
+.text-\[500px\] {
+  font-size: 500px;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1504,6 +1517,10 @@ video {
     top: 1.75rem;
   }
 
+  .md\:mt-auto {
+    margin-top: auto;
+  }
+
   .md\:block {
     display: block;
   }
@@ -1518,5 +1535,28 @@ video {
 
   .md\:max-w-\[300px\] {
     max-width: 300px;
+  }
+
+  .md\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .md\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .md\:text-\[0\.6rem\] {
+    font-size: 0.6rem;
+  }
+
+  .md\:text-\[0\.8rem\] {
+    font-size: 0.8rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
