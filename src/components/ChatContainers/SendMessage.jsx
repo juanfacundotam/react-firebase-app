@@ -3,6 +3,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PhotoIcon from "@mui/icons-material/Photo";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import SendIcon from '@mui/icons-material/Send';
+
 
 import { useAuth } from "../../context/authContext";
 
@@ -54,8 +56,9 @@ inputRef.current.focus();
   }
 
 
-  const handleKeyPress = async (e) => {
-    if (e.key === "Enter" && message !== "") {
+  const handleKeyPress = async (e, iconSend) => {
+    console.log(iconSend)
+    if ((e.key === "Enter" || iconSend === "ok") && message !== "") {
       const hora = new Date();
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
@@ -124,6 +127,10 @@ inputRef.current.focus();
         onClick={() => {
           setShowEmoji(!showEmoji)
         }}
+      />
+      <SendIcon
+        sx={{ fontSize: 25, cursor: "pointer", marginRight: 1 }}
+        onClick={(e) => handleKeyPress(e, "ok")}
       />
       {showEmoji && (
         <div className="absolute flex justify-center items-center bottom-16 right-0">
