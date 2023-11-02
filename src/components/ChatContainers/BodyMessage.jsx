@@ -51,15 +51,15 @@ if(!messageBody.length){
                       <h1 className=" text-gray-200 text-xl  md:text-xs">
                         {item.nickName}
                       </h1>
-                      <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
-                        {item.date}
-                      </h3>
+                      {iconsHidden && <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
+  {item.date}
+</h3>}
 
                       {iconsHidden && <h2 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>}
                     </div>
 
-                    <div className="text-base md:text-[0.8rem] flex flex-col justify-start items-start w-full h-full  text-white">
-                      <p className="ml-2">{item.message}</p>
+                    <div className="text-base md:text-[0.5rem] flex flex-col justify-start items-start w-full h-full  text-white">
+                      <p className="ml-2 text-[0.7rem]">{item.message}</p>
                     </div>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ if(!messageBody.length){
                   ></div>
 
                   <div className=" text-[0.8rem] flex flex-col justify-start items-start w-full h-full  text-white">
-                    <p className="ml-2">{item.message}</p>
+                    <p className="ml-2 text-[0.7rem] md:text-[0.9rem]">{item.message}</p>
                   </div>
                 </div>
               );
@@ -89,15 +89,15 @@ if(!messageBody.length){
                 >
                   <div className="flex  flex-col whitespace-nowrap mr-3 ">
                     <div className="flex  justify-start items-center w-full  gap-3 mb-2 ">
-                      <h2 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>
-                      <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
+                    {iconsHidden && <h2 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">{`"${item.estado}"`}</h2>}
+                      {iconsHidden && <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
                         {item.date}
-                      </h3>
+                      </h3>}
                       <h1 className="text-gray-200 text-xl  md:text-xs">
                         {item.nickName}
                       </h1>
                     </div>
-                    <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-end w-full h-full  text-white ">
+                    <div className="pl-2 text-[0.7rem] flex flex-col justify-start items-end w-full h-full  text-white ">
                       <p className="mr-2">{item.message}</p>
                     </div>
 
@@ -119,7 +119,7 @@ if(!messageBody.length){
               >
                 <div className="flex  flex-col whitespace-nowrap mr-3 ">
 
-                  <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-end w-full h-full  text-white ">
+                  <div className="pl-2 text-[0.7rem] flex flex-col justify-start items-end w-full h-full  text-white ">
                     <p className="mr-2">{item.message}</p>
                   </div>
 
