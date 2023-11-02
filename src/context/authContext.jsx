@@ -255,22 +255,37 @@ export function AuthProvider({ children }) {
 
   const sendMessageFirebase = async (messageBody) => {
     try {
-
+      let messageBody2 = messageBody
 
       const userDocRefEmisor = doc(firestore, `usuarios/${user.email}`);
+      let consulta = await getDoc(userDocRefEmisor);
+      let infoDoc = consulta.data();
       const contactsCollectionRefEmisor = collection(userDocRefEmisor, "contactos");
       const contactEmailEmisor = messageBody[0].id;
+      console.log(messageBody[0].data)
       const contactDataEmisor = messageBody[0].data;
       const contactDocRefEmisor = doc(contactsCollectionRefEmisor, contactEmailEmisor);
       await setDoc(contactDocRefEmisor, contactDataEmisor);
-      
-      
+
+
+
+
       const userDocRefReceptor = doc(firestore, `usuarios/${messageBody[0].id}`);
+
       const contactsCollectionRefReceptor = collection(userDocRefReceptor, "contactos");
       const contactEmailReceptor = user.email;
-      const contactDataReceptor = messageBody[0].data;
+      messageBody2[0].data.user = user.email
+      messageBody2[0].data.nickName = infoDoc.datos.nickName
+      // messageBody[0].data.nickName = infoDoc.datos.nickName
+      console.log(messageBody2[0].data)
+      const contactDataReceptor = messageBody2[0].data;
+      
       const contactDocRefReceptor = doc(contactsCollectionRefReceptor, contactEmailReceptor);
       await setDoc(contactDocRefReceptor, contactDataReceptor);
+
+
+      
+      
     } catch (error) {
       console.error("Error al agregar los datos:", error);
 
@@ -360,7 +375,7 @@ export function AuthProvider({ children }) {
 
         const contactEmail = newContact;
         const contactData = { ...datos, user: newContact };
-
+console.log(contactData)
         const contactDocRef = doc(contactsCollectionRef, contactEmail);
 
         const updatedDoc = await setDoc(contactDocRef, contactData);
