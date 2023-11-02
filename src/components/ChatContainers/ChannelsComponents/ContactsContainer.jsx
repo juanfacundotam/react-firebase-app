@@ -34,7 +34,7 @@ export default function ContactsContainer({setMenuOpen, setActiveChannel, contac
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
       {messageChats.contactos && messageChats.contactos.map((item, index) => {
-        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.id, item.data.nickName); setMenuOpen(false)}}># {item.data.nickName}</p>)
+        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setContact(item.id, item.data.nickName); if(window.innerWidth <= 767){setMenuOpen(false)}}}># {item.data.nickName}</p>)
       })}
  
       </div>}
