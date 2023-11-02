@@ -27,7 +27,7 @@ export default function PublicChannels({ setMenuOpen, setActiveChannel, contact,
 
       {openChannels && <div className="mt-2 overflow-y-auto overflow-x-hidden scrollbar w-[100%] h-fit">
       {messageChats.canales && messageChats.canales.map((item, index) => {
-        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.id); setMenuOpen(false)}}># {item.id}</p>)
+        return (<p key={index} className="ml-5 cursor-pointer hover:text-gray-300" onClick={() => {setChannel(item.id); if(window.innerWidth <= 767){setMenuOpen(false)}}}># {item.id}</p>)
       })}
         
 
