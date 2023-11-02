@@ -126,7 +126,7 @@ export default function Chat() {
   }, []);
 
 
-  console.log(messageChats)
+  // console.log(messageChats)
 
 
 
@@ -165,7 +165,7 @@ export default function Chat() {
           data: doc.data(),
         }));
         // Actualiza tu estado o realiza cualquier otra acción con los datos de "canales"
-        console.log('Canales actualizados:', documentosCanales);
+        // console.log('Canales actualizados:', documentosCanales);
         setMessageChats((prevChats) => ({ ...prevChats, canales: documentosCanales }));
       });
   
@@ -176,7 +176,7 @@ export default function Chat() {
           data: doc.data(),
         }));
         // Actualiza tu estado o realiza cualquier otra acción con los datos de "contactos"
-        console.log('Contactos actualizados:', documentosContactos);
+        // console.log('Contactos actualizados:', documentosContactos);
         setMessageChats((prevChats) => ({ ...prevChats, contactos: documentosContactos }));
       });
   
