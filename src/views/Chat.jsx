@@ -44,6 +44,7 @@ export default function Chat() {
   const [iconsHidden, setIconsHidden] = useState(false);
 
   const anchor = useRef();
+
   const {
     user,
     logout,
@@ -83,6 +84,8 @@ export default function Chat() {
     };
   }, []);
 
+  
+      anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
   
   const fetchData = async () => {
     let unsubscribeCanales, unsubscribeContactos;
@@ -225,6 +228,11 @@ export default function Chat() {
     fetchData();
   };
 
+  const setAnchor = () => {
+    anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+
+
   return (
     <div className="flex justify-center items-center h-screen relative text-xl md:text-xs">
       {loadSpinner ? (
@@ -262,7 +270,7 @@ export default function Chat() {
             </div>
             {activeChannel.name ? (
               <>
-                <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
+                <div className="border-b-[1px] border-[#646464] bg-[#343541] flex flex-col justify-start items-start h-[75%] md:h-[82%] w-full mt-2 overflow-y-scroll scrollbar">
                   <BodyMessage
                   iconsHidden={iconsHidden}
                     messageBody={messageBody}
@@ -285,6 +293,7 @@ export default function Chat() {
                     image={image}
                     anchor={anchor}
                     fetchData={fetchData}
+                    setAnchor={setAnchor}
                   />
                 </div>
               </>
