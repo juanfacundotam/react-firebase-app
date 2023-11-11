@@ -48,7 +48,7 @@ if(!messageBody.length){
 
                   <div className="flex flex-col justify-center items-end w-full h-full ">
                     <div className="flex  justify-start items-center w-full  gap-3 mb-2 mt-5 md:mt-auto">
-                      <h1 className=" text-gray-200 text-xl  md:text-xs">
+                      <h1 className=" text-gray-200 text-xs  md:text-xl">
                         {item.nickName}
                       </h1>
                       {iconsHidden && <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
@@ -93,12 +93,12 @@ if(!messageBody.length){
                       {iconsHidden && <h3 className="text-base md:text-[0.6rem] text-gray-400 mt-auto">
                         {item.date}
                       </h3>}
-                      <h1 className="text-gray-200 text-xl  md:text-xs">
+                      <h1 className="text-gray-200 text-xs  md:text-xl">
                         {item.nickName}
                       </h1>
                     </div>
                     <div className="pl-2 text-[0.7rem] flex flex-col justify-start items-end w-full h-full  text-white ">
-                      <p className="mr-2">{item.message}</p>
+                      <p className="mr-2 text-[0.7rem] md:text-[0.9rem]">{item.message}</p>
                     </div>
 
                     {/* <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white ">
@@ -120,7 +120,7 @@ if(!messageBody.length){
                 <div className="flex  flex-col whitespace-nowrap mr-3 ">
 
                   <div className="pl-2 text-[0.7rem] flex flex-col justify-start items-end w-full h-full  text-white ">
-                    <p className="mr-2">{item.message}</p>
+                    <p className="mr-2 text-[0.7rem] md:text-[0.9rem]">{item.message}</p>
                   </div>
 
                   {/* <div className="pl-2 text-[0.8rem] flex flex-col justify-start items-start w-full h-full gap-y-1 text-white ">
@@ -136,7 +136,7 @@ if(!messageBody.length){
             }
           })
         : null}
-      <div ref={anchor} className="mt-[45px]"></div>
+      <div ref={anchor} className="mt-[70px] md:mt-[55px]"></div>
     </div>
   );
 }
