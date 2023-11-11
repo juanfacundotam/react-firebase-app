@@ -10,7 +10,7 @@ import Chat from "./views/Chat";
 
 function App() {
   return (
-    <div className=" min-h-screen bg-[#2B2D31] text-white">
+    <div className="min-h-screen overflor-hidden bg-[#2B2D31] text-white">
       <AuthProvider>
         <Routes>
           <Route
