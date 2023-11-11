@@ -20,6 +20,7 @@ export default function SendMessage({
   user,
   image,
   anchor,
+  setAnchor,
   scrollAmount,
   setMessageBody,
   messageBody,
@@ -58,7 +59,8 @@ inputRef.current.focus();
 
   const handleKeyPress = async (e, iconSend) => {
     console.log(iconSend)
-    if ((e.key === "Enter" || iconSend === "ok") && message !== "") {
+    
+    if (((e.key === "Enter" && window.innerWidth > 767) || iconSend === "ok") && message !== "") {
       const hora = new Date();
       const formattedTime = hora.toISOString();
       // Llama a tu función aquí cuando se presiona "Enter"
@@ -90,6 +92,11 @@ inputRef.current.focus();
       }
       setMessage("");
       setShowEmoji(false);
+      // window.scrollTo({
+      //   top: anchor.current.offsetTop,
+      //   behavior: "smooth",
+      // });
+      setAnchor();
       anchor.current.scrollIntoView({ behavior: "smooth", block: "end" });
 
       if (activeChannel.category === "contact") {
